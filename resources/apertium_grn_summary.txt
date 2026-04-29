@@ -1,0 +1,329 @@
+GUARANÍ MORPHOLOGICAL REFERENCE (condensed from Apertium-GRN)
+Source: https://github.com/apertium/apertium-grn
+Language: Paraguayan Guaraní (ISO 639-3: grn)
+
+Guaraní is an agglutinative, polysynthetic language with:
+- Active/inactive (agentive/patientive) verb agreement
+- Nasal harmony: nasality spreads across morpheme boundaries
+- Glottal stop (ʼ) as a phoneme, written with apostrophe
+- No grammatical gender
+- Verb-initial or verb-final word order (SVO also attested)
+- Rich postpositional system (postpositions, not prepositions)
+- Person agreement encoded on verbs as prefixes (not suffixes)
+
+MORPHOLOGICAL TAGS (from apertium-grn)
+  <sg>                 Sungular
+  <p1>                 1 Persona
+  <p2>                 2 Persona
+  <p3>                 3 Persona
+  <pl>                 Plural
+  <prn>                Pronombre
+  <pro>                Proclitico
+  <ref>                Reflexivo
+  <n>                  Nombre
+  <np>                 Nombre propio
+  <num>                Número
+  <qst>                Marca de interrogación
+  <v>                  Verbo
+  <vbser>              Verbo ser
+  <post>               Posposición
+  <cnjcoo>             Conjunción coordinada
+  <cnjsub>             Conjunción subordinada
+  <ind>                Indefinido
+  <itg>                Interrogativo
+  <adj>                Adjetivo
+  <dist>               Distributivo
+  <comp>               Comparativo
+  <sup>                Superlativo
+  <emph>               Emphatic
+  <tv>                 Transitivo
+  <iv>                 Intransitivo
+  <neg>                Negativo
+  <imp>                Imperativo
+  <opt>                Optativo
+  <top>                Toponimo
+  <al>                 Altres
+  <ant>                Antroponimo
+  <pers>               Personal Pronouns
+  <subs>               Substantivante
+  <pos>                Possessive
+  <det>                Determiner
+  <dem>                Demonstrative
+  <incp>               Incorporation
+  <acc>                Accusative
+  <dat>                Dative
+  <nom>                Nominative
+  <dim>                Diminutivo
+  <ac>                 Active prefixes
+  <in>                 Inactive prefixes
+  <pres>               Presente
+  <ifi>                Pretérito Perfecto
+  <pii>                Pretérito Imperfecto
+  <past>               Pasado reciente
+  <pmp>                Plusquamperfect
+  <fti>                Futuro indicativo
+  <fts>                Futuro subjuntivo
+  <pass>               Voz passiva
+  <recip>              Voz reciproca
+  <coop>               Voz coactiva
+  <obj>                Voz objetiva
+  <sub>                Voz subsuntiva
+  <impf>               Imperfectivo
+  <aux>                Auxiliar
+  <vol>                Modo volitivo
+  <nar>                Modo narrativo
+  <car>                Caritivo
+  <guess>              Forma adivinada
+  <barb>               Barbarisme
+  <abbr>               Abbreviação
+  <sym>                Símbolo
+  <percent>            Percent
+  <sent>               Sentence marker
+  <guio>               Hyphen
+  <cm>                 Comma
+  <apos>               Apostrophe
+  <rquot>              Quote marker (right hand side)
+  <lquot>              Quote marker (left hand side)
+  <rpar>               Parenthetical marker (right hand side)
+  <lpar>               Parenthetical marker (left hand side)
+  <adv>                Adverbio
+
+────────────────────────────────────────────────────────────
+
+ACTIVE / INACTIVE VOICE PARADIGMS
+  [Voices]
+    je%<ref%>%+:%>%{J%}e%{P%} VerbsAgr ; ! I hurt myself
+    je%<pass%>%+:%>%{J%}e%{P%} VerbsAgr ;
+    jo%<recip%>%+:%>%{J%}o%{P%} VerbsAgr ;
+    mbo%<coop%>%+:%>m%{b%}o%{P%} VerbsAgr ;
+    mby%<coop%>%+:%>m%{b%}y%{P%} VerbsAgr ;
+    ro%<prn%>%<obj%>%<p3%>%<sg%>%+:%>ro%{P%} VerbsAgr ;
+    guero%<prn%>%<obj%>%<p3%>%<sg%>%+:%>guero%{P%} VerbsAgr ;
+    poro%<sub%>%+:%>poro%{P%} VerbsAgr ;
+    mbaʼe%<sub%>%+:%>mbaʼe%{P%} VerbsAgr ;
+  [INACT-INFL]
+    :%> Verbs ;
+    :%> VerbsIv;
+    :%> Nouns ;
+    :%> Adjectives;
+    :%> DetBiformes ;
+    :%> DetTriformes ;
+
+────────────────────────────────────────────────────────────
+
+PERSON AGREEMENT AFFIXES (p1=1st, p2=2nd, p3=3rd)
+  e%<imp%>%<p2%>%<sg%>%+:%>e%{P%} VerbsAgr ;
+  pe%<imp%>%<p2%>%<pl%>%+:%>pe%{P%} VerbsAgr ;
+  %+aína%<p1%>%<sg%>%<impf%>:%>ína # ;
+  %+reína%<p2%>%<sg%>%<impf%>:%>reína # ;
+  %+ñaína%<p1%>%<pl%>%<impf%>:%>ñaína # ;
+  %+roína%<p1%>%<pl%>%<impf%>:%>roína # ;
+  %+peína%<p2%>%<pl%>%<impf%>:%>peína # ;
+  %+hína%<p3%>%<impf%>:%>hína # ;
+  %+hikuái%<p3%>%<impf%>:%>hikuái # ;
+  hikuái%<aux%>%<impf%>%<p3%>:hikuái # ;
+  hína%<aux%>%<impf%>%<p3%>:hína # ;
+  ro%<prn%>%<obj%>%<p3%>%<sg%>%+:%>ro%{P%} VerbsAgr ;
+  guero%<prn%>%<obj%>%<p3%>%<sg%>%+:%>guero%{P%} VerbsAgr ;
+  a%<prn%>%<p1%>%<sg%>%<ac%>%+:%>a%{P%} VerbsAgr ;
+  re%<prn%>%<p2%>%<sg%>%<ac%>%+:%>re%{P%} VerbsAgr ;
+  o%<prn%>%<p3%>%<ac%>%+:%>o%{P%} VerbsAgr ;
+  ja%<prn%>%<p1%>%<pl%>%<ac%>%+:%>%{J%}a%{P%} VerbsAgr ;
+  ro%<prn%>%<p1%>%<pl%>%<ac%>%+:%>ro%{P%} VerbsAgr ;
+  pe%<prn%>%<p2%>%<pl%>%<ac%>%+:%>pe%{P%} VerbsAgr ;
+  a%<prn%>%<p1%>%<sg%>%<ac%>%+:%>a%{P%}%> Nouns ;
+  re%<prn%>%<p2%>%<sg%>%<ac%>%+:%>re%{P%}%> Nouns ;
+  o%<prn%>%<p3%>%<ac%>%+:%>o%{P%}%> Nouns ;
+  ja%<prn%>%<p1%>%<pl%>%<ac%>%+:%>%{J%}a%{P%}%> Nouns ;
+  ro%<prn%>%<p1%>%<pl%>%<ac%>%+:%>ro%{P%}%> Nouns ;
+  pe%<prn%>%<p2%>%<pl%>%<ac%>%+:%>pe%{P%}%> Nouns ;
+  o%<prn%>%<p3%>%<ac%>%+:%>o%{P%}%> VerbsDefSg ;
+  o%<prn%>%<p3%>%<ac%>%+:%>o%{P%}%> VerbsDefPl ;
+  ja%<prn%>%<p1%>%<pl%>%<ac%>%+:%>%{J%}a%{P%}%> VerbsDefPl ;
+  ro%<prn%>%<p1%>%<pl%>%<ac%>%+:%>ro%{P%}%> VerbsDefPl ;
+  ta%<opt%>%<p1%>%<sg%>%+:%>ta%{P%} VerbsAgr ;
+  tere%<opt%>%<p2%>%<sg%>%+:%>tere%{P%} VerbsAgr ;
+  to%<opt%>%<p3%>%+:%>to%{P%} VerbsAgr ;
+  taja%<opt%>%<p1%>%<pl%>%+:%>ta%{J%}a%{P%} VerbsAgr ;
+  toro%<opt%>%<p1%>%<pl%>%+:%>toro%{P%} VerbsAgr ;
+  tape%<opt%>%<p2%>%<pl%>%+:%>tape%{P%} VerbsAgr ;
+  ta%<opt%>%<p1%>%<sg%>%+:%>ta%{P%} IrrVerbs;
+  tere%<opt%>%<p2%>%<sg%>%+:%>tere%{P%} IrrVerbs ;
+  to%<opt%>%<p3%>%<sg%>%+:%>to%{P%} IrrVerbs ;
+  to%<opt%>%<p3%>%<pl%>%+:%>to%{P%} IrrVerbs ;
+  taja%<opt%>%<p1%>%<pl%>%+:%>ta%{J%}a%{P%} IrrVerbs ;
+
+────────────────────────────────────────────────────────────
+
+PHONOLOGICAL ALTERNATION RULES (from twol)
+  "Remove morpheme boundary" %>:0 <=> %> :0* _ ;
+  "Remove initial morpheme boundaries" %>:0 <=> .#. :0* _ ;
+  "Remove word final hyphen" %-:0 <=> _ .#. ; !"Remove stress marker" !•:0 <=> _ ;
+  "Change vowel before atonal suffixes" Va:Vt <=>                                           _ %>: [m: a: | n: t: e: | i: c: h: a: | g: u: i: | r: e: | m: i:| k: u: r: i: | t: a: | r: a: ʼ: e: | n: e: | n: i: k: o:| v: a: | p: a: | %{m%}: e: ] ; [Cns: | VowsAton: | Nas: | ʼ: ]+ _ %>: %{r%}: ; _ %{o%}: %>: [v: a: | g: u: i: | i: c: h: a: ] ; except [ •: VowsTon: ([ Cns: | VowsAton: |Nas:]+) ] _ %>: [m: a: | n: t: e: | i: c: h: a:|v: a: | %{m%}: e: ] ; _ %>: v: a: ʼ: e: k: u: e: ; i: _ %>: ; i: c: h: _ %>: n: t: e:  ; g: u: _ %>: %{m%}: e: ; _ %>: i: c: h: a: %>: %{E%}: t: e: ; _ %>: t: a: %>: p: a: ;              ! rehotápa ! FIXME: This is a hack where Va in ( a e o u y ) Vt in ( á é ó ú ý ) matched ; !@ a:a k:k a:a t:t •:0 ú:ú a:a >:> {m}:p e:e !@ >:0 r e {P}:0 > h o > t a:á > p a
+  "Change i to tonal before atonal suffixes" i:í <=>  _ %>: [m: a: | n: t: e:| p: e: | %{r%}:r i: | v: a:] ; _ %{o%}: %>: [v: | a:] ; except ó: _ %>: n: t: e: ; ! NOTE: The i--í is taken care of by another rule, to avoid conflict with i:0
+  "Delete ending -[i] before comparative -icha" Vx:0 <=> _ %>: [ i: c: h: a: | %{r%}:0 i: ] ; where Vx in ( ĩ i í ) ; !@ n:n {d}:d >:0 a:a {P}:0 m:m o:o m:m i:i c:c h:h ĩ:0 >:0 {r}:0 i:i
+  "Change tonal vowel to atonal if tonal in affix" Vt:Va <=> •: _ [ Cns: | ArchiCns: | Nas: | VowsAton: |  %>: ]+  VowsTon: ; •: _ [ Cns: | %>: | ArchiCns: | Nas: | VowsAton: ]+ %{E%}: ; •: _ [ Cns: | %>: | ArchiCns: | Nas: | VowsAton: ]+ [%{Y%}: g: u: a:] ; except A: m: •: _ r: i: k: a: %>: [%{Y%}: g: u: a:] %>: %{m%}: e: ; where Vt in VowsTon Va in VowsAton matched ; !@ •:0 ó:o g:g a:a >:0 {N}:0 {K}:k u:u é:é r:r a:a !@ •:0 ó:ó g:g a:a >:0 p:p e:e !@ •:0 ó:o g:g a:a >:0 g:g u:u a:a !@ a:a k:k a:a t:t •:0 ú:ú a:a >:> {m}:p e:e
+  "Add nasal prefix [ñ] in present 1pl incl" %{J%}:ñ <=> _ [a: | e: | o: ] %{P%}: [ CNAS: | CnsNorm: |VowsAton: | VowsTon:]+ CNAS: ; _ [a: | e: | o: ] %{P%}: CNAS: ; where CNAS in Nas ;
+  "Insert glottal stop ['] if next morpheme starts with a vowel" %{P%}:ʼ <=> _ [ VowsTon: | •: VowsAton:] ; Vows: _ [a: k: u: e:] ; Vows: %>: _ ; %{b%}: [o: | y:] _ Vows: ; r: o: _ Vows: ; except _ %{i%}: ;
+  "Surface [n] in plural nouns" %{N%}:n <=> Nas: %>: _ ; _ %{K%}: k: ; VowsWeak: %>: _ ; Nas: (CnsNorm:) Vows: %>: _; v: a: %>: _ ; VowsWeak: [VowsStrong: | Cns: ]+ %>: :p :e %>: _ ;
+  "Surface [g] in pl nouns after nasals" %{K%}:g <=> Nas: %>: %{N%}: _ ; %{N%}: _ k: ; v: a: %>: %{N%}: _ ; Nas: (CnsNorm:) Vows: %>: %{N%}: _; VowsWeak: %>: %{N%}: _ ; VowsWeak: [VowsStrong: | Cns: | %>: ]+ %>: :p :e %>: %{N%}: _ ;
+  "Possessive {H} before VowsTon" %{H%}:h <=> _ i: %{I%}: VowsTon: ;
+  "Remove underlying [i] in 3p possessive prefixes" %{I%}:0 <=>  _ Cns: ;
+  "Surface ʼ in possessive prefix i" %{I%}:ʼ <=> _ VowsTon: ;
+  "Possessive {I} as j before VowsAton" %{I%}:j <=> _ VowsAton:[CnsNorm: | VowsAton: |VowsTon: ] ;
+  "Possessive %{I%} as ñ in nasal nouns starting with VowsAton" %{I%}:ñ <=> _ VowsAton: Nas: ;
+  "Insert [r] before vowels after possessive prefixes" %{p%}:r <=> _ Vows: ;
+  "Remove [d] in possessive prefixes" %{D%}:0 <=> _ e: %{p%}: [CnsNorm: | VowsAton: |VowsTon: | Nas: | %>:]+ Nas: ;
+  "Surface [e] after weak vowels in indefinite adjectives" %{E%}:e <=> VowsWeak: %>: _ ;
+  "Remove [d] in negative verbs before nasals" %{d%}:0 <=> _ %{a%}: %>: [a: |r: e:|o:|%{J%}: a: |r: o:| p: e:] %{P%}: Nas: ;
+  "%{r%} as r in negative verbs ending with i" %{r%}:r <=> i: %>: _ ; :i p: o: %>: _ ;
+  "Surface [y] in postpositions" %{Y%}:y <=> g: u: a: %>: _ g: u: a: ;
+  "Surface [m] in postpositions after nasals" %{m%}:m <=> NasTil: [Vows:| Cns: | %>:]+ %>: _ ; NasTil: %>: _ ; %{g%}: %-: _  ; n: Vows: %>: _ ; except ñ: e: m: b: y: %>: _ ;
+  "Remove surface [t] or [r] in Triformes" Cx:0 <=> %{t%}: _ ; where Cx in Cns;
+  "Surface [a] in negative verbs" %{a%}:a <=> _ [ %>: %{J%}: a: | %>: h: a: ʼ: e: |%>: i: k: a: t: u:] ;
+  "Surface [o] in negative verbs" %{a%}:o <=> _ %>: r: o: ;
+  "Surface [e] in negative verbs" %{a%}:e <=> _ %>: r: e: ;
+  "Surface [mb] in suffix after nasal verb" %{b%}:b <=> Nas: %>: %{m%}: _ ; %>: m: _ [o: | y:] %{P%}: [CnsNorm: | Vows:] ;
+  "Remove %{b%} before nasals" %{b%}:0 <=> %>: m: _ [o: | y:] %{P%}: Nas: ;
+  "Add [i] for aireales" %{i%}:i <=> :a    :0* %>: _ ; :r :e :0* %>: _ ; :o    :0* %>: _ ; :j :a :0* %>: _ ; :r :o :0* %>: _ ; :p :e :0* %>: _ ; !@ >:0 a:a {P}:0 {i}:i k:k o:o >:0 h:h a:a !@ >:0 r:r e:e {P}:0 {i}:i k:k o:o >:0 h:h a:a !@ >:0 o:o {P}:0 >:> {i}:i k:k o:o
+  "Always delete %{g%}" %{g%}:0 <=> _ ;
+
+────────────────────────────────────────────────────────────
+
+PHONOLOGICAL SETS (vowels, nasals, consonants)
+  Nas = m n ñ ã ẽ ĩ õ ỹ ũ
+        M N Ñ Ã Ẽ Ĩ Õ Ỹ Ũ ;
+  NasTil = ñ ã ẽ ĩ õ ỹ ũ
+           Ñ Ã Ẽ Ĩ Õ Ỹ Ũ ;
+  Cns = B C D F G H J K L M N P Q R S T V W X Z G̃ Ñ
+        b c d f g h j k l m n p q r s t v w x z g̃ ñ ;
+  ArchiCns = %{N%} %{K%} ;
+  CnsNorm = B C D F G H J K L P Q R S T V W X Z
+            b c d f g h j k l p q r s t v w x z ;
+  Vows = A Ã E Ẽ I Ĩ O Õ U Ũ Y Ỹ Á É Í Ó Ú Ý
+         a ã e ẽ i ĩ o õ u ũ y ỹ á é í ó ú ý ;
+  VowsTon = Á É Í Ó Ú Ý
+            á é í ó ú ý ;
+  VowsAton = A E I O U Y
+             a e i o u y ;
+  VowsStrong = A Ã E Ẽ O Õ Á É Ó
+               a ã e ẽ o õ á é ó ;
+  VowsWeak = I Ĩ U Ũ Y Ỹ Í Ú Ý
+             i ĩ u ũ y ỹ í ú ý ;
+
+────────────────────────────────────────────────────────────
+
+CONSTRAINT GRAMMAR RULES (morphological disambiguation)
+  REMOVE SUB:3 Incp ;
+  REMOVE SUB:2 Incp ;
+  REMOVE SUB:1 Incp ;
+  REMOVE Incp ;
+  REMOVE A + Prn (0/* N) ;
+  REMOVE Re + Prn (0/* N) ;
+  REMOVE Guess ;
+  SELECT Prn + Ind IF (1 N) ;
+  SELECT Child IF (-1/* Ant);
+  REMOVE Top IF ((1 Cog) OR (1 Ant)) ;
+  SELECT Post IF ((-1 Top) OR (-2 Top)) ;
+  SELECT N IF (-1 Petei);
+  SELECT CC IF ((-1 N LINK 2 N) OR (-1 Names LINK 2 Names));
+  SELECT Det + Pl IF (-1 N) ;
+  SELECT Adj + Dem + Pl IF (1/* Det + Pl) ;
+  REMOVE Adv IF (0/* Post);
+  SELECT In IF (-1/* Adv);
+  REMOVE Sg IF ((-2/* Pl) OR (-1/* Pl)) ;
+  SELECT Ser IF ((-1 N LINK 2 Num)) ;
+  SELECT Num IF (1/* N) ;
+  SELECT Adj + Ind IF (1/* N) ;
+  SELECT SUB:* Prn + Dem IF (1/1 Adj + Dem LINK 1/* N) ;
+  SELECT Prn + Pers IF (1/* N LINK 1/* Adj);
+  SELECT SUB:* Ser IF ((-1/* Names LINK 2/* N) OR (0/* Neg + Ser LINK -1/* Names LINK 2/* N) OR (1/* N));
+  REMOVE SUB:* N IF (0/* Ac);
+  SELECT Adv + Neg IF (1/* Verbal) ;
+  SELECT Prn + Pos IF ((-1/* Prn + Itg) OR (0/* NomTemp)) ;
+  SELECT SUB:* In IF ((0/* In + N LINK 0/* Adv) OR (-1/* Ser)) ;
+  SELECT N IF (-1/* Ser);
+  SELECT Dat IF ((-1/* V + Iv) OR (1/* V + Tv)) ; MAP @amod TARGET Modifiers IF ((1/* N) OR (1/* Modifiers));
+
+────────────────────────────────────────────────────────────
+
+SAMPLE LEXICAL ENTRIES (surface form — lexicon class)
+  Conjunctions  "weight  [Root]
+  Interyecciones  "weight  [Root]
+  Postpositions  "weight  [Root]
+  Nouns  "weight  [Root]
+  ProperNouns  "weight  [Root]
+  Verbs  "weight  [Root]
+  VerbalPrefixes  "weight  [Root]
+  PersonalPronouns  "weight  [Root]
+  IrrVerbs  "weight  [Root]
+  PossessivePrefixes  "weight  [Root]
+  BiformesPaentesco  "weight  [Root]
+  DemAdjectives  "weight  [Root]
+  Adjectives  "weight  [Root]
+  Punctuation  "weight  [Root]
+  Connectors  "weight  [Root]
+  Numerals  "weight  [Root]
+  AdjIndef  "weight  [Root]
+  PRO  "weight  [Root]
+  INACT  "weight  [Root]
+  PossesivePronouns  "weight  [Root]
+  Adverbs  "weight  [Root]
+  IndefinitePronouns  "weight  [Root]
+  SpaAdjectives  "weight  [Root]
+  ItgPronouns  "weight  [Root]
+  GRD-PREF  "weight  [Root]
+  SpaNouns  "weight  [Root]
+  Barbarismes  "weight  [Root]
+  Abbreviações  "weight  [Root]
+  Symbols  "weight  [Root]
+  Imperative  "weight  [Root]
+  DetBiformes  "weight  [Root]
+  Miscellaneous  "weight  [Root]
+  DetTriformes  "weight  [Root]
+  Triformes  "weight  [Root]
+  Biformes "weight  [Root]
+  PosTriform  "weight  [Root]
+  VerbsIv  "weight  [Root]
+  VerbsDefSg  "weight  [Root]
+  VerbsDefPl  "weight  [Root]
+  MODES-AUX  "weight  [Root]
+  Voices  "weight  [Root]
+  ADJV  "weight  [Root]
+  DET-PL  "weight  [Root]
+  POST-SEP "weight  [Root]
+  ImpPol "weight  [Root]
+  ImpPol-Sep "weight  [Root]
+  Digits  "weight  [Root]
+  paraguayo  [SpaAdjectives]
+  nacional  [SpaAdjectives]
+  santo  [SpaAdjectives]
+  general  [SpaAdjectives]
+  nuevo  [SpaAdjectives]
+  internacional  [SpaAdjectives]
+  alegre  [SpaAdjectives]
+  español  [SpaAdjectives]
+  cierto  [SpaAdjectives]
+  democrática  [SpaAdjectives]
+  económico  [SpaAdjectives]
+  humana  [SpaAdjectives]
+  obligatorio  [SpaAdjectives]
+  indoeuropeo  [SpaAdjectives]
+  apóstol  [SpaNouns]
+  tábla  [SpaNouns]
+  espéjo  [SpaNouns]
+  religión  [SpaNouns]
+  trabajo  [SpaNouns]
+  departamento  [SpaNouns]
+  ciudad  [SpaNouns]
+  gobierno  [SpaNouns]
+  colegio  [SpaNouns]
+  arte  [SpaNouns]
+  amigo  [SpaNouns]
+  alianza  [SpaNouns]
+  turismo  [SpaNouns]
+  rromantisismo  [SpaNouns]
+  presidente  [SpaNouns]
+  metro  [SpaNouns]
+  escuela  [SpaNouns]
+  música  [SpaNouns]

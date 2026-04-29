@@ -1,0 +1,1607 @@
+The following typological features describe the grammatical features of Paraguayan Guaraní including word order, verbal tense, nominal case, and other language universals. Each feature is assigned a value that indicates the extent to which the language tends to exhibit that feature.## Feature ID: GB021
+Do indefinite nominals commonly have indefinite articles?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of indef.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Do indefinite/non-specific nominals commonly have indefinite/non-specific articles?
+
+## Summary
+For this feature, we need explicit support that indefinite/non-specific NPs commonly occur with an indefinite/non-specific article. Three or more examples of indefinite/non-specific nominals occurring with an indefinite/non-specific article is sufficient to code 1. 
+
+An indefinite article is a marker that accompanies the indefinite noun and expresses notions such as non-specificity and indefiniteness. Sometimes these notions of non-specificity and indefiniteness are summed up in the term ‘identifiability’. A language does not necessarily have both a non-specific/indefinite and a specific/definite marker. These markers often stem from very different sources (numerals and demonstratives) and need not be similar in formal expression or position. 
+
+The formal expression is irrelevant; articles can be free, bound, or marked by suprasegmental markers such as tone. Articles are different from demonstratives in that demonstratives occur in a paradigm of markers that have a clear spatial deictic function. As demonstratives can grammaticalize into definite or specific articles, they form a natural continuum, making it hard to define discrete categories. Articles are more grammaticalized, i.e. are often [obligatory](https://github.com/grambank/grambank/wiki/Obligatoriness) in certain contexts that require definite or specific reference. Definite or specific articles can also grammaticalize from pronouns meaning ‘a certain’. As articles necessarily accompany nouns, it is in these cases that it is necessary to investigate whether the marker can occur independently or not; if it can it is most likely a pronoun and not an article. Articles can be homophonous with pronouns and demonstratives, and also with classifiers.
+
+## Procedure
+1. Code 1 if indefinite NPs commonly occur with an indefinite/non-specific article. Three or more examples are sufficient.
+2. Code 1 if there is evidence (three or more examples) of a demonstrative or numeral for 1 that has grammaticalized into an indefinite article. Look for explicit analysis from the author that they are indefinite articles or look at the environments in which they occur, for example, whether they occur in different positions depending on whether they are functioning as an indefinite article or not.  
+3. Code 0 if there are no indefinite articles. 
+4. Code 0 if there are less than three examples of indefinite/non-specific articles occurring with indefinite NPs and note this in the comments.
+5. Code ? if it is unclear whether there are indefinite articles due to limited analysis from the author or because there are not enough examples.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB021: "Do indefinite nominals commonly have indefinite articles?".
+
+***
+
+## Feature ID: GB025
+What is the order of adnominal demonstrative and noun?            
+Paraguayan Guaraní Value: N-Dem, Code 2            
+Paraguayan Guaraní is coded 2 for this feature, meaning the feature is N-Dem.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## What is the order of adnominal demonstrative and noun?
+
+## Summary
+This feature is concerned with the order of the noun and adnominal demonstratives (i.e. demonstratives that modify the noun). There are three possible values to code: 1, before the noun, 2, after the noun, or 3, both orders are possible. Like all questions concerning the order of elements, only the pragmatically unmarked orders are targeted.
+
+## Procedure
+1. In the pragmatically unmarked order, if the demonstrative precedes the noun, code 1.
+2. In the pragmatically unmarked order, if the demonstrative follows the noun, code 2.
+3. If both orders occur, for example, if some demonstratives precede and some follow, or there is a free choice, then code 3.
+Paraguayan Guaraní is coded 2 for this feature, meaning the feature is N-Dem.            
+This is the end of the summary for feature GB025: "What is the order of adnominal demonstrative and noun?".
+
+***
+
+## Feature ID: GB028
+Is there a distinction between inclusive and exclusive?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní obligatorily encodes the grammatical function of clusivity.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a distinction between inclusive and exclusive?
+
+## Summary
+Is there a pronoun or other marker that explicitly marks the inclusion of an interlocutor? This feature is not restricted to the pronominal system but includes person [indexing](https://github.com/grambank/grambank/wiki/Indexing-vs.-pronouns) as well. If inclusive is marked overtly in either the pronominal system or through verbal marking this is sufficient to trigger a 1 for this feature, even if exclusive has no overt morphological marking.
+
+## Procedure
+1. Code 1 if there is a pronoun or other marker, such as a person index, that explicitly marks the inclusion of an interlocutor in the first person plural.  
+2. Code 0 if the sections of the grammar discussing pronoun systems and person indexing on verbs describe no distinctions between inclusive and exclusive persons, and no pronominal forms or indices are found in examples glossed with grammatical information including INCL/EXCL or meanings such as ‘you and I’ or ‘we all (not you)’. Pay close attention to the non-singular forms of first person pronouns and indices. 
+3. If you are uncertain whether some pronominal or index form(s) mark(s) a clusivity distinction (e.g. a form in a single example glossed ‘you and I’ that is known to encode dual number but is not clearly described regarding inclusivity, or multiple first person pronouns whose differences are not adequately described), code ? and provide a brief comment describing the forms or descriptions that were unclear.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB028: "Is there a distinction between inclusive and exclusive?".
+
+***
+
+## Feature ID: GB030
+Is there a gender distinction in independent 3rd person pronouns?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní categorizes nouns into classes or genders.
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of pronoungender3.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a gender distinction in phonologically independent third person pronouns?
+
+## Summary
+This question targets the existence of any [gender distinction](https://github.com/grambank/grambank/wiki/Noun-Classes-and-Classifiers) in [phonologically independent third person pronouns](https://github.com/grambank/grambank/wiki/Indexing-vs.-pronouns). For the purposes of this feature we define third person pronouns as including demonstratives. A masculine/feminine distinction is commonly encoded in third person pronouns, but distinctions in any other noun class/gender categories such as animacy also satisfy the criterion for coding a 1 for this feature. For languages with no third person independent pronouns or no noun class/gender distinctions in third person pronouns, a gender distinction in demonstratives would be sufficient to trigger a 1 here. If pronouns with just inanimate referents (or alternatively, just animate referents) agree with the noun class/gender of the corresponding noun that also suffices for 1. If a language has any gender distinction for third person pronouns but not for demonstratives, this is also sufficient for a 1. For more information on the difference between grammatical gender and social, cultural, and biological constructs or traits, see the [gender wiki page](https://github.com/grambank/grambank/wiki/Grammatical-gender-and-other-notions-of-gender).
+
+## Procedure
+1. If there are grammaticalized independent third person pronouns which encode a distinction in gender, including categories such as masculine and feminine or animacy, code 1.
+2. If there are independent third person pronouns that are marked for the gender/noun class of the referent, code 1.
+3. If there are no third person pronouns _that specify gender/noun class_ but there are demonstratives that encode gender distinctions, code 1. Note that this includes cases where the language's third person pronouns do not encode any noun class/gender distinctions as well as cases where there are no independent third person pronouns.
+4. If pronouns are used only for animate third person referents and demonstratives are used for inanimate third person referents, but no noun class/gender contrasts are encoded within the third person pronouns nor within the set of demonstratives, this can be interpreted as an animacy contrast in third person pro-forms and is sufficient for 1 coding.
+5. If neither independent third person pronouns nor demonstratives are marked for noun class/gender, code 0.
+6. If you are uncertain whether the categories distinguished in third person pronoun forms or demonstratives are relevant to this feature, code ? and provide a comment describing the potentially relevant categories in the language's third person pronouns and/or demonstratives.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB030: "Is there a gender distinction in independent 3rd person pronouns?".
+
+***
+
+## Feature ID: GB035
+Are there three or more distance contrasts in demonstratives?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of demonstartivedistance.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Are there three or more distance contrasts in adnominal demonstratives?
+
+## Summary
+Demonstratives are modifiers that can modify nouns (of any type and not just a restricted set such as location nouns) to mark position (e.g. deixis or reference within discourse). This doesn't have to be only Euclidean distance (meters, inches etc.), it could also be concerned with near or far in relation to the interlocutors (cf. Wolof). If the system of adnominal demonstratives includes an anaphoric demonstrative this does not count as a third distance.
+
+## Procedure
+1. Find 'demonstratives'.
+2. Code 1 if there are three or more adnominal demonstratives marking different degrees of distance, including distance from the speaker or interlocutor.
+3. Code 0 if there are less than three adnominal demonstratives marking different degrees of distance, including distance from the speaker or interlocutor.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB035: "Are there three or more distance contrasts in demonstratives?".
+
+***
+
+## Feature ID: GB042
+Is there productive overt morphological singular marking on nouns?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní uses head-marking strategies rather than dependent-marking strategies in this grammatical category.
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of singular.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a productive overt morphological singular marker on nouns?
+
+## Summary
+This question concerns a bound grammatical marker of singular number on nouns. The marker should occur with an [open set of nouns](https://github.com/grambank/grambank/wiki/Productivity), not with a restricted set. Absence of plural marking does not count for a 1 here (hence the emphasis on ‘overt’ in the feature question). This feature contrasts with [GB316 Is singular number regularly marked in the noun phrase by a phonologically free element?](https://github.com/grambank/Grambank/wiki/GB316) which focuses on the non-bound marking of singular number. For more on bound marking, please see this [page](https://github.com/grambank/Grambank/wiki/%27on-the-verb-noun%27-or-%27by-morphology%27). Bound marking of number on nouns derived from other word classes (such as adjectives or verbs) does not suffice for a 1.
+
+Number marking is often fused with marking of other categories, such as definiteness/specificity or gender/noun class. It is possible for the number marker to also signal other functions and still trigger a 1 code, as long as these other functions do not interfere with the distinctions in number and as long as number marking is productive.
+
+## Procedure
+1. Consider the section in the grammar that deals with number or nominal morphology.
+2. If the author describes a bound marker of singular number on the noun that occurs regularly, code 1.
+3. If the only marking of singular number occurs on nouns derived from other word classes (adjectives, verbs, etc.), or if it only occurs only a small subset of nouns, code 0.
+4. If the grammar mentions that singular number is not marked productively, or that it is marked somewhere else than on the noun, code as 0.
+5. If the grammar does not describe number marking at all and you have a reason to believe that the author may have missed it, code ?.
+6. If the grammar does not describe number, you encounter no examples of number marking, and the grammar is otherwise comprehensive, code 0.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB042: "Is there productive overt morphological singular marking on nouns?".
+
+***
+
+## Feature ID: GB047
+Is there a productive morphological pattern for deriving an action/state noun from a verb?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings both through phonologically bound morphemes (e.g. affixes) and freestanding words (e.g. particles) in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a productive morphological pattern for deriving an action/state noun from a verb?
+
+## Summary
+An action nominalization derives from a verb and functions like a noun or noun phrase. The result denotes an action or state. In English, we can exemplify this with *the enemy’s **destruction** of the city*. *Arrive* - ***arriving*** could also serves as an example, or, in Spanish, *La **concentración** de Sherlock Holmes duró cinco horas.* ‘Sherlock Holmes’ **concentration** lasted five hours’. This feature targets [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) overt nominalizers, including affixes, clitics, tonal markers, reduplication, ablaut, etc. There needs to be [productive](https://github.com/grambank/grambank/wiki/Productivity) derivation. The derived noun may also refer to states or events in addition to actions. The nominalization strategy may also derive other types of nominalization. Compounds of a verb root and a noun meaning 'action', 'state' or 'event are not action nominalizations unless further grammaticalized. 
+
+## Procedure
+1. Code 1 if there is an element that productively attaches to verbs that forms an action/state nominalization such as *arrival*, *concentration*, etc.  
+2. Do not code 1 if the relevant nouns are stated to be nouns in their own right and not derived.
+3. If nominalization is not discussed whatsoever, code ?.
+4. If nominalization is discussed at some length, but action/state nominalizations are not mentioned, code 0.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB047: "Is there a productive morphological pattern for deriving an action/state noun from a verb?".
+
+***
+
+## Feature ID: GB048
+Is there a productive morphological pattern for deriving an agent noun from a verb?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings both through phonologically bound morphemes (e.g. affixes) and freestanding words (e.g. particles) in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a productive morphological pattern for deriving an agent noun from a verb?
+
+## Summary
+
+An agent nominalization derives from a verb and functions like a noun or noun phrase. The result denotes the agent of an action. In English, we can exemplify this with the productive _-er_ suffix (_bak-er_, _fish-er_, *garden-er*, etc.). This feature targets [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) overt nominalizers, including affixes, clitics, tonal markers, reduplication, ablaut, etc. This derivation pattern needs to be [productive](https://github.com/grambank/grambank/wiki/Productivity). Compounds of a verb root and a noun meaning 'person' are likely not agent nominalizations. 
+
+## Procedure
+1. Code 1 if there is an element that attaches to verbs to form an agentive nominalization such as *singer* from *sing* and if it is not stated that the element is a noun meaning ‘person’.
+2. Do not code 1 if the relevant nouns are stated to be nouns in their own right and not derived.
+3. If nominalization is not discussed whatsoever, code ?.
+4. If nominalization is discussed at some length, but agent nominalization is not mentioned, code 0.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB048: "Is there a productive morphological pattern for deriving an agent noun from a verb?".
+
+***
+
+## Feature ID: GB049
+Is there a productive morphological pattern for deriving an object noun from a verb?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings both through phonologically bound morphemes (e.g. affixes) and freestanding words (e.g. particles) in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a productive morphological pattern for deriving an object noun from a verb?
+
+## Summary
+An object nominalization derives from a verb and functions like a noun or noun phrase. The result denotes the object or result of an action (e.g. *song* is derived from *to sing*). This feature targets [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) overt nominalizers, including affixes, clitics, tonal markers, reduplication, ablaut, etc. There needs to be [productive](https://github.com/grambank/grambank/wiki/Productivity) derivation for this feature to be coded 1. The nominalization strategy may also derive other types of nominalization. A compound of a verb root and a noun meaning 'thing' is not an object nominalization unless there is evidence that the noun has grammaticalized into an affix. Instrument derivations are not relevant since they do not denote the object resulting from the action/state.
+
+## Procedure
+1. Code 1 if there is an element which attaches to verbs to form an object nominalization.
+2. Do not code 1 if the relevant nouns are stated to be nouns in their own right and not derived.
+3. If nominalization is not discussed whatsoever, code ?.
+4. If nominalization is discussed at some length, but object nominalization is not mentioned, code 0.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB049: "Is there a productive morphological pattern for deriving an object noun from a verb?".
+
+***
+
+## Feature ID: GB052
+Is there a gender/noun class system where shape is a factor in class assignment?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní categorizes nouns into classes or genders.
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of gendershape.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a noun class/gender system where shape is a factor in class assignment?
+
+## Summary
+A noun class/gender system categorizes nouns for the purposes of grammatical [agreement](https://github.com/grambank/grambank/wiki/Agreement) with other constituents in the noun phrase or other inflectional morphology. See the [classification wiki page](https://github.com/grambank/grambank/wiki/Noun-Classes-and-Classifiers) for more information on our definition of noun class/gender. Noun class/gender assignment may be based on one or several factors. This feature focuses on whether the shape of an object is one of these factors for a given language. There must be a clear preference for certain nouns to be classified to certain gender categories as a result of their _shape_ for this feature to be coded 1. That is, shape must be one relevant factor in the assignment of gender; however it does not need to be an absolute deciding factor or the only relevant factor in gender/class assignment. 
+
+Note that noun class markers are sometimes used to mark diminutives and augmentatives; this feature focuses specifically on shape (e.g. long, round, square, wide) and should _not_ be coded 1 if noun class markers associated with some other semantic categories (e.g. masculine and feminine) are recruited for diminutive and augmentative forms unless there is some other clear shape-based assignment.
+
+## Procedure
+1. If there is [a system of nominal classification](https://github.com/grambank/grambank/wiki/Noun-Classes-and-Classifiers) where some markers vary based on the category of the noun,
+2. And if these markers are **not** used only with numerals, demonstratives, and possessors (or some subset of these categories),
+3. And if these markers are involved in [agreement](https://github.com/grambank/grambank/wiki/Agreement) within the noun phrase, inflectional marking of the noun, or [indexing](https://github.com/grambank/grambank/wiki/Indexing-vs.-pronouns),
+4. And if there is a correlation between use of a particular gender marker and the shape of the referent, then code 1.
+5. Code 0 if there is no class/gender system or the assignment of nouns to classes/genders does not involve shape.
+6. Code 0 if noun class/gender markers associated with some other semantic categories (e.g. masculine and feminine) are used to create diminutive and augmentative forms that may have meanings of endearment or intensity in addition to size, but no other shape meanings are relevant to categorization of nouns.
+7. If you are unsure whether the semantic properties associated with membership in a particular noun class or gender are specifically related to shape, code ? and provide a comment describing the semantic properties/categories in question.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB052: "Is there a gender/noun class system where shape is a factor in class assignment?".
+
+***
+
+## Feature ID: GB054
+Is there a gender/noun class system where plant status is a factor in class assignment?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní categorizes nouns into classes or genders.
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of genderplant.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a noun class/gender system where plant status is a factor in class assignment?
+
+## Summary
+A noun class/gender system categorizes nouns for the purposes of grammatical [agreement](https://github.com/grambank/grambank/wiki/Agreement) with other constituents in the noun phrase or other inflectional morphology. See the [classification wiki page](https://github.com/grambank/grambank/wiki/Noun-Classes-and-Classifiers) for more information on our definition of noun class/gender. Noun class/gender assignment may be based on one or several factors. This feature focuses on whether one of these factors distinguishes plants from other concepts. For this feature to be coded 1, there must be a clear pattern in which nouns that refer to plants or some subset of plant referents are assigned to one or more specific noun classes. 
+
+Although the semantic factors in noun class/gender assignment are not always perfectly clear-cut, this feature targets those systems in which certain nouns are assigned to a particular class *because* their referents are plants. Systems in which several nominals with plant referents are assigned to a particular class because of their phonology or due to some more or less arbitrary assignment are not the target of this feature. That is, plant status must be a relevant factor in the assignment of gender. However, it does not need to be an absolute deciding factor or the only relevant factor in gender/class assignment for a particular category.
+
+## Procedure
+1. If there is [a system of nominal classification](https://github.com/grambank/grambank/wiki/Noun-Classes-and-Classifiers) where some markers vary based on the category of the noun,
+2. And if these markers are **not** used only with numerals, demonstratives, and possessors (or some subset of these categories),
+3. And if these markers are involved in [agreement](https://github.com/grambank/grambank/wiki/Agreement) within the noun phrase, inflectional marking of the noun, or [indexing](https://github.com/grambank/grambank/wiki/Indexing-vs.-pronouns),
+4. And if there seems to be a correlation between the use of a particular gender marker and nouns which refer to plants or plant products,
+5. And if that correlation reflects a semantic category of plants or some subset of plants/plant products as a factor in noun class assignment, then code 1.
+6. Code 0 if there is no noun class/gender system or if the assignment of nouns to classes/genders does not involve any semantic categories related to plant status.
+7. Code 0 if any identifiable tendency for nominals with plant referents to be assigned to certain noun classes/genders reflects phonology, historical accident, or coincidental patterns of arbitrary assignment and not plant status.
+8. Code ? if you identify a pattern in which nouns referring to plants are typically assigned to a specific noun class/gender, but you are unsure whether plant status is a factor in that assignment. Provide a comment that includes mention of the relevant plant meanings and noun classes.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB054: "Is there a gender/noun class system where plant status is a factor in class assignment?".
+
+***
+
+## Feature ID: GB057
+Are there numeral classifiers?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní does not categorize nouns into noun classes or genders.
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of numera classifers.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Are there numeral classifiers?
+
+## Summary
+This question concerns whether some cardinal numerals [obligatorily](https://github.com/grambank/Grambank/wiki/Obligatoriness) occur with a marker that varies depending on the modified noun. This marker should not be the same as a marker of a [noun class/gender system](https://github.com/grambank/grambank/wiki/Noun-classes-and-classifiers) used also on noun modifiers other than cardinal numerals (e.g. demonstratives) or on predicates. The nouns in question should be of high countability, such as people, animals and objects, rather than of low countability, such as water, sand and smoke.
+
+## Procedure
+1. Code 1 if cardinal numerals are [obligatorily](https://github.com/grambank/Grambank/wiki/Obligatoriness) accompanied by an element which varies according to the semantic class of the noun,
+2. And if the nouns in question are of high countability, such as people, animals and objects, rather than low countability such as water, sand and smoke.
+3. Code 0 if there is no mention of numeral classifiers and if their absence is clear from the data provided in the grammar.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB057: "Are there numeral classifiers?".
+
+***
+
+## Feature ID: GB059
+Is the adnominal possessive construction different for alienable and inalienable nouns?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of alienability.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is the adnominal possessive construction different for alienable and inalienable nouns?
+
+## Summary
+Is there a morpho-syntactic difference in attributive possession that can be ascribed to alienability? 
+
+This feature applies to constructions with both pronominal and nominal possessors. 
+
+Typically, inalienable possession applies to the semantic domains of body parts and kinship, but it is sometimes found in other categories that do not align perfectly with the canonical notion of 'alienability', such as part-whole relationships other than body parts, social relationships other than kinship, or things inherently linked to a person (e.g. a person's voice, mental states, or other attributes).
+
+This feature targets splits in possessive marking where different classes of possessum are associated with different constructions, and where one of those possessum classes includes body parts and/or kinship terms, and possibly other categories that have strong semantic associations with their owners, social relationships, or part-whole relationships.
+
+## Procedure
+1. If there are two or more possessive constructions which vary according to the semantic class of the noun being possessed or the nature of the relationship between possessor and possessed,
+2. And the difference in the construction does not consist solely of a difference in noun class/gender markers, or other classifier systems such as numeral classifiers that also apply to these categories of nouns in the same way in non-possessive constructions,
+3. And the 'inalienable' semantic class associated with one of these strategies contains at least body part terms or at least kinship terms, then code 1.
+4. If there are not multiple possessive constructions, or if there are multiple possessive constructions that do not vary based on semantic class of the possessum, code 0.
+5. If you code a 1 for this feature, please use the comment field to provide a very brief description of the morphosyntactic distinction between alienable and inalienable possession.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB059: "Is the adnominal possessive construction different for alienable and inalienable nouns?".
+
+***
+
+## Feature ID: GB065
+What is the pragmatically unmarked order of adnominal possessor noun and possessed noun?            
+Paraguayan Guaraní Value: Possessor-Possessed, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is Possessor-Possessed.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## What is the pragmatically unmarked order of adnominal possessor and possessed noun?
+
+## Summary
+This feature focuses on the relative order of possessor and possessum (i.e. that which is possessed) in an adnominal possession construction. Coding should take into consideration only those possession constructions that are pragmatically unmarked (e.g. not focus). This feature applies to both nominal possessors and [independent pronominal](https://github.com/grambank/grambank/wiki/Indexing-vs.-pronouns) possessors. [Affixal](https://github.com/grambank/grambank/wiki/Affixes-and-clitics) marking of possession, by contrast, is coded in features [GB430](https://github.com/grambank/Grambank/wiki/GB430)-[GB433](https://github.com/grambank/Grambank/wiki/GB433).
+
+
+## Procedure
+1. In the pragmatically unmarked order, if the possessor nominal or independent possessor pronoun precedes the possessum, code 1.
+2. In the pragmatically unmarked order, if the possessor nominal or independent possessor pronoun follows the possessum, code 2.
+3. If both occur, for example if some possessed nouns precede and some follow, or there is a free choice, then code 3.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is Possessor-Possessed.            
+This is the end of the summary for feature GB065: "What is the pragmatically unmarked order of adnominal possessor noun and possessed noun?".
+
+***
+
+## Feature ID: GB068
+Do core adjectives (defined semantically as property concepts such as value, shape, age, dimension) act like verbs in predicative position?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Do property words (defined semantically as property concepts such as value, shape, age, dimension) act like verbs in predicative position?
+
+## Summary
+Do property words used as predicates take on verbal morphology? The predicative property word need not take exactly all verbal marking. If there is at least some marking that verbs and predicative property words share, this counts as 1 (for example, if a language has *he runs* and *he greens*). However, if there is additional morphology or there are additional elements that the property word requires, then this feature should be coded as 0. This should apply to most property words in the language. Property words semantically roughly correspond to adjectives in those languages that have a separate adjective word class. We want to include elements that mark ‘adjectival’ function but that might not be described as ‘adjectives’.
+
+## Procedure
+1. Code 1 if most property words used predicatively receive markers which are used on verbs.
+2. Code 1 if neither property words nor predicative verbs receive marking.
+3. Code 1 if property words receive the same marking as stative verbs.
+4. Code 0 if property words are obligatorily accompanied by elements which are not obligatory with verbs.
+5. Code 1 if most examples of property words follow this pattern; code 0 if most do not; code ? if property words are split between this and another pattern.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB068: "Do core adjectives (defined semantically as property concepts such as value, shape, age, dimension) act like verbs in predicative position?".
+
+***
+
+## Feature ID: GB074
+Are there prepositions?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through freestanding words (e.g. particles) rather than phonologically bound morphemes in this grammatical category.
+This feature indicates Paraguayan Guaraní uses verb-initial word order in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Are there prepositions?
+
+## Summary
+
+A preposition indicates the relationship of a noun phrase to the verb in a clause. This relationship could be circumstantial (e.g. locative, temporal, etc.) or a [core argument function (S, A or P)](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)). A preposition precedes the noun phrase it occurs with. Proclitics with this function count as prepositions in Grambank. This means that [phonological boundness](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) is not relevant to this question. Circumpositions count both as prepositions and as postpositions. Inpositions (which occur somewhere in between words in a noun phrase) do not count as prepositions. Nouns that express the function of an adposition in a possessive construction (e.g. ***inside** of the car* to mean 'in the car') only count if they are visibly grammaticalized and no longer fully behave like nouns. If there is only one preposition, this is enough for a 1 here.
+
+## Procedure
+
+1. Code 1 if the grammar mentions prepositions or prepositional proclitics in the language and there is no evidence (in examples) that the author's definition of preposition conflicts with the definition used in Grambank. If the prepositions are phonologically bound, mention this in the comment column.
+2. Code 1 if you find examples of prepositions or prepositional proclitics in the language. If the prepositions are phonologically bound, mention this in the comment column.
+3. Code 0 if a grammar mentions postpositions or postpositional enclitics, but no prepositions or postpositional proclitics.
+4. Code 0 if a grammar mentions that there are no prepositions in the language.
+5. Code 0 if a comprehensive grammar does not mention any prepositions in its sections on noun phrases, argument marking, adverbials, or adpositions.
+6. Code ? if you suspect that the grammar may have missed that there are preposition in the language (e.g. because it is very short or does not have a comprehensive description of the noun phrase).
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB074: "Are there prepositions?".
+
+***
+
+## Feature ID: GB090
+Can the S argument be indexed by a prefix/proclitic on the verb in the simple main clause?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní uses head-marking strategies rather than dependent-marking strategies in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can the S argument be indexed by a prefix/proclitic on the verb in the simple independent clause?
+
+## Summary
+Is there a [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) [S argument](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) [index](https://github.com/grambank/grambank/wiki/Indexing-vs.-pronouns) that precedes its verbal host (i.e. attaches to it as a [prefix or a proclitic](https://github.com/grambank/grambank/wiki/Affixes-and-clitics))?
+
+## Procedure
+1. Consider the section in the grammar that deals with verbal morphology, specifically the sections on (pronominal) agreement or argument cross-referencing.
+2. Code 1 if there is a phonologically bound element that indexes the S argument on the verb or auxiliary. The index needs to precede the verbal host it is bound to.
+3. If there is some variation in the position of the S index conditioned by the verb (e.g. most verbs code the S argument with a suffix, but a couple use a prefix, this might be the case in the so-called split-S/stative-active languages), consider only the patterns which occur with large classes of verbs.
+4. If the verb shows overt indexing only with some arguments (e.g. only with animate arguments or only with first person singular arguments, the situation known as differential argument indexing), this still counts as 1.
+5. If the S argument is indexed but not by a prefix or proclitic, code 0.
+6. If there is no indexing of the S argument, code 0.
+7. If only a small set of verbs (fewer than a dozen) indexes S arguments, code 0.
+8. Ignore all other ways of indexing arguments (e.g. via a stem alternation, stress or tone), they are not covered by any of the Grambank features.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB090: "Can the S argument be indexed by a prefix/proclitic on the verb in the simple main clause?".
+
+***
+
+## Feature ID: GB109
+Is there verb suppletion for participant number?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní uses head-marking strategies rather than dependent-marking strategies in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there verb suppletion for participant number?
+
+## Summary
+Are there verbs that use a different stem depending on the number (singular, dual, plural, etc.) of a core participant? The participant triggering the suppletive choice could be [A, P, or S](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)). Auxiliary verbs are also considered verbs for the purpose of this feature. 
+
+Suppletion is a process where a lexeme is changed in such a way that the new form does not resemble the previous when it appears in a different position in the paradigm. An example of this is English *went* and *go*. In this case, the verb is suppletive for tense. Only strong suppletion (different stems) counts. There should be at least three verbs with participant number suppletion to count as 1. If only one or two verbs are described as exhibiting suppletion, code 0. If the author gives two examples but states or implies that it is more common, code 1. 
+
+Only so called 'strong suppletion' counts here, 'weak' suppletion is not included.
+
+## Procedure
+1. Check whether the language alters its verbs according to number at all, if not, code 0.
+2. Code 1 if there are three or more examples of verbs with suppletive forms for participant number
+3. If there are one or two examples, consider if the author describes these as special exceptions (in which case, code 0) or part of a larger group (in which case, code 1).
+4. If all examples only feature 'weak suppletion', code 0.
+5. If there is little description of participant marking on verbs in general, code ?.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB109: "Is there verb suppletion for participant number?".
+
+***
+
+## Feature ID: GB110
+Is there verb suppletion for tense or aspect?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there verb suppletion for tense or aspect?
+
+## Summary
+Are there verbs that use a different stem depending on the tense or aspect (present, past, perfective etc.) they occur in? Suppletion is a process where a lexeme is changed in such a way that the new form does not resemble the previous when it appears in a different position in the paradigm. An example of this is English *went* and *go*. In this case, the verb is suppletive for tense. Only strong suppletion (different stems) counts, ‘weak’ suppletion is not included. At least three verbal concepts should indicate different tense or aspect values with suppletive stems to trigger a 1. 
+
+## Procedure
+1. Check whether the language alters its verbs according to tense/aspect at all.
+2. Code 1 if there are three or more examples of verbs with suppletive forms for aspect/tense.
+3. If there are one or two examples, consider whether the author describes these as special exceptions (in which case, code 0) or part of a larger group, in which case, code 1.
+4. If all examples only feature ‘weak suppletion’, code 0.
+5. If there is little description of tense/aspect marking on verbs in general, code ?.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB110: "Is there verb suppletion for tense or aspect?".
+
+***
+
+## Feature ID: GB114
+Is there a phonologically bound reflexive marker on the verb?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní uses head-marking strategies rather than dependent-marking strategies in this grammatical category.
+This feature indicates Paraguayan Guaraní obligatorily encodes the grammatical function of reflexivity.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a phonologically bound reflexive marker on the verb?
+
+## Summary
+
+A reflexive marker indicates that a participant is coreferential with another participant in the clause or sentence. This marker may indicate both reflexive and reciprocal functions. If a ‘middle-voice’ marker is used to mark reflexive functions, it also counts as a reflexive marker. Reduplication of verbs also counts. The reflexive construction needs to be [productive](https://github.com/grambank/grambank/wiki/Productivity), not limited to a small set of likely lexicalized verbs in the language, to trigger 1 for this feature. This question targets lexical verbs, anything that happens with auxiliaries is not relevant for this feature.
+
+## Procedure
+
+1. Code 1 if the grammar discusses a productive reflexive marker that is [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) to the verb. Middle voice markers that are obligatory in reflexive constructions also count as reflexive markers.
+2. Code 1 if the grammar discusses a marker that is phonologically bound to the verb and it encodes both reflexive and reciprocal functions.
+3. Code 0 if the grammar discusses reciprocal markers or a phonologically independent reflexive marker, but does not mention a phonologically bound reflexive marker on verbs. Write 'not mentioned' in the comment column.
+4. Code 0 if the grammar only discusses unproductive reflexive markers on verbs.
+5. Code 0 if an otherwise comprehensive grammar does not discuss reflexive markers. Write ‘not mentioned’ in the comment column.
+6. Code ? if there is not enough data or analysis in the available sources to determine whether there is a bound reflexive marker on verbs or whether it is productive.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB114: "Is there a phonologically bound reflexive marker on the verb?".
+
+***
+
+## Feature ID: GB115
+Is there a phonologically bound reciprocal marker on the verb?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní uses head-marking strategies rather than dependent-marking strategies in this grammatical category.
+This feature indicates Paraguayan Guaraní obligatorily encodes the grammatical function of reciprocity.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a phonologically bound reciprocal marker on the verb?
+
+## Summary
+
+A reciprocal marker indicates that an action or feeling is mutual between two or more parties (e.g. *they love each other*; *they beat each other*). A reciprocal marker may indicate both reflexive and reciprocal functions. Reduplication of verbs also counts. Reciprocal marking needs to be [productive](https://github.com/grambank/grambank/wiki/Productivity), not limited to a small set of verbs in the language that are probably lexicalized. This feature targets [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) reciprocal markers.
+
+## Procedure
+
+1. Explore the sections discussing argument marking, pronouns, verbal morphology, verbal derivation, valency change, argument structure and simple clauses.
+2. Code 1 if the grammar discusses a productive reciprocal marker that is phonologically bound to the verb.
+3. Code 1 if the grammar discusses a marker that is phonologically bound to the verb and it encodes both reflexive and reciprocal functions.
+4. Code 0 if the grammar discusses reflexive markers or a phonologically independent reciprocal marker, but doesn't mention a phonologically bound reciprocal marker on verbs. Write 'not mentioned’ in the comment column.
+5. Code 0 if the grammar only discusses unproductive reciprocal markers on verbs.
+6. Code 0 if an otherwise comprehensive grammar does not discuss reciprocal markers. Write 'not mentioned’ in the comment column.
+7. Code ? if there is not enough data or analysis in the grammar to determine whether there is a bound reflexive marker on verbs or whether it is productive.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB115: "Is there a phonologically bound reciprocal marker on the verb?".
+
+***
+
+## Feature ID: GB124
+Is incorporation of nouns into verbs a productive intransitivizing process?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is incorporation of nouns into verbs a productive intransitivizing process?
+
+## Summary
+Noun incorporation is defined as a construction where obligatorily bare (i.e. articleless, numberless, modifierless) nouns must occur adjacent to or inside of the verb, in a fixed order. This feature essentially asks whether transitive verbs may be rendered intransitive by means of noun incorporation, and whether this process is productive. This need not be the default way of intransitivizing verbs, but the process must be [productive](https://github.com/grambank/grambank/wiki/Productivity). The incorporated noun in the construction of interest for this feature is semantically an argument of the verb. For example: *he was painting the bike* = *he was bike-painting*. Noun incorporation where the relevant noun functions as an adjunct or modifier does not count, e.g. *she was running like Jacob runs* = *she was Jacob-running*. A construction where it is necessary to overtly represent the relevant argument with an additional form other than the incorporated noun, for example with a pronoun, also does not count.
+
+## Procedure
+1. Code 1 if there is a strategy for intransitivizing verbs that either binds a bare nominal morphologically to the verb, or requires a bare nominal to be positioned immediately adjacent to the verb.
+2. Code 0 if the nominal involved in this construction is not obligatorily bare.
+3. Code 0 if the nominal involved in this construction does not express an argument of the verb.
+4. Code 0 if the incorporated argument must also be expressed by an overt element elsewhere in the syntax (e.g. a pronoun) in addition to the verb-adjacent nominal.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB124: "Is incorporation of nouns into verbs a productive intransitivizing process?".
+
+***
+
+## Feature ID: GB130
+What is the pragmatically unmarked order of S and V in intransitive clauses?            
+Paraguayan Guaraní Value: SV, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is SV.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## What is the pragmatically unmarked order of S and V in intransitive clauses?
+
+## Summary
+This feature focuses on the relative order of subject and verb in intransitive clauses. All questions concerning order of constituents aim to capture the pragmatically unmarked order between full NP constituents (not pronouns). Do not consider ‘left or right-dislocation’, accompanied by intonational signals, or pragmatically marked constructions such as focus. If the verb phrase consists of several elements it is the lexical verb that counts. The position of auxiliaries/TAME marking elements can be ignored.
+
+## Procedure
+1. Find the order of core arguments in the language, either in the text of the grammar or in examples involving full NP subjects.
+2. Code 1 if the order in intransitive clauses with a full nominal subject is consistently SV.
+3. Code 2 if the order in intransitive clauses with a full nominal subject is consistently VS.
+4. Code 3 if both SV and VS order occur in pragmatically unmarked intransitive clauses with full nominal subjects. Do not count focus constructions or left- or right-dislocation.
+5. Code ? only if it is unclear whether the examples in which one of the two possible orders occurs meet the pragmatically unmarked criterion. Include a comment describing the relevant construction(s).
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is SV.            
+This is the end of the summary for feature GB130: "What is the pragmatically unmarked order of S and V in intransitive clauses?".
+
+***
+
+## Feature ID: GB131
+Is a pragmatically unmarked constituent order verb-initial for transitive clauses?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní uses verb-initial word order in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is a pragmatically unmarked constituent order verb-initial for transitive clauses?
+
+## Summary
+This feature focuses on the relative order of the verb and its [core arguments](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) in a transitive clause. Any constituents other than the core arguments (A, P) and the verb of a transitive clause should be ignored. All questions concerning order of constituents aim to capture the pragmatically unmarked order between full NP constituents (not pronouns). Do not consider ‘left or right-dislocation’, accompanied by intonational signals or pragmatically marked constructions such as focus. If the verb phrase consists of several elements it is the lexical verb that counts. The position of auxiliaries/TAME marking elements can be ignored. 
+
+## Procedure
+1. Find the order of core arguments in the language, either in the text of the grammar or in examples involving full NP core arguments.
+2. Code 1 if the pragmatically unmarked constituent order is consistently VSO.
+3. Code 1 if the pragmatically unmarked constituent order is consistently VOS.
+4. Code 1 if the unmarked constituent order is free and the author states that there is a pragmatically unmarked constituent order which is verb-initial for transitive clauses.
+5. Code 1 if the unmarked constituent order is free and there are examples of a pragmatically unmarked constituent order which is verb-initial for transitive clauses.
+6. Code 0 if the grammar states that the language has a fixed word order for transitive clauses that is not VSO or VOS.
+7. Code 0 if the grammar states the language has free or flexible word order but verb-initial constituent order is pragmatically marked.
+8. Code 0 if the constituent order is verb-initial only in examples involving pragmatic marking (contrastive markers, inferential markers, topic change, foregrounding, etc.).
+9. Code ? if the pragmatically unmarked constituent order(s) is not mentioned and cannot be determined by examining examples.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB131: "Is a pragmatically unmarked constituent order verb-initial for transitive clauses?".
+
+***
+
+## Feature ID: GB133
+Is a pragmatically unmarked constituent order verb-final for transitive clauses?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní uses verb-final word order in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is a pragmatically unmarked constituent order verb-final for transitive clauses?
+
+## Summary
+This feature focuses on the relative order of the verb and its [core arguments](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) in a transitive clause. Any constituents other than the core arguments (A, P) and the verb of a transitive clause should be ignored. All questions concerning order of constituents aim to capture the pragmatically unmarked order between full NP constituents (not pronouns). Do not consider ‘left or right-dislocation', accompanied by intonational signals or pragmatically marked constructions such as focus. If the verb phrase consists of several elements it is the lexical verb that counts. The position of auxiliaries/TAME marking elements can be ignored.
+
+## Procedure
+1. Find the order of core arguments in the language, either in the text of the grammar or in examples involving full NP core arguments.
+2. Code 1 if the pragmatically unmarked constituent order is consistently SOV.
+3. Code 1 if the pragmatically unmarked constituent order is consistently OSV.
+4. Code 1 if the unmarked constituent order is free and the author states that there is a V-final constituent order for transitive clauses that is pragmatically unmarked.
+5. Code 1 if the constituent order is described as free and there are examples of a pragmatically unmarked constituent order which is SOV or OSV.
+6. Code 0 if the grammar states that the language has a fixed word order for transitive clauses that is not SOV or OSV.
+7. Code 0 if the grammar states the language has free or flexible word order but any V-final constituent order is pragmatically marked.
+8. Code 0 if the constituent order is V-final only in examples involving pragmatic marking (contrastive markers, inferential markers, topic change, foregrounding, etc.).
+9. Code ? if the pragmatically unmarked constituent order(s) is not mentioned and cannot be determined by examining examples.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB133: "Is a pragmatically unmarked constituent order verb-final for transitive clauses?".
+
+***
+
+## Feature ID: GB136
+Is the order of core argument (i.e. S/A/P) constituents fixed?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is the order of core argument (i.e. S, A, and P) constituents fixed?
+
+## Summary
+The order of core arguments is fixed if you cannot permute the order of core constituents (S, A, and P) and the verb without either i) changing the propositional content of the clause or ii) requiring intonational signaling or further elements (particles, cleft components, adjuncts).
+
+## Procedure
+1. Find the order of core arguments in the language, either in a description of word order patterns or in the examples in the grammar.
+2. Determine whether order permutations i) are possible, ii) do not change the propositional content and iii) do not require further elements (particles, cleft components, adjuncts) or intonational signaling.
+3. If the three conditions of step 2 are all met, code 0 (order is not fixed).
+4. If any of the three conditions of step 2 is not met, code 1 (order is fixed).
+5. If no discussion of fixed or free order of core arguments is provided in the grammar and it is unclear whether examples demonstrating word order permutations meet criteria (ii) and (iii) in step 2, code ? and provide a comment regarding the possible orders.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB136: "Is the order of core argument (i.e. S/A/P) constituents fixed?".
+
+***
+
+## Feature ID: GB147
+Is there a morphological passive marked on the lexical verb?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní obligatorily encodes the grammatical function of passive.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a morphological passive marked on the lexical verb?
+
+## Summary
+
+Passivization is a detransitivizing operation that takes a transitive clause (*The dog bites the man.*) and turns it into an intransitive clause by promoting the [P](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) argument (*the man*) to morphosyntactic [S](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) function. In the resulting intransitive clause, the former [A](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) argument (*the dog*) either vanishes or adopts an oblique function: *The man is bitten (by the dog).* ‘Mediopassives’, ‘anticausatives’ and the sort (e.g. ‘x breaks the vase’ > ‘the vase breaks’) also count as passives. This question targets [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) passive markers on lexical verbs. Anything that happens with auxiliaries is irrelevant here.
+
+Sometimes a language uses a combination of an auxiliary and a special form of the verb to express passive clauses. This verb form may be called a 'participle' or 'infinitive'. If such participial or infinitival forms are morphologically marked (that is, they are not unmarked/zero-marked), they also trigger a 1 for this feature.
+
+## Procedure
+
+1. Code 1 if a source mentions a phonologically bound morpheme that marks passive clauses. 
+2. Code 1 if there is no information on phonological (in)dependence but the relevant passivizing marker (auxiliary or particle) is orthographically bound to the verb. Add a comment that your analysis is based on orthography here.
+3. Code 1 if you identify a phonologically bound passive marker in the examples/texts provided in a source. Investigate sections on verb morphology, valency change and argument structure.
+4. Code 0 if a source mentions that there is no passive.  
+5. Code 0 if a source mentions a phonologically free passive marker or other means of passivization, but none that are phonologically bound to the verb
+6. Code 0 if a grammar treats other valency changing operations in considerable depth but does not mention passive constructions.
+7. Code ? if there are examples that contain a potential passivizing construction but their analysis remains inconclusive.
+8. Code ? if there are no sources treating valency changing operations in the language or if treatment of them is very limited.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB147: "Is there a morphological passive marked on the lexical verb?".
+
+***
+
+## Feature ID: GB152
+Is there a morphologically marked distinction between simultaneous and sequential clauses?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní obligatorily encodes the grammatical function of simultanseq.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a morphologically marked distinction between simultaneous and sequential clauses?
+
+## Summary
+This question is concerned with whether there is an overt marker dedicated to signaling the distinction between temporally simultaneous and sequential actions. If sequential meaning is a secondary function of an imperfective aspect this does not count; it must be indicated by a devoted marker. The language does not need to express both sequential and simultaneous temporal relationships overtly; one marker devoted to either function is sufficient to trigger a 1.
+
+## Procedure
+1. If there is a marker on the verb that indicates that the event described in an adjacent clause is temporally simultaneous with the marked clause, code 1.
+2. If there is a marker on the verb that indicates that the event described in an adjacent clause is temporally sequential with the marked clause, code 1.
+3. If clauses or verbs are combined in a way (e.g. through subordination) that implies sequential or simultaneous action and no overt verb marker is dedicated to this distinction, code 0.
+4. If simultaneous or sequential temporal relationships are implied through the use of imperfective aspect or adverbial elements other than a dedicated verbal marker, code 0.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB152: "Is there a morphologically marked distinction between simultaneous and sequential clauses?".
+
+***
+
+## Feature ID: GB155
+Are causatives formed by affixes or clitics on verbs?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Are causatives formed by affixes or clitics on verbs?
+
+## Summary
+
+A causative is a valency increasing operation that introduces a causer core argument that makes a non-subject argument do or become something (e.g. ‘x eats’ -> ‘y feeds x’ = ‘y causes x to to eat’). Note that both causatives adding an argument to a transitive clause (*I drink milk* -> *x causes me to drink milk*) and those adding an argument to an intransitive clause (*I sit* -> *x causes me to sit*) are targeted by this question. This question targets [productive](https://github.com/grambank/grambank/wiki/Productivity), [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) causative markers. Lexicalized causative verbs should be disregarded for this feature.
+
+## Procedure
+
+1. Code 1 if a source mentions a phonologically bound morpheme that marks causatives.
+2. Code 1 if there is no information on phonological (in)dependence but the relevant causative marker is orthographically bound to the verb. Add a comment that your analysis is based on orthography here.
+3. Code 1 if you identify a phonologically bound causative marker in the examples/texts provided in a source.
+4. Code 0 if a source mentions that there is no causative.  
+5. Code 0 if a source mentions a periphrastic or phonologically independent causative construction, but not one marked with a bound marker.  
+6. Code 0 if a grammar treats other valency changing operations in considerable depth but does not mention causative constructions.
+7. Code ? if there are examples that contain a potential causative construction but their analysis remains inconclusive.  
+8. Code ? if there are no sources treating valency changing operations in the language or if treatment of them is very limited.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB155: "Are causatives formed by affixes or clitics on verbs?".
+
+***
+
+## Feature ID: GB170
+Can an adnominal property word agree with the noun in gender/noun class?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní categorizes nouns into classes or genders.
+This feature indicates Paraguayan Guaraní uses dependent-marking strategies rather than head-marking strategies in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can an adnominal property word agree with the noun in noun class/gender?
+
+## Summary
+For this feature, we are interested in [noun classes](https://github.com/grambank/grambank/wiki/Noun-classes-and-classifiers) (classes which nouns belong to based on properties such as gender, animacy, or shape and can be identified through [agreement](https://github.com/grambank/grambank/wiki/Agreement) with a modifier). We are not looking at noun classifiers (classifiers classify the noun and occur independently from other elements). This feature asks whether adjectives (defined semantically as ‘adnominal property words’) show agreement with the noun class/gender of nouns they modify. This should be true for [more than a small class of semantically restricted adjectives](https://github.com/grambank/grambank/wiki/Productivity); English ‘blond’ vs. ‘blonde’ for example would not be enough to answer 1 for the question. 
+
+## Procedure
+1.  Code 1 if adjectives agree in noun class/gender with nouns in at least one context (e.g. in the plural).
+2.  Code 0 if the author states that there is no gender/noun class system, or it is apparent from the data there is no gender/noun class system.
+3.  Code 0 if there is evidence of a gender/noun class system but the system is not productive.
+3.  Code ? if the author does not discuss gender/noun class and the data is too limited to assess its existence.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB170: "Can an adnominal property word agree with the noun in gender/noun class?".
+
+***
+
+## Feature ID: GB171
+Can an adnominal demonstrative agree with the noun in gender/noun class?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní categorizes nouns into classes or genders.
+This feature indicates Paraguayan Guaraní uses dependent-marking strategies rather than head-marking strategies in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can an adnominal demonstrative agree with the noun in noun class/gender?
+
+## Summary
+For this feature, we are interested in [noun classes](https://github.com/grambank/grambank/wiki/Noun-classes-and-classifiers) (classes which nouns belong to based on properties such as gender, animacy, or shape and can be identified through [agreement](https://github.com/grambank/grambank/wiki/Agreement) with a modifier). We are not looking at noun classifiers (classifiers classify the noun and occur independently from other elements). Demonstratives are adnominal modifiers that mark position. This feature asks whether demonstratives can agree in gender/noun class with their head noun, whether or not the head noun is overtly marked for gender/noun class. 
+
+## Procedure
+
+1. Code 1 if there is a morpheme that is used with at least some demonstratives to indicate noun class agreement with their head noun,
+2. And there is a fixed number of these morphemes (i.e. a fixed number of genders, as opposed to them being classifiers).
+3. Code 0 if the author states that there is no gender/noun class system, or if there is no evidence of this in the data.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB171: "Can an adnominal demonstrative agree with the noun in gender/noun class?".
+
+***
+
+## Feature ID: GB172
+Can an article agree with the noun in gender/noun class?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní categorizes nouns into classes or genders.
+This feature indicates Paraguayan Guaraní uses dependent-marking strategies rather than head-marking strategies in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can an article agree with the noun in noun class/gender?
+
+## Summary
+For this feature, we are interested in [noun classes](https://github.com/grambank/grambank/wiki/Noun-classes-and-classifiers) (classes which nouns belong to based on properties such as gender, animacy, or shape and can be identified through [agreement](https://github.com/grambank/grambank/wiki/Agreement) with a modifier). We are not looking at noun classifiers (classifiers classify the noun and occur independently from other elements). Articles can agree in gender/noun class with the head noun even if the head noun is not overtly marked for gender/noun class. This feature concerns both definite and indefinite articles. Features [GB020](https://github.com/grambank/grambank/wiki/GB020) and [GB021](https://github.com/grambank/grambank/wiki/GB021) both concern the absence or presence of definite and indefinite articles, please consider those features if you have coded 1 for this feature. 
+
+## Procedure
+1. Code 1 if there is a bound marker on an article that signals [noun class/gender](https://github.com/grambank/grambank/wiki/Noun-classes-and-classifiers) agreement with the head noun it modifies.
+2. Code 1 if an article changes its shape to signal [noun class/gender](https://github.com/grambank/grambank/wiki/Noun-classes-and-classifiers) agreement with the head noun it modifies.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB172: "Can an article agree with the noun in gender/noun class?".
+
+***
+
+## Feature ID: GB192
+Is there a gender system where a noun's phonological properties are a factor in class assignment?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní exhibits lexically conditioned allomorphy in this grammatical category.
+This feature indicates Paraguayan Guaraní categorizes nouns into classes or genders.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a noun class/gender system where a noun’s phonological properties are a factor in class assignment?
+
+## Summary
+A noun class/gender system categorizes nouns for the purposes of grammatical [agreement](https://github.com/grambank/grambank/wiki/Agreement) with other constituents in the noun phrase or other inflectional morphology. See the [classification wiki page](https://github.com/grambank/grambank/wiki/Noun-Classes-and-Classifiers) for more information on our definition of noun class/gender. Noun class/gender assignment may be based on one or several factors. This feature focuses on whether the phonological properties of a noun constitute one of these factors for a given language. For this feature to be coded 1, there must be a clear preference for certain nouns to be classified in certain gender categories as a result of specific phonological properties. That is, some phonological property of a noun must be one relevant factor in the assignment of gender; however it does not need to be an absolute deciding factor or the only relevant factor in gender/class assignment. Examples of phonological properties that may play a role in gender/class assignment include tone, initial consonants, or root-final segments. Note that noun class/gender morphology may create phonological similarities across members of a certain noun class or gender; however, this is not sufficient for a 1 coding for this feature. Phonological properties must contribute to the categorization of nouns to classes/genders, rather than simply result from associated morphology.
+
+## Procedure
+1. If there is [a system of nominal classification](https://github.com/grambank/grambank/wiki/Noun-Classes-and-Classifiers) where some markers vary based on the category of the noun,
+2. And if these markers are **not** used only with numerals, demonstratives, and possessors (or some subset of these categories),
+3. And if these markers are involved in [agreement](https://github.com/grambank/grambank/wiki/Agreement) within the noun phrase, inflectional marking of the noun, or [indexing](https://github.com/grambank/grambank/wiki/Indexing-vs.-pronouns),
+4. And if there seems to be a correlation between a noun's noun class/gender and specific phonological properties of the noun, then code 1.
+3. Code 0 if there is no class/gender system or the assignment of nouns to classes/genders does not pattern according to phonological properties of the noun.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB192: "Is there a gender system where a noun's phonological properties are a factor in class assignment?".
+
+***
+
+## Feature ID: GB193
+What is the order of adnominal property word and noun?            
+Paraguayan Guaraní Value: N - ANM, Code 2            
+Paraguayan Guaraní is coded 2 for this feature, meaning the feature is N - ANM.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## What is the order of adnominal property word and noun?
+
+## Summary
+Adnominal property words are also known as "adjectives", in particular in those languages where they make up a separate word class. We want to include elements that mark ‘adjectival’ function but that might not be described as ‘adjectives’, see [GB069](https://github.com/grambank/Grambank/wiki/GB069). The question concerns the pragmatically neutral order(s).  
+
+## Procedure
+
+1.  Code 1 if most adnominal property words are placed before nouns.
+2.  Code 2 if most adnominal property words are placed after nouns.	
+3.  Code 3 if adnominal property words can be placed before or after nouns, either because both orders are possible or because some adjectives precede and some follow the noun.
+4.  Code 0 if property words cannot be used attributively.
+5.  Do not code 0 if property words are a sub-class of verbs: code 1, 2 or 3.
+Paraguayan Guaraní is coded 2 for this feature, meaning the feature is N - ANM.            
+This is the end of the summary for feature GB193: "What is the order of adnominal property word and noun?".
+
+***
+
+## Feature ID: GB257
+Can polar interrogation be marked by intonation only?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can polar interrogation be marked by intonation only?
+
+## Summary
+For this feature, we are looking for polar interrogation marked by intonation, and it should be the only marker in that construction. However, it does not have to be the only construction in the language which can mark polar interrogation. Intonation is our focus and not tone. Intonation is different from tonal marking. Tonal marking is bound to a certain position in the clause (e.g. the final syllable, or a certain constituent). Intonation concerns the whole clause and will have a variation in pitch across sentences and phrases.
+
+## Procedure
+
+1. Code 1 if a sentence can become a question by changing the intonation.
+2. Code 0 if intonation and another marker (such as a question marker on the verb) together mark polar interrogation within the same construction. 
+3. Code ? if it is not clear from limited data whether intonation marks polar interrogation in the language.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB257: "Can polar interrogation be marked by intonation only?".
+
+***
+
+## Feature ID: GB260
+Can polar interrogation be indicated by a special word order?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can polar interrogation be indicated by a special word order?
+
+## Summary
+Can a change in word order mark polar questions? In order for a construction to trigger 1, there should be no other marker in the clause that signals polar interrogation, not even lack of finiteness compared to the affirmative.  This excludes intonation, which may be different between questions and declarative statements.
+
+## Procedure
+
+1. Code 1 if a polar question can be formed by changing the word order in the clause and nothing else (except for intonation).
+2.  Code 0 if a word order change and another marker (such as a question marker on the verb) together mark polar interrogation within the same construction. 
+3. Code ? if it is not clear from limited data whether word order marks polar interrogation in the language.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB260: "Can polar interrogation be indicated by a special word order?".
+
+***
+
+## Feature ID: GB286
+Can polar interrogation be indicated by overt verbal morphology only?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can polar interrogation be indicated by overt verbal morphology only?
+
+## Summary
+
+In order for a construction to trigger 1, there should be no other **marker** in the clause that signals polar interrogation, not even lack of finiteness compared to the affirmative. This excludes intonation, which may be different between questions and declarative statements. Please note, GB286 need not need be the only polar interrogative **construction** in the language to code 1. It may still be possible to code 1 for other constructions alongside this one, such as [GB285,](https://github.com/grambank/grambank/wiki/GB285/) [GB262,](https://github.com/grambank/grambank/wiki/GB262/) [GB263,](https://github.com/grambank/grambank/wiki/GB263/) [GB264.](https://github.com/grambank/grambank/wiki/GB264/)
+
+
+
+## Procedure
+
+1. Code 1 if a polar question can be formed by adding a morpheme that is phonologically bound to the verb (or by suppletion).
+2. Nothing else may be different between the polar question and the declarative statement, apart from intonation. 
+3. Code 0 If the grammar mentions other polar interrogative constructions, but does not contain a discussion of interrogative verbal morphology.
+4. Code ? if the grammar does not treat polar interrogation at all.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB286: "Can polar interrogation be indicated by overt verbal morphology only?".
+
+***
+
+## Feature ID: GB298
+Can standard negation be marked by an inflecting word ("auxiliary verb")?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can standard negation be marked by an inflecting word (‘auxiliary verb’)?
+
+## Summary
+This feature refers to Standard Negation, i.e. the constructions that mark negation of (at least) dynamic (not-stative) verbal predicates in declarative mood. This question aims to capture [phonologically free](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) markers that inflect (i.e. change form depending on TAM, person, number and other categories of the core arguments). These inflecting phonologically free markers are often described as ‘auxiliary verbs’ in the literature, but are also analyzed under other labels by some authors (such as STAMP morphemes (STAM = Subject-Tense-Aspect-Mood-Polarity) or inflecting pronouns). We are interested in grammatical marking, i.e. [dedicated](https://github.com/grambank/grambank/wiki/Dedicated-marking), [productive](https://github.com/grambank/grambank/wiki/Productivity) and [obligatory marking](https://github.com/grambank/grambank/wiki/Obligatoriness). 
+
+## Procedure
+1. Find the section in the available descriptive literature that deals with negation.
+2. If you do not find any negation markers that inflect, code as 0.
+3. If an inflecting word clearly marks negation, code the language as 1.
+4. If it is not clear whether the inflecting word marks negation, code the language as ?.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB298: "Can standard negation be marked by an inflecting word ("auxiliary verb")?".
+
+***
+
+## Feature ID: GB299
+Can standard negation be marked by a non-inflecting word ("auxiliary particle")?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through freestanding words (e.g. particles) rather than phonologically bound morphemes in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can standard negation be marked by a non-inflecting word (‘auxiliary particle’)?
+
+## Summary
+This feature refers to Standard Negation, i.e. the constructions that mark negation of (at least) dynamic (not-stative) verbal predicates in declarative mood. This question aims to capture [phonologically free](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) markers that do not inflect (i.e. change form depending on TAM, person, number and other categories of the core arguments). These markers are often described as particles in the literature, but are also analyzed under other labels. We are interested in grammatical marking, i.e. [dedicated](https://github.com/grambank/grambank/wiki/Dedicated-marking), [productive](https://github.com/grambank/grambank/wiki/Productivity) and [obligatory](https://github.com/grambank/grambank/wiki/Obligatoriness) marking. 
+
+This particle does not have to be the sole marker of negation. There may be other markers in the language or the marker may be accompanied by other markers within the same construction. For example, the particle may be part of a double negation construction including both an affix and a particle.
+
+## Procedure
+1. Find the section in the available descriptive literature that deals with negation.
+2. If you do not find any negators that do not inflect, code as 0.
+3. If a non-inflecting phonologically free marker clearly marks negation and does not inflect, code the language as 1.
+4. If it is not clear whether the marker is a negation marker, code the language as ?.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB299: "Can standard negation be marked by a non-inflecting word ("auxiliary particle")?".
+
+***
+
+## Feature ID: GB305
+Is there a phonologically independent reflexive pronoun?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní obligatorily encodes the grammatical function of reflexivity.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a phonologically independent reflexive marker?
+
+## Summary
+
+Reflexive markers indicate that a participant is coreferential with another participant in the clause or sentence (cf. Haspelmath & The APiCS Consortium 2013). A reflexive marker can be derived from pronouns with reflexive morphology (e.g. *him-self* in English, *lui-même* in French). If reflexive meaning is expressed with a body part noun, e.g. a noun meaning ‘body’ or ‘head’ (*They are scolding their body* to mean ‘They are scolding themselves’), this also counts as 1. Emphatic pronouns (e.g. *She cooked it (by) herself.*) do not trigger a 1, since they do not express a participant.
+
+## Procedure
+
+1. Code 1 if the grammar discusses an independent reflexive marker in the language or if you find clear examples of independent reflexive markers.
+2. Code 0 if the grammar discusses reflexive morphology, reciprocal morphology, or reciprocal markers, but does not mention an independent reflexive marker. Write ‘not mentioned’ in the comment column.
+3. Code 0 if the grammar does not mention an independent reflexive marker in the language, but is otherwise comprehensive.
+4. Code ? if the grammar does not mention any independent reflexive marker, but you think the author may have missed them or for some reason does not discuss them. This includes cases where there are potential examples of reflexive markersin texts/sentences but you are not sure whether or not to treat them as such.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB305: "Is there a phonologically independent reflexive pronoun?".
+
+***
+
+## Feature ID: GB309
+Are there multiple past or multiple future tenses, distinguishing distance from Time of Reference?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní obligatorily encodes the grammatical function of multipletense.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Are there multiple past or multiple future tenses, distinguishing distance from time of reference?
+
+## Summary
+This question aims to capture productive marking of tense that makes distinctions into remoteness of time in relation to the point of reference or utterance. The actual marking can be tonal, verbal affixation, suppletion or any other means of marking. 
+
+This feature pertains to temporal marking, not aspectual. ‘Present perfect’ and ‘pluperfect’ are not included since they do not denote difference in distance of time but sequence of events.
+
+## Procedure
+1. Look up the sections in the language description that deal with tense.
+2. Check if there are markers of past or future tense at all.
+3. If more than one function of future or past tense are described, and they are marked by separate forms, investigate whether the distinctions are aspectual or modal, or indeed relate to remoteness on the temporal axis.
+4. If there is only a single past tense category and only a single future tense category, code the language as 0.
+5. If it is unclear whether the distinction is aspectual/modal or temporal, code the language as ?.
+6. If there are several function-form pairs described, but with little motivation and few examples to clearly explain what is going on, code the language as ?.
+7. If it is clearly stated that the distinction has to do with remoteness of time, code the language as 1.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB309: "Are there multiple past or multiple future tenses, distinguishing distance from Time of Reference?".
+
+***
+
+## Feature ID: GB322
+Is there grammatical marking of direct evidence (perceived with the senses)?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of evidentiality_direct.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there grammatical marking of direct evidence (perceived with the senses)?
+
+## Summary
+This question is concerned with the marking of evidentiality related to the speaker’s direct sensory evidence for some event or action. Grammatical marking of evidentials involves the use of grammaticalized markers such as affixes or other morphology, evidential particles, or evidential auxiliary verbs to convey the evidential meaning. Grammatical marking contrasts with constructions that express this meaning by means of adverbs (e.g. *John **apparently** ate the cake*) or lexical verbs in multi-clausal constructions (e.g. *I **saw** that John had eaten the cake*). Visual evidence is a common form of information encoded with a direct evidential, however direct evidentiality may also include auditory or other non-visual categories of sensory evidence. This question should be coded 1 if the language has a single direct evidential or any number of sensory evidentials.
+
+## Procedure
+1. If the language has one or more grammatical marker(s) (affixes, other morphological markers, particles, auxiliaries) dedicated to expressing that the speaker has direct sensory evidence (e.g. visual) of an event or action, code 1.
+2. If the language does not use a grammatical marker to indicate that the speaker has direct sensory evidence of an event or action, code 0.
+3. If the language expresses direct evidence of an event or action only through the use of adverbs or lexical verbs, code 0.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB322: "Is there grammatical marking of direct evidence (perceived with the senses)?".
+
+***
+
+## Feature ID: GB326
+Do (nominal) content interrogatives normally or frequently occur in situ?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Do (nominal) content interrogatives normally or frequently occur in situ?
+
+## Summary
+Is there a commonly used content question construction in which the interrogative pronoun or NP (e.g. English *who* or *which one*) occurs in the normal position for a non-interrogative NP in the same participant role (i.e. ‘in situ’)? Many languages usually place the wh-constituent in situ (e.g. *The man took **what**?*; cf. *The man took **an umbrella**.*), while others require wh-constituents to occur in a specific position (e.g. clause-initially) regardless of the usual position of the corresponding non-interrogative NP (e.g. English ***What** did the man take?*). Here we are interested in identifying languages that frequently or generally use an interrogative construction with nominal wh-constituents in situ. This question should be coded 1 if questions formed with in situ interrogatives are pragmatically unmarked and are used commonly (e.g. not only in restrictive contexts such as echo questions or constructions with multiple interrogatives).
+
+## Procedure
+
+1. Identify the constructions used for content questions, and determine which are commonly used and pragmatically unmarked (e.g. exclude echo questions, constructions with multiple interrogative constituents).
+2. Identify the constituent order(s) that occur in non-interrogative clauses (i.e. declarative transitive and intransitive clauses).
+3. If, in any common construction identified in step 1, nominal wh-constituents (e.g. ‘who’, ‘which one’) occur in the same position(s) identified in step 2 for non-interrogative NPs with the same participant role (i.e. in situ), code 1.
+4. If, in all common constructions identified in step 1, nominal wh-constituents occur in a fixed position (e.g. clause-initial) that does not always correspond to the position of a non-interrogative NP with the same participant role, code 0.
+5. If word order is described as free or flexible and examples suggest that nominal wh-constituents can occur in the same positions as non-interrogative NPs with the same participant roles, code 1.
+6. If word order is described as free or flexible but it is unclear from descriptions and examples whether nominal wh-constituents occur in a special position rather than in situ, code ? and provide a comment.
+7. If there are no nominal wh-constituents (e.g. where wh-verbs are used instead), code 0 and provide a comment.
+8. If there is insufficient evidence to identify the common, pragmatically unmarked content question construction(s), code ? and provide a comment.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB326: "Do (nominal) content interrogatives normally or frequently occur in situ?".
+
+***
+
+## Feature ID: GB327
+Can the relative clause follow the noun?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní uses verb-initial word order in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can the relative clause follow the noun?
+
+## Summary
+
+Can non-correlative relative clauses immediately follow the noun they modify? In other words, are there relative clauses with the structure *[The woman **[who has a green hat]** is tall*? This question only concerns relative clauses that immediately follow the noun, without requiring an anaphoric pronoun in the main clause – which would make them correlative relative clauses (e.g. *[The woman who has a green hat] she is tall*) (see [GB330](https://github.com/grambank/Grambank/wiki/GB330)).
+
+## Procedure
+
+1. Consider only non-correlative clauses: disregard relative clauses that have an anaphoric pronoun in the main clause.
+2. Code 1 if a source mentions that relative clauses are or can be postnominal.
+3. Code 1 if you find examples of postnominal relative clauses.
+4. Code 0 if a source mentions that relative clauses cannot be postnominal.
+5. Code 0 if a source describes prenominal or internally headed relative clauses but does not discuss postnominal relative clauses.
+6. Code ? if there are examples that contain potential postnominal relative clauses but the analysis is inconclusive.
+7. Code ? if the source does not treat relative clauses in much detail and may have missed postnominal relative clauses.
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB327: "Can the relative clause follow the noun?".
+
+***
+
+## Feature ID: GB328
+Can the relative clause precede the noun?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní uses verb-final word order in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can the relative clause precede the noun?
+
+## Summary
+
+Can non-correlative relative clauses immediately precede the noun they modify? In other words, are there relative clauses with the structure *[**[Who has a green hat]** the woman] is tall*? This question only concerns relative clauses that immediately precede the noun, without requiring an anaphoric pronoun in the main clause - which would make them correlative relative clauses (e.g. *I saw her [who has a green hat the woman]*) (see [GB330](https://github.com/grambank/Grambank/wiki/GB330)).
+
+## Procedure
+
+1. Consider only non-correlative clauses: disregard relative clauses that have an anaphoric pronoun in the main clause.
+2. Code 1 if a source mentions that relative clauses are or can be prenominal.
+3. Code 1 if you find examples of prenominal relative clauses.
+4. Code 0 if a source mentions that relative clauses cannot be prenominal.
+5. Code 0 if a source describes postnominal or internally headed relative clauses but does not discuss prenominal relative clauses.
+6. Code ? if there are examples that contain potential prenominal relative clauses but the analysis is inconclusive.
+7. Code ? if the source does not treat relative clauses in much detail and may have missed prenominal relative clauses.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB328: "Can the relative clause precede the noun?".
+
+***
+
+## Feature ID: GB329
+Are there internally-headed relative clauses?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Are there internally-headed relative clauses that are not correlative relative clauses?
+
+## Summary
+
+Can a relativized noun be morphosyntactically part of the relative clause? This could mean different things in different languages. In some languages, the relativized noun may literally be inside the relative clause, in terms of placement, for example *[A green hat **[the woman]** has] is tall* to mean ‘The woman who has a green hat is tall’. In other languages, the noun may receive case marking for its function inside the relative clause rather than its function inside the main clause, for example *the man-SBJ greeted [**[the woman-SBJ]** who has a green hat]* as opposed to *the man-SBJ greeted [**[the woman-OBJ]** who has a green hat]*. Do not consider correlative relative clauses here (see [GB330](https://github.com/grambank/Grambank/wiki/GB330)). It must be possible for the head noun to be any noun, not only an unspecific (pro)noun (e.g. *whoever*).
+
+## Procedure
+
+1. Consider only non-correlative clauses: disregard relative clauses that have an anaphoric pronoun in the main clause.
+2. Code 1 if a source mentions that relative clauses are or can be internally headed.
+3. Code 1 if you find examples of relative clauses where the noun is located inside the relative clause.
+4. Code 1 if you find examples of head nouns case-marked for the function they have in the relative clause rather than the main clause.
+5. Code 1 if you find other arguments for considering a relative clause internally headed.
+6. Code 0 if a source mentions that relative clauses cannot be internally headed.
+7. Code 0 if a source comprehensively describes relative clauses but does not discuss internally headed relative clauses.
+8. Code ? if there are examples that contain potential internally headed relative clauses but the analysis is inconclusive.
+9. Code ? if the source does not treat relative clauses in much detail and may have missed internally headed relative clauses.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB329: "Are there internally-headed relative clauses?".
+
+***
+
+## Feature ID: GB330
+Are there correlative relative clauses?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Are there correlative relative clauses?
+
+## Summary
+
+Are there relative clauses that require an anaphoric pronoun in the main clause? For example, *[The woman who has a green hat] **she** is tall.*
+
+## Procedure
+
+1. Code 1 if a source mentions that there are correlative relative clauses or that there are relative clauses with an anaphoric pronoun in the main clause.
+2. Code 1 if you find examples of relative clauses with an anaphoric pronoun in the main clause.
+3. Code 0 if a source mentions that there are no correlative relative clauses or that relative clauses never have an anaphoric pronoun in the main clause.
+4. Code 0 if a source comprehensively describes relative clauses but does not discuss correlative relative clauses (or anaphoric pronouns in main clauses in the context of relative clauses).
+5. Code ? if there are examples that contain potential correlative relative clauses but the analysis is inconclusive.
+6. Code ? if the source does not treat relative clauses in much detail and may have missed correlative relative clauses.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB330: "Are there correlative relative clauses?".
+
+***
+
+## Feature ID: GB331
+Are there non-adjacent relative clauses?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Are there non-adjacent relative clauses?
+
+## Summary
+Is there a non-correlative relative clause that is not adjacent to its modified noun? For example, in ***[The woman]** is tall **[who has a green hat]***, the noun (*woman*) is not adjacent to its modifying relative clause (*who has a green hat*). It must be possible for the head noun to be any noun, not only an unspecific (pro)noun (e.g. *whoever*). Do not consider correlative relative clauses for this feature (see [GB330](https://github.com/grambank/Grambank/wiki/GB330)).
+
+## Procedure
+
+1. Code 1 if a source mentions that there are non-adjacent relative clauses, or that relative clauses may be separated from their head noun by other constituents.
+2. Code 1 if you find examples in the description of non-adjacent relative clauses.
+3. Code 0 if a source mentions that there are only adjacent relative clauses, or that relative clauses may not be separated from their head noun by other constituents.
+4. Code 0 if a source comprehensively describes relative clauses but does not discuss non-adjacent relative clauses.
+5. Code ? if there are examples that contain potential non-adjacent relative clauses.
+6. Code ? if the source does not treat relative clauses in much detail and may have missed non-adjacent relative clauses.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB331: "Are there non-adjacent relative clauses?".
+
+***
+
+## Feature ID: GB333
+Is there a decimal numeral system?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a decimal numeral system?
+
+## Summary
+
+Are any multiples of 10 starting from 30 formed with a decimal base? e.g. 30 = 3x10, 40 = 4x10, etc. Or are expressions between these decimals (30-40, 40-50 etc.) formed as 30+1, 30+2, .., 30+9 etc.? The coding should reflect the earliest attested (i.e. not merely inferred) stage so if a pre-borrowing stage is attested, this should be coded.
+
+## Procedure
+
+1. If both an earlier stage and a borrowed numeral system are attested, only code the earlier stage.
+2. If only a clearly borrowed numeral system is attested, and nothing is known about an earlier stage, code ?
+3. If in doubt whether the numeral system is borrowed or not, code it as if it were not borrowed.
+4. Code 1 if a source mentions that there is a decimal numeral system and you can verify this in the presented numerals.
+5. Code 1 if you find a decimal numeral system in the numerals presented in a grammar or a dictionary.
+6. Code 0 if a source mentions that there is no decimal numeral system and you can verify this in the presented data.
+7. Code 0 if a language has a minimal numeral system that does not contain numerals beyond 20.
+8. Code ? if the source does not contain enough data (e.g. not enough numerals) to verify whether or not there is a decimal numeral system.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB333: "Is there a decimal numeral system?".
+
+***
+
+## Feature ID: GB334
+Is there synchronic evidence for any element of a quinary numeral system?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there synchronic evidence for any element of a quinary numeral system?
+
+## Summary
+Are any numerals above 5 formed with 5 as a base? For example, 6 = 5+1, 7 = 5+2, 8 = 5+3, 9 = 5+4, 11 = 5+5+1, etc.? One example of this is enough for a 1, except if it can be derived from an already existing non-quinary system (e.g. if 10 = 5x2, but other numerals are also formed by doubling, e.g. 4 = 2x2 and 6 = 3x2, this does not count).
+
+## Procedure
+
+1. If both an earlier stage and a borrowed numeral system are attested, only code the earlier stage.
+2. If only a clearly borrowed numeral system is attested, and nothing is known about an earlier stage, code ?.
+3. If in doubt whether the numeral system is borrowed or not, code it as if it were not borrowed.
+4. Code 1 if a source mentions that there is a quinary numeral system and you can verify this in the presented numerals.
+5. Code 1 if you find a quinary numeral system in the numerals presented in a grammar or a dictionary.
+6. Code 0 if a source mentions that there is no quinary numeral system and/or you can verify this in the presented data.
+7. Code 0 if a language has a minimal numeral system that does not contain numerals beyond 5.
+8. Code ? if the source does not contain enough data (e.g. not enough numerals) to verify whether or not there is a quinary numeral system.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB334: "Is there synchronic evidence for any element of a quinary numeral system?".
+
+***
+
+## Feature ID: GB408
+Is there any accusative alignment of flagging?            
+Paraguayan Guaraní Value: present, Code 1            
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This feature indicates Paraguayan Guaraní uses dependent-marking strategies rather than head-marking strategies in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there any accusative alignment of flagging?
+
+## Summary
+Are [P](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) arguments flagged differently from  [S](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) arguments (i.e. do they show accusative alignment)? Flagging covers any kind of argument marking on the argument itself (e.g. by case or adposition marking). The marking can be phonologically free or bound. The marking of [A](https://github.com/grambank/grambank/wiki/Core-arguments-(S,-A-and-P)) arguments is not relevant for establishing whether there is any accusative flagging or not, it is the difference between S and P flagging that results in 1. 
+In case of split flagging systems (specifically, differential object marking), code as 1 if any of the subsystems (e.g. only nouns or only pronouns, or a particular group of nouns) shows accusative alignment. Note that although alignment types are occasionally associated with entire languages (e.g. when one says that "Dyirbal is an ergative language"), they in fact apply only to individual constructions. This question asks only about the alignment of flagging, the alignment of [indexing](https://github.com/grambank/grambank/wiki/Indexing-vs.-pronouns) or of any other construction is irrelevant for this question.
+
+## Procedure
+1. Consider the section in the grammar that deals with nominal morphology, argument marking and/or basic clause structure. If no such section exists, consider examples of transitive and intransitive clauses, identify overt arguments in different roles (S, A, and P) and study their marking. The special P flag is often called accusative, but it can be labeled differently (e.g. dative or oblique).
+2. Check whether any of the S, A or P arguments are flagged in any context. Consider only the major predicate class, ignore any verbs with non-canonical/special flagging (e.g. the so-called ‘dative-subject’ or experiencer verbs). Consider only independent clauses.
+3. Code 0 if there is never overt flagging of any of the three arguments S, A, and P.
+4. Code 0 if S and P are always flagged identically, this includes cases with no overt flagging (i.e. zero marking).
+5. If there is a special flag for P, check whether it is used in all contexts. In particular, be aware of differences in flagging conditioned by a pronoun vs. noun distinction, person, animacy, definiteness, etc. (this situation is generally known as differential object marking or DOM). Code 1 even if only some pronouns or only some nouns (e.g. the inanimate ones) are flagged differently when they are P arguments. If, however, a small random class of nouns does not take a particular flagging for phonological or morphological reasons, ignore this class.
+6. If there are differences in flagging conditioned by TAM distinctions, consider the distribution in individual TAM contexts. Code 1 if P is flagged differently from A in some TAM categories.
+7. The so-called tripartite flagging pattern (S flagged differently from A and differently from P) receives 1 for both GB408 and [GB409](https://github.com/grambank/Grambank/wiki/GB409).
+Paraguayan Guaraní is coded 1 for this feature, meaning the feature is present.            
+This is the end of the summary for feature GB408: "Is there any accusative alignment of flagging?".
+
+***
+
+## Feature ID: GB415
+Is there a politeness distinction in 2nd person forms?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní does not obligatorily encode the grammatical function of politeness.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Is there a politeness distinction in second person forms?
+
+## Summary
+This feature asks whether there are different second person pronoun forms that are used based on the level of respect accorded by the speaker to the addressee. In some cases polite pronouns are used to indicate a level of formality or unfamiliarity between speaker and addressee. In other cases politeness distinctions are used according to very specific social relationships between speaker and addressee, such as relative age, social status, or kinship. If multiple second person pronoun forms exist in a single number category, and their use is patterned according to the level of intimacy or hierarchy of social relationship between speaker and addressee, this will suffice for a 1 code. The contrastive forms may or may not have other uses (e.g. in French the form *tu* is used only for second person singular informal, while *vous* is used for both second person singular polite and second person plural); a politeness distinction triggers a 1 for this feature regardless of whether the relevant forms have other functions/meanings.
+
+## Procedure
+1. If there exist, for any number category, multiple second person pronoun forms,
+2. And if the contrast between those pronoun forms is used to indicate respect or intimacy, or if the pronouns differ according to social relationships between the speaker and the addressee, code 1.
+3. If multiple second person pronoun forms exist for any number category but their usage does not reflect social relationships, intimacy or respect, then code 0.
+4. If there are not multiple second person pronoun forms for any number category, code 0.
+5. If there are multiple pronominal forms that are used for second person meanings that express a distinction in politeness, and these forms are also used to express other distinctions in the pronoun paradigm, this is sufficient to code 1.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB415: "Is there a politeness distinction in 2nd person forms?".
+
+***
+
+## Feature ID: GB430
+Can adnominal possession be marked by a prefix on the possessor?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní uses dependent-marking strategies rather than head-marking strategies in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can adnominal possession be marked by a prefix on the possessor?
+
+## Summary
+This feature targets a specific type of adnominal possessive construction, namely one where a possessor (either nominal or pronominal) is marked with a [prefix or proclitic](https://github.com/grambank/grambank/wiki/Affixes-and-clitics) to indicate possession of an object. This frequently takes the form of a genitive prefix on a possessor, but may also involve other types of prefixes or proclitics. Crucially, the possession must be marked by an element that precedes and is [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) to the possessor nominal/pronominal.
+
+## Procedure
+1. Code 1 if there is an adnominal possession construction marked by any element which is phonologically bound to the possessor noun/pronoun, and which precedes that noun/pronoun.
+2. Code 0 if there is no adnominal possession construction in which a prefix or proclitic on the possessor noun/pronoun functions to mark possession.
+3. Code 0 if the only relevant adnominal possession construction is marked only by tone, not by a prefix or proclitic.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB430: "Can adnominal possession be marked by a prefix on the possessor?".
+
+***
+
+## Feature ID: GB432
+Can adnominal possession be marked by a suffix on the possessor?            
+Paraguayan Guaraní Value: absent, Code 0            
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This feature indicates Paraguayan Guaraní expresses grammatical meanings through phonologically bound morphemes (e.g. affixes) rather than freestanding words in this grammatical category.
+This feature indicates Paraguayan Guaraní uses dependent-marking strategies rather than head-marking strategies in this grammatical category.
+            
+---
+
+Below is a short summary of the grammatical feature, an explanation of the process for assigning the feature's code, and examples of the feature from other languages including interlinear glossed text.
+
+---
+
+## Can adnominal possession be marked by a suffix on the possessor?
+
+## Summary
+This feature targets a specific type of adnominal possessive construction, namely one where a possessor (either nominal or pronominal) is marked with a [suffix or enclitic](https://github.com/grambank/grambank/wiki/Affixes-and-clitics) to indicate possession of an object. This frequently takes the form of a genitive suffix on a possessor, but may also involve other types of suffixes or enclitics. Crucially, the possession must be marked by an element that follows and is [phonologically bound](https://github.com/grambank/grambank/wiki/Wordhood-and-phonological-boundness-or-independence) to the possessor noun/pronoun.
+
+## Procedure
+1. Code 1 if there is an adnominal possessive construction marked by an element which is phonologically bound  to the possessor noun phrase or pronoun, and which follows that noun/pronoun.
+2. Code 0 if there is no adnominal possession construction in which a suffix or enclitic on the possessor noun/pronoun functions to mark possession.
+3. Code 0 if the only relevant adnominal possession construction is marked by tone alone, not by a suffix or enclitic.
+Paraguayan Guaraní is coded 0 for this feature, meaning the feature is absent.            
+This is the end of the summary for feature GB432: "Can adnominal possession be marked by a suffix on the possessor?".
+
+***
+
+This is the end of the typological feature summary for Paraguayan Guaraní.
