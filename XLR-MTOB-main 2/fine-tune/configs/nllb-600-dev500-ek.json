@@ -1,0 +1,33 @@
+{
+    "output_dir": "nllb-600-halfdev_en_ka",
+    "model_name_or_path": "facebook/nllb-200-distilled-600M",
+    "train_file": "../splits/eng-kgv-train.json",
+    "validation_file": "../splits/eng-kgv-dev-500.json",
+    "test_file": "../splits/eng-kgv-test.json",
+    "source_lang": "eng_Latn",
+    "target_lang": "kgv_Latn",
+
+    "max_source_length": 128,
+    "max_target_length": 128,
+    "num_train_epochs": 6,
+    "per_device_train_batch_size": 36,
+    "per_device_eval_batch_size": 36,
+    "num_beams": 5,
+    "seed": 65,
+
+    "do_train": "True",
+    "do_eval": "True",
+    "do_predict":"True",
+    "predict_with_generate": "True",
+    "overwrite_output_dir": "True",
+
+    "forced_bos_token": "kgv_Latn",
+    "evaluation_strategy": "epoch",
+    "save_strategy": "epoch",
+    "warmup_steps": 100,
+    "save_total_limit": 1,
+    "metric_for_best_model": "chrf",
+    "greater_is_better": "True",
+    "optim": "adamw_torch",
+    "load_best_model_at_end": "True"
+}

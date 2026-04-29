@@ -1,0 +1,32 @@
+{
+    "output_dir": "mbart-halfdev_en_kg",
+    "model_name_or_path": "facebook/mbart-large-50-many-to-many-mmt",
+    "train_file": "../splits/en-kg-train-full.json",
+    "validation_file": "../splits/en-kg-dev-full.json",
+    "test_file": "../splits/en-kg-test.json",
+    "source_lang": "en_XX",
+    "target_lang": "kg_XX",
+
+    "max_source_length": 128,
+    "max_target_length": 128,
+    "num_train_epochs": 6,
+    "per_device_train_batch_size": 24,
+    "per_device_eval_batch_size": 24,
+    "num_beams": 5,
+    "seed": 65,
+
+    "do_train": "True",
+    "do_eval": "True",
+    "do_predict":"True",
+    "predict_with_generate": "True",
+    "overwrite_output_dir": "True",
+
+    "forced_bos_token": "kg_XX",
+    "evaluation_strategy": "epoch",
+    "save_strategy": "epoch",
+    "warmup_steps": 100,
+    "metric_for_best_model": "chrf",
+    "greater_is_better": "True",
+    "optim": "adamw_torch",
+    "load_best_model_at_end": "True"
+}

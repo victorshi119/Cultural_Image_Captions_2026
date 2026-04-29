@@ -1,0 +1,36 @@
+{
+    "output_dir": "nllb-600-halfdev_en_kg-lr000675-warm25-cos-8ep",
+    "model_name_or_path": "facebook/nllb-200-distilled-600M",
+    "train_file": "../splits/eng-kgv-train.json",
+    "validation_file": "../splits/eng-kgv-dev-500.json",
+    "test_file": "../splits/eng-kgv-test.json",
+    "source_lang": "eng_Latn",
+    "target_lang": "kgv_Latn",
+
+    "max_source_length": 128,
+    "max_target_length": 128,
+    "num_train_epochs": 8,
+    "per_device_train_batch_size": 24,
+    "per_device_eval_batch_size": 8,
+    "num_beams": 10,
+    "seed": 65,
+
+    "do_train": "True",
+    "do_eval": "True",
+    "do_predict":"True",
+    "predict_with_generate": "True",
+    "overwrite_output_dir": "True",
+
+    "forced_bos_token": "kgv",
+    "evaluation_strategy": "epoch",
+    "save_strategy": "epoch",
+    "warmup_steps": 25,
+    "learning_rate": 9.75e-4,
+    "save_total_limit": 1,
+    "metric_for_best_model": "chrf",
+    "greater_is_better": "True",
+    "optim": "adamw_torch",
+    "load_best_model_at_end": "True",
+
+    "lr_scheduler_type": "cosine"
+}
