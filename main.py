@@ -194,8 +194,8 @@ def retrieve_relevant_rules_bm25(
     top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
     top_indices = sorted(top_indices)
 
-    rules_text = "GUARANI CODE-FORMAT GRAMMAR RULES (retrieved for this image):\n"
-    rules_text += f"# Image description: {desc}\n"
+    rules_text = "Reglas de formato de código guaraní (recuperadas para esta imagen):\n"
+    rules_text += f"# Descripción de la imagen: {desc}\n"
     for i in top_indices:
         header, code = chunks[i]
         rules_text += f"# === {header} ===\n{code}\n"
@@ -210,7 +210,7 @@ def load_culture_knowledge(path: str):
 
 def load_interlinear(path: str, n:int):
     #take the first n lines of interlinear file
-    header = "GUARANI INTERLINEAR EXAMPLES (morpheme breakdown + gloss + English):"
+    header = "EJEMPLOS INTERLINEALES DE GUARANÍ (desglose de morfemas + glosa + inglés):"
     lines = []
     with open(path,"r",encoding="utf-8") as f:
         lines = [line.strip() for line in f if line.strip()]
@@ -218,7 +218,7 @@ def load_interlinear(path: str, n:int):
     return header + "\n" + "\n".join(lines[:n])
 
 def load_grammar_parallel(path: str, n:int):
-    header = "GUARANI EXAMPLE SENTENCES (from grammar book):"
+    header = "EJEMPLOS DE ORACIONES DE GUARANÍ (de libro de gramática):"
     lines = []
     with open(path,"r",encoding="utf-8") as f:
         lines = [line.strip() for line in f if line.strip()]
@@ -230,7 +230,7 @@ def load_parallel_examples(path: str, n:int):
         pairs = json.load(f)
 
     sampled = pairs[:n]
-    lines = ["EXAMPLE GUARANI SENTENCES (natural EN→GN pairs for reference):"]
+    lines = ["EJEMPLOS DE ORACIONES DE GUARANÍ (pares naturales EN→GN para referencia):"]
     for p in sampled:
         lines.append(f"English: {p['en']}")
         lines.append(f"Guaraní: {p['gn']}")
