@@ -79,20 +79,16 @@ DIRECTRICES PARA SUBTÍTULOS CONCISOS:
    - Añade solo el contexto cultural esencial
    - Omite detalles secundarios
 
-2. Mantén el contenido basado en lo observable:
-   - No infieras usos, significados o funciones que no sean claramente visibles
-   - Evita sobre-interpretaciones culturales o históricas
-   - El contexto cultural debe estar directamente conectado con lo que se ve en la imagen
+2. Estructura simple:
+   "[Qué se ve]. [Significado/uso cultural]. [Contexto breve si es necesario]."
 
-3. Estructura simple:
-   "[Qué se ve], [con una breve mención de su uso o significado si es evidente en la imagen]."
-   - El significado cultural debe integrarse como parte de la descripción, no como una explicación separada
-
-4. Mantén respeto cultural:
+3. Mantén respeto cultural:
    - No trivialices elementos sagrados
    - Reconoce la cultura como viva y contemporánea
 
 Genera subtítulos concisos siguiendo este formato."""
+
+
 
 # v4: Victor's minimal edit of the AmericasNLP committee prompt (v3)
 GUARANI_SYSTEM_PROMPT_V4 = """Eres un sistema de subtitulado de imágenes diseñado para describir imágenes con relevancia cultural para el pueblo Guaraní.
@@ -198,8 +194,8 @@ def retrieve_relevant_rules_bm25(
     top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
     top_indices = sorted(top_indices)
 
-    rules_text = "GUARANI CODE-FORMAT GRAMMAR RULES (retrieved for this image):\n"
-    rules_text += f"# Image description: {desc}\n"
+    rules_text = "Reglas de formato de código guaraní (recuperadas para esta imagen):\n"
+    rules_text += f"# Descripción de la imagen: {desc}\n"
     for i in top_indices:
         header, code = chunks[i]
         rules_text += f"# === {header} ===\n{code}\n"
@@ -214,7 +210,7 @@ def load_culture_knowledge(path: str):
 
 def load_interlinear(path: str, n:int):
     #take the first n lines of interlinear file
-    header = "GUARANI INTERLINEAR EXAMPLES (morpheme breakdown + gloss + English):"
+    header = "EJEMPLOS INTERLINEALES DE GUARANÍ (desglose de morfemas + glosa + inglés):"
     lines = []
     with open(path,"r",encoding="utf-8") as f:
         lines = [line.strip() for line in f if line.strip()]
@@ -222,7 +218,7 @@ def load_interlinear(path: str, n:int):
     return header + "\n" + "\n".join(lines[:n])
 
 def load_grammar_parallel(path: str, n:int):
-    header = "GUARANI EXAMPLE SENTENCES (from grammar book):"
+    header = "EJEMPLOS DE ORACIONES DE GUARANÍ (de libro de gramática):"
     lines = []
     with open(path,"r",encoding="utf-8") as f:
         lines = [line.strip() for line in f if line.strip()]
@@ -234,7 +230,7 @@ def load_parallel_examples(path: str, n:int):
         pairs = json.load(f)
 
     sampled = pairs[:n]
-    lines = ["EXAMPLE GUARANI SENTENCES (natural EN→GN pairs for reference):"]
+    lines = ["EJEMPLOS DE ORACIONES DE GUARANÍ (pares naturales EN→GN para referencia):"]
     for p in sampled:
         lines.append(f"English: {p['en']}")
         lines.append(f"Guaraní: {p['gn']}")

@@ -98,34 +98,21 @@ TOTAL
 Characters: 932,331
 Tokens (approx): 133,259
 
-## Ablation Results (dev set, Gemma 4 31B, prompt v4)
+## Ablation Results (dev set, Gemma 4 31B, 3 runs averaged)
 
-Add-one-forward ablation each resource added to the base prompt in isolation.
+Add-one-forward ablation — each resource added to the base prompt in isolation. Scores are mean chrF++ averaged over 3 independent runs.
 
-| Resource | chrF++ |
-|---|---|
-| none (base prompt only) | 19.09 |
-| +culture knowledge (`ck`) | 20.89 |
-| +interlinear examples (`il`) | 20.33 |
-| +apertium morphology (`ap`) | 19.63 |
-| +code rules / BM25 (`cr`) | 19.81 |
-| +grammar parallel (`gp`) | 17.56 |
-| +FLORES parallel examples (`pe`) | **21.84** |
-| all combined | 21.61 |
+| Resource | v3 | v4 |
+|---|---|---|
+| none (base prompt only) | 20.62 | 19.46 |
+| +culture knowledge (`ck`) | 21.07 | 19.75 |
+| +interlinear examples (`il`) | 21.41 | 20.51 |
+| +apertium morphology (`ap`) | 21.04 | 20.63 |
+| +code rules / BM25 (`cr`) | 18.64 | 19.25 |
+| +grammar parallel (`gp`) | 16.06 | 14.94 |
+| +FLORES parallel examples (`pe`) | **22.84** | **22.03** |
+| all combined | 21.75 | 21.32 |
 
-# Ablation Results (dev set, Gemma 4 31B, prompt 3)
+## Conclusion
 
-Add-one-forward ablation each resource added to the base prompt in isolation.
-
-| Resource | chrF++ |
-|---|---|
-| none (base prompt only) | 18.82 |
-| +culture knowledge (`ck`) | 20.72 |
-| +interlinear examples (`il`) | 19.43 |
-| +apertium morphology (`ap`) | 19.94 |
-| +code rules / BM25 (`cr`) | 18.90 |
-| +grammar parallel (`gp`) | 15.31 |
-| +FLORES parallel examples (`pe`) | **21.83** |
-| all combined | 21.62 |
-
-# Conlusion: It seems that the results are negligibly different between v3 and v4.
+v3 consistently outperforms v4 across almost all conditions. FLORES parallel examples (`pe`) is the strongest single augmentation for both prompts. Grammar parallel (`gp`) hurts performance for both. Code rules (`cr`) is the only condition where v4 edges out v3.
