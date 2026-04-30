@@ -70,7 +70,7 @@ Reports mean chrF++ score.
 
 ## Ablation Results (dev set, Gemma 4 31B, prompt v4)
 
-Add-one-forward ablation — each resource added to the base prompt in isolation.
+Add-one-forward ablation each resource added to the base prompt in isolation.
 
 | Resource | chrF++ |
 |---|---|
