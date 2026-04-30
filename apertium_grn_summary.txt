@@ -1,0 +1,105 @@
+GUARANÍ MORPHOLOGICAL REFERENCE (condensed from Apertium-GRN)
+Source: https://github.com/apertium/apertium-grn
+Language: Paraguayan Guaraní (ISO 639-3: grn)
+
+Guaraní is an agglutinative, polysynthetic language with:
+- Active/inactive (agentive/patientive) verb agreement
+- Nasal harmony: nasality spreads across morpheme boundaries
+- Glottal stop (ʼ) as a phoneme, written with apostrophe
+- No grammatical gender
+- Verb-initial or verb-final word order (SVO also attested)
+- Rich postpositional system (postpositions, not prepositions)
+- Person agreement encoded on verbs as prefixes (not suffixes)
+
+This file is a **Lexicon configuration file (`.lexc`)**, likely used for a computational linguistics tool (such as a morphological analyzer or a Finite State Transducer) designed for the **Guarani language**.
+
+It serves as a structural blueprint for how the language's words and grammar are broken down and recognized. Here is the summary of its components:
+
+### 1. Multichar Symbols (Tags)
+The beginning of the file defines a comprehensive set of shorthand tags used to label the grammatical properties of words. These include:
+*   **Number/Person:** Singular (`sg`), Plural (`pl`), 1st, 2nd, and 3rd person.
+*   **Parts of Speech:** Nouns (`n`), Verbs (`v`), Adjectives (`adj`), Adverbs (`adv`), Postpositions (`post`), and Conjunctions (`cnj`).
+*   **Verb Properties:** Transitive (`tv`), Intransitive (`iv`), Imperative (`imp`), and various tenses (Present, Future, etc.).
+*   **Voices:** Passive, Reciprocal, Coactive, etc.
+*   **Punctuation & Symbols:** Markers for commas, hyphens, and quotes.
+
+### 2. Archiphonemes
+The file defines "Archiphonemes" (represented by symbols like `%{J%}`, `%{P%}`, `%{I%}`). These are placeholders used to handle **allomorphy**—where a sound changes depending on the surrounding letters (e.g., the glottal stop/puso or specific possessive prefix variations).
+
+### 3. Lexicon Hierarchies (Morphological Rules)
+The file organizes words into "Lexicons" that determine how suffixes and prefixes are attached. For example:
+*   **`N-ES` and `SpaNouns`:** Handle Spanish loanwords integrated into Guarani.
+*   **`CASE` and `POST`:** Define how postpositions (like *ndive* "with" or *gui* "from") interact with nouns.
+*   **`SUBST` and `COMP`:** Define rules for nominalization (turning words into nouns) and comparatives (superiority/inferiority).
+
+### 4. Word Lists (Dictionaries)
+The bulk of the file consists of categorized lists of words mapped to their grammatical tags:
+*   **Proper Nouns (`NP-TOP`, `NP-ANT`, `NP-COG`):** An extensive list of Toponyms (places like *Paraguái*, *Asunción*, *Nueva York*), Anthroponyms (people's names like *José*, *María*), and Cognomens (family names like *González*, *Rodríguez*).
+*   **Spanish Loanwords:** Lists of adjectives and nouns borrowed from Spanish (e.g., *religión*, *gobierno*, *nacional*).
+*   **Postpositions:** A list of Guarani relational markers (e.g., *mboyve* "before", *pype* "inside").
+*   **Organizations (`NP-AL`):** Modern entities and brands (e.g., *UNESCO*, *Facebook*, *Google*, *Mercosur*).
+
+### Overall Purpose
+This file is designed to allow a computer to take a raw string of Guarani text and **lemmatize** it—identifying the root word and all its grammatical modifiers (case, number, gender, tense) based on the rules and dictionaries provided.This file is a **Phonology configuration file (`.twol`)**, which defines the sound system and morphophonemic rules for the **Guarani** language. It acts as a set of instructions for a computational linguistic tool to handle how sounds change when morphemes (the smallest units of meaning) are combined.
+
+Here is the summary of its components:
+
+### 1. Alphabet and Character Sets
+The file defines the specific characters used in Guarani, including nasal vowels (ã, ẽ, ĩ, õ, ỹ, ũ) and special consonants (g̃, ñ). It categorizes these characters into functional sets:
+*   **Nasals (`Nas`):** Nasal consonants and vowels.
+*   **Consonants (`Cns`):** Divided into "Normal" and "Archiconsonants."
+*   **Vowels (`Vows`):** Divided into **Tonal** (stressed/accented) and **Atonal**, as well as **Strong** (a, e, o) and **Weak** (i, u, y).
+
+### 2. General Cleanup Rules
+It includes basic rules to clean up the output of the morphological analyzer, such as:
+*   Removing morpheme boundaries (`%>`) and word-final hyphens.
+*   Removing stress markers (`•`).
+
+### 3. Morphophonemic Rules (The Core Logic)
+The bulk of the file consists of complex rules that trigger changes based on the surrounding environment:
+*   **Vowel Harmony & Stress:** Rules to change vowels before atonal suffixes and shift tonal vowels to atonal ones depending on the affix.
+*   **Glottal Stop Insertion:** Automatically inserts the glottal stop (`ʼ`) when a morpheme ends in a vowel and the next begins with one.
+*   **Nasalization:** Rules for adding the nasal prefix `ñ` in specific verb forms (1st person plural inclusive) and handling nasal consonant shifts.
+*   **Possessives:** Specific logic for how possessive prefixes (represented by variables like `%{I%}` and `%{H%}`) surface as `j`, `ñ`, or `ʼ` depending on the following sound.
+*   **Verb & Postposition Logic:** Special rules for negative verbs (surfacing specific vowels like `a`, `o`, or `e`) and postpositions (handling the surface appearance of `y` and `m`).
+
+### 4. Variable Mapping
+The file uses placeholders (e.g., `%{N%}`, `%{K%}`, `%{P%}`) to represent "underlying" sounds that only appear (surface) or disappear based on the rules described above. For example, `%{g%}` is explicitly set to always be deleted (`%{g%}:0`).This file is a **Constraint Grammar (.rlx)** configuration file. In computational linguistics, Constraint Grammar is used for the **morphosyntactic disambiguation** of a language—essentially, it is a set of rules used to tell a computer how to decide the correct part of speech (POS) for a word based on the words surrounding it.
+
+Here is the summary of what this specific file does for the **Guarani language**:
+
+### 1. Definitions (Sets and Lists)
+The file begins by defining the building blocks of the language:
+*   **POS Tags:** It establishes lists for Nouns (`N`), Verbs (`V`), Adjectives (`Adj`), Pronouns (`Pro`), Adverbs (`Adv`), and specific Guarani markers like Possessives (`Pos`) and Determiners (`Det`).
+*   **Syntactic Relations:** It defines labels for grammatical roles, such as Subject (`@nsubj`), Direct Object (`@dobj`), and Indirect Object (`@iobj`).
+*   **Specific Lexicon:** It identifies key Guarani words that often cause ambiguity, such as *"ñeʼẽ"* (language/word), *"peteĩ"* (one/a), and *"ha"* (and).
+
+### 2. Heuristics (Removal and Selection)
+The middle section contains "rules of thumb" to clean up the data:
+*   **Removal:** It removes unlikely interpretations. For example, it removes certain tags if they appear in positions where they logically cannot exist in a Guarani sentence.
+*   **Selection:** It selects the most likely tag based on context. For example: *"If a word follows 'peteĩ' (a/one), it is highly likely to be a Noun (`N`)."*
+
+### 3. Grammatical Logic
+The file implements complex Guarani grammatical structures:
+*   **Noun Phrases:** Rules to handle how adjectives and determiners modify nouns (e.g., handling plural markers like *kuéra*).
+*   **Predicative Phrases:** Rules to identify the verb *"ha'e"* (to be) and how it links subjects to predicates.
+*   **Complements:** Logic to map out who is doing the action (Subject) and who is receiving it (Object), specifically handling the nuances of transitive and intransitive verbs.
+
+### 4. Special Cases
+The end of the file handles specific "edge cases," such as:
+*   **Proper Nouns:** Special handling for *"Ñandejára"* (God).
+*   **Temporal Aspects:** Rules to distinguish between present and past markers.
+*   **Language Names:** Specific rules to ensure *"Guarani"* is recognized as a language/people depending on whether it is followed by *"ñe'ẽ"*.
+
+**In short: This file acts as the "grammar brain" for a software tool, allowing it to analyze Guarani text and correctly label every word's grammatical function.**This file is an **XML configuration file** used to define different processing pipelines (modes) for a Guarani language tool, likely within the **Apertium** machine translation platform.
+
+It specifies how the software should handle the Guarani language (`grn`) using various Finite State Transducers (FST). Here is a summary of the functional modes defined:
+
+*   **`grn-morph`**: Performs morphological analysis (breaking words down into their base forms and grammatical features).
+*   **`grn-trace`**: A debugging mode that provides a detailed trace of the morphological analysis and constraint grammar process.
+*   **`grn-segment`**: Handles word segmentation (splitting a string of characters into individual words).
+*   **`grn-gener`**: Performs morphological generation (converting a lemma and grammatical tags back into a surface word).
+*   **`grn-tagger`**: Assigns grammatical tags to words using a combination of morphological analysis and a relaxation/constraint grammar (`rlx.bin`).
+*   **`grn-disam`**: Performs **disambiguation**. It takes the various possible analyses of a word and uses a constraint grammar to select the single most likely correct analysis based on the context.
+
+**Technical Summary:** The file acts as a "map" that tells the system which binary files (like `.hfst` and `.bin`) and which programs (like `hfst-proc`, `lt-proc`, and `vislcg3`) to run to process Guarani text.

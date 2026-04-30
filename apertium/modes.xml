@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modes>
+
+  <mode name="grn-morph" install="yes">
+    <pipeline>
+      <program name="hfst-proc -w">
+        <file name="grn.automorf.hfst"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="grn-trace">
+  <pipeline>
+      <program name="hfst-proc -w">
+        <file name="grn.automorf.hfst"/>
+      </program>
+      <program name="cg-proc -t">
+        <file name="grn.rlx.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="grn-segment" install="yes">
+    <pipeline>
+      <program name="hfst-proc -w">
+        <file name="grn.autoseg.hfst"/>
+      </program>
+    </pipeline>
+  </mode>
+
+
+  <mode name="grn-gener" install="yes">
+    <pipeline>
+      <program name="lt-proc -g">
+        <file name="grn.autogen.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="grn-tagger" install="yes">
+    <pipeline>
+      <program name="hfst-proc -w">
+        <file name="grn.automorf.hfst"/>
+      </program>
+      <program name="cg-proc -w">
+        <file name="grn.rlx.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+
+  <mode name="grn-disam" install="yes">
+    <pipeline>
+      <program name="hfst-proc -w">
+        <file name="grn.automorf.hfst"/>
+      </program>
+      <program name="cg-conv -a -l" />
+      <program name="vislcg3 --trace -g">
+        <file name="apertium-grn.grn.rlx"/>
+      </program>
+    </pipeline>
+  </mode>
+
+</modes>
+
