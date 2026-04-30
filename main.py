@@ -301,7 +301,7 @@ def run_captioning(
     output_file: str,
     system_prompt: str,
     client: OpenAI,
-    model_name = str,
+    model_name: str,
     bm25_chunks: Optional[list] = None,
     bm25_index=None,
     bm25_top_k: Optional[int] =10,
@@ -371,8 +371,8 @@ def main():
         culture_knowledge_path=culture_knowledge_path
     )
 
-    bm25_chunks, bm25_index = None
-    if args.code_rules_path:
+    bm25_chunks, bm25_index = None, None
+    if code_rules_path:
         bm25_chunks = parse_code_rules(code_rules_path)
         bm25_index = build_bm25_index(bm25_chunks)
 
