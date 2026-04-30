@@ -1,6 +1,6 @@
 # Slurm / batch logs
-# *.out
-# *.err
+*.out
+*.err
 
 # Hugging Face cache
 hf_cache/

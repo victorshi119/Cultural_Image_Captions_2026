@@ -1,18 +1,0 @@
-[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Fetching 3 files:   0%|          | 0/3 [00:00<?, ?it/s]Fetching 3 files:  33%|███▎      | 1/3 [00:22<00:45, 22.52s/it]Fetching 3 files: 100%|██████████| 3/3 [00:22<00:00,  7.51s/it]
-Traceback (most recent call last):
-  File "/N/project/CoRSAL/Cultural_Image_Captions_2026/grn_to_es_nllm.py", line 22, in <module>
-    model = AutoModelForSeq2SeqLM.from_pretrained(
-  File "/N/project/CoRSAL/.conda/envs/nllb_gpu/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 394, in from_pretrained
-    return model_class.from_pretrained(
-  File "/N/project/CoRSAL/.conda/envs/nllb_gpu/lib/python3.10/site-packages/transformers/modeling_utils.py", line 4245, in from_pretrained
-    loading_info, disk_offload_index = cls._load_pretrained_model(model, state_dict, checkpoint_files, load_config)
-  File "/N/project/CoRSAL/.conda/envs/nllb_gpu/lib/python3.10/site-packages/transformers/modeling_utils.py", line 4371, in _load_pretrained_model
-    merged_state_dict.update(load_state_dict(ckpt_file, disable_mmap=load_config.disable_mmap))
-  File "/N/project/CoRSAL/.conda/envs/nllb_gpu/lib/python3.10/site-packages/transformers/modeling_utils.py", line 374, in load_state_dict
-    check_torch_load_is_safe()
-  File "/N/project/CoRSAL/.conda/envs/nllb_gpu/lib/python3.10/site-packages/transformers/utils/import_utils.py", line 1357, in check_torch_load_is_safe
-    raise ValueError(
-ValueError: Due to a serious vulnerability issue in `torch.load`, even with `weights_only=True`, we now require users to upgrade torch to at least v2.6 in order to use the function. This version restriction does not apply when loading files with safetensors.
-See the vulnerability report here https://nvd.nist.gov/vuln/detail/CVE-2025-32434
