@@ -79,20 +79,16 @@ DIRECTRICES PARA SUBTÍTULOS CONCISOS:
    - Añade solo el contexto cultural esencial
    - Omite detalles secundarios
 
-2. Mantén el contenido basado en lo observable:
-   - No infieras usos, significados o funciones que no sean claramente visibles
-   - Evita sobre-interpretaciones culturales o históricas
-   - El contexto cultural debe estar directamente conectado con lo que se ve en la imagen
+2. Estructura simple:
+   "[Qué se ve]. [Significado/uso cultural]. [Contexto breve si es necesario]."
 
-3. Estructura simple:
-   "[Qué se ve], [con una breve mención de su uso o significado si es evidente en la imagen]."
-   - El significado cultural debe integrarse como parte de la descripción, no como una explicación separada
-
-4. Mantén respeto cultural:
+3. Mantén respeto cultural:
    - No trivialices elementos sagrados
    - Reconoce la cultura como viva y contemporánea
 
 Genera subtítulos concisos siguiendo este formato."""
+
+
 
 # v4: Victor's minimal edit of the AmericasNLP committee prompt (v3)
 GUARANI_SYSTEM_PROMPT_V4 = """Eres un sistema de subtitulado de imágenes diseñado para describir imágenes con relevancia cultural para el pueblo Guaraní.
