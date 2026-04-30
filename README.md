@@ -1,6 +1,6 @@
 # Cultural Image Captions 2026
 
-AmericasNLP 2026 Cultural Image Captioning shared task — Paraguayan Guaraní (Avañe'ẽ).
+AmericasNLP 2026 Cultural Image Captioning shared task — Guarani (Avañe'ẽ), a language spoken by people in Paraguay, Brazil, Bolivia, and Argentina.
 
 ## Setup
 
@@ -66,7 +66,7 @@ python main.py data/dev/guarani/images \
 python eval_chrf.py --dataframe data/dev/guarani/captions.jsonl --generated outputs/captions.tsv
 ```
 
-Reports mean chrF++ score.
+Reports mean chrF++ score per image within each respective 
 
 ## Ablation Results (dev set, Gemma 4 31B, prompt v4)
 

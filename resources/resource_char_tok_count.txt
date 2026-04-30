@@ -1,0 +1,27 @@
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/gua_parallel.txt
+Characters: 280,442
+Tokens (approx): 41,497
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/prompt-para1311-nosum.txt
+Characters: 134,035
+Tokens (approx): 19,642
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/guarani_culture_knowledge.txt
+Characters: 6,347
+Tokens (approx): 890
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/apertium_grn_summary.txt
+Characters: 9,530
+Tokens (approx): 1,361
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/gug_para.txt
+Characters: 201,863
+Tokens (approx): 28,205
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/flores_dev_examples_en-gn.json
+Characters: 300,114
+Tokens (approx): 41,664
+
+TOTAL
+Characters: 932,331
+Tokens (approx): 133,259
