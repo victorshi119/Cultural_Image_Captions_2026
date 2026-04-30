@@ -63,10 +63,40 @@ python main.py data/dev/guarani/images \
 ### Evaluation
 
 ```bash
-python eval_chrf.py --dataframe data/dev/guarani/captions.jsonl --generated outputs/captions.tsv
+python eval_chrf.py --dataframe data/dev/guarani/guarani.jsonl --generated outputs/captions.tsv
 ```
 
 Reports mean chrF++ score per image within each respective 
+
+## Resource Character and Token Count
+Gemma 4 31B Max Token Input: 250k
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/gua_parallel.txt
+Characters: 280,442
+Tokens (approx): 41,497
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/prompt-para1311-nosum.txt
+Characters: 134,035
+Tokens (approx): 19,642
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/guarani_culture_knowledge.txt
+Characters: 6,347
+Tokens (approx): 890
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/apertium_grn_summary.txt
+Characters: 9,530
+Tokens (approx): 1,361
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/gug_para.txt
+Characters: 201,863
+Tokens (approx): 28,205
+
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/flores_dev_examples_en-gn.json
+Characters: 300,114
+Tokens (approx): 41,664
+
+TOTAL
+Characters: 932,331
+Tokens (approx): 133,259
 
 ## Ablation Results (dev set, Gemma 4 31B, prompt v4)
 
@@ -82,3 +112,20 @@ Add-one-forward ablation each resource added to the base prompt in isolation.
 | +grammar parallel (`gp`) | 17.56 |
 | +FLORES parallel examples (`pe`) | **21.84** |
 | all combined | 21.61 |
+
+# Ablation Results (dev set, Gemma 4 31B, prompt 3)
+
+Add-one-forward ablation each resource added to the base prompt in isolation.
+
+| Resource | chrF++ |
+|---|---|
+| none (base prompt only) | 18.82 |
+| +culture knowledge (`ck`) | 20.72 |
+| +interlinear examples (`il`) | 19.43 |
+| +apertium morphology (`ap`) | 19.94 |
+| +code rules / BM25 (`cr`) | 18.90 |
+| +grammar parallel (`gp`) | 15.31 |
+| +FLORES parallel examples (`pe`) | **21.83** |
+| all combined | 21.62 |
+
+# Conlusion: It seems that the results are negligibly different between v3 and v4.
