@@ -1,0 +1,26 @@
+/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/N/project/CoRSAL/Cultural_Image_Captions_2026/grn_to_es_nllm.py", line 84, in <module>
+    main()
+  File "/N/project/CoRSAL/Cultural_Image_Captions_2026/grn_to_es_nllm.py", line 70, in main
+    es_caps = translate(caps)
+  File "/N/project/CoRSAL/Cultural_Image_Captions_2026/grn_to_es_nllm.py", line 26, in translate
+    model = AutoModelForSeq2SeqLM.from_pretrained(MODEL, torch_dtype=dtype).to(device)
+  File "/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/transformers/models/auto/auto_factory.py", line 508, in from_pretrained
+    resolved_config_file = cached_file(
+  File "/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/transformers/utils/hub.py", line 321, in cached_file
+    file = cached_files(path_or_repo_id=path_or_repo_id, filenames=[filename], **kwargs)
+  File "/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/transformers/utils/hub.py", line 567, in cached_files
+    raise e
+  File "/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/transformers/utils/hub.py", line 479, in cached_files
+    hf_hub_download(
+  File "/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/huggingface_hub/utils/_validators.py", line 114, in _inner_fn
+    return fn(*args, **kwargs)
+  File "/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1010, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+  File "/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1171, in _hf_hub_download_to_cache_dir
+    _download_to_tmp_and_move(
+  File "/N/project/CoRSAL/.conda/envs/L605_americasnlp/lib/python3.10/site-packages/huggingface_hub/file_download.py", line 1709, in _download_to_tmp_and_move
+    with incomplete_path.open("ab") as f:
+OSError: [Errno 122] Disk quota exceeded
