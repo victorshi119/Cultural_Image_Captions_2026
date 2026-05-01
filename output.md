@@ -75,6 +75,23 @@ Same resources as above but with prompt version v3.
 
 ---
 
-## Ablation v2 (new resources, prompt v4) — pending
+## Ablation v2 — prompt v4, new resources (single run)
 
-Job 6965487 submitted 2026-05-01. Resources: grammar parallel → `guarani_exemplar_bank_claude.md` (n=30), interlinear → `guarani_grammar_primer_claude.md` (n=60), apertium → `apertium-grn-caption-cheatsheet.md`, parallel examples → `flores_dev_examples_en-gn.json` (n=200). Code rules removed.
+Resources: grammar parallel → `guarani_exemplar_bank_claude.md` (n=30), interlinear → `guarani_grammar_primer_claude.md` (n=60), apertium → `apertium-grn-caption-cheatsheet.md`, parallel examples → `flores_dev_examples_en-gn.json` (n=200). Code rules removed.
+
+| Condition | chrF++ |
+|-----------|--------|
+| +pe | **22.50** |
+| all | **21.38** |
+| +ck | **20.04** |
+| none | **19.17** |
+| +il | **19.56** |
+| +gp | **18.89** |
+| +ap | **17.87** |
+
+**Key findings vs old resources (v4 avg):**
+- +pe still strongest (22.50 vs 22.02) — boosted by n=200
+- +gp improved significantly (18.89 vs 14.94) — new exemplar bank helps
+- +ap dropped sharply (17.87 vs 20.63) — new cheatsheet underperforms old summary
+- +il slightly lower (19.56 vs 20.51) — grammar primer less effective than interlinear glosses
+- +ck now evaluable (20.04) — was broken before due to newline bug in output
