@@ -1,369 +1,478 @@
-# Guaraní Cultural Knowledge — Expansion for Image Captioning
+# Contexto Cultural Guaraní y Paraguayo — Base de Conocimiento para Captioning de Imágenes
 
-*Auditoría, análisis de brechas y nuevas secciones para la base de conocimiento cultural Guaraní/Paraguaya, destinadas a un sistema de generación de captions en guaraní (AmericasNLP 2026 — Cultural Image Captioning, Guaraní track).*
-
----
-
-## PHASE 1 — Audit of the existing file
-
-| § | Sección | Fortalezas | Debilidades | Veredicto |
-|---|---|---|---|---|
-| 1 | Lengua y cosmovisión | Nombra *avañe'ẽ* y Jopara correctamente | No es visualmente grounded; abstracto | **Revisar** — mantener solo como prefacio |
-| 2 | Cosmovisión / creencias | Menciona *tekoha*, *teko porã* | Pura filosofía, cero pixeles | **Recortar a una línea** |
-| 3 | Organización social | — | Genérico "hospitalidad / comunidad"; podría describir cualquier cultura | **Cortar** |
-| 4 | Alimentación | Nombra chipa, sopa paraguaya, mbeju, vori vori | Faltan: chipa guasu, mbaipy, puchero, asado, locro, kosereva, dulce de mamón, reviro; no hay descriptores visuales (color/forma/tamaño) | **Revisar y expandir** |
-| 5 | Bebidas | Ritual del tereré descrito | Faltan mate cocido, caña, mosto, clericó; no menciona *yuyos* machacados en mortero con tereré | **Revisar** |
-| 6 | Pohã ñana | Concepto nombrado | No nombra ninguna planta. Un modelo de captioning necesita *kohü*, *ka'a he'ẽ*, *cedrón Paraguay*, *menta'i*, *koku*, etc. | **Revisar (mayor)** |
-| 7 | Flora / fauna | — | Cero nombres en guaraní; "loros, etc." es inútil | **Revisar (mayor)** |
-| 8 | Mercados | Nombra Mercado 4 | Faltan Mercado de Abasto, Mercado Central de Luque, ferias, *yuyera* (arquetipo de la vendedora de hierbas) | **Revisar** |
-| 9 | Artesanía | Ñandutí, ao po'i | Faltan: filigrana de plata, encaje ju, poyvi, tejido de karanda'y, cerámica de Itá/Areguá, hamacas, tallado en madera, cuero crudo | **Revisar (mayor)** |
-| 10 | Música y danza | Arpa, polka, guarania, danza de la botella | Faltan: *purahéi jahe'o*, *galopa*, instrumentos de conjunto típico (guitarra, requinto), banda koygua | **Revisar** |
-| 11 | Historia | — | No es visualmente grounded | **Cortar** |
-| 12 | Religión | Sincretismo nombrado | Faltan: *Virgen de Caacupé*, capillas rurales, *fiestas patronales*, altares, procesiones | **Revisar (mayor)** |
-| 13 | Cultura rural | Hamaca, mandioca | Faltan: *rancho*, *tatakua*, corral, carro de bueyes, fogón, pozo | **Revisar (mayor)** |
-| 14 | Señales visuales | Lista útil | Demasiado corta; cada sección debería tener la suya | **Revisar** |
-| 15 | Directrices | Decentes | Debería agregarse lista anti-estereotipos | **Revisar** |
-| 16 | Leyendas | Detallado | Mayoritariamente NO visualmente grounded — las leyendas aparecen en arte, no en fotos. Riesgo: que el modelo sobre-atribuya escenas de bosque al Pombero | **Revisar (recortar redundancia y agregar disclaimer visual)** |
-
-### Debilidades transversales
-
-- El archivo llama "guaraní" a todo, sin distinguir la **cultura mestiza paraguaya (criolla/koygua)** de los **pueblos indígenas Guaraní** (Mbyá, Aché, Pãi Tavyterã, Avá, Guaraní Ñandeva). Es un riesgo serio de fidelidad cultural.
-- Casi no hay vocabulario guaraní para objetos visibles.
-- No hay sección sobre vestimenta, arquitectura, festivales, juegos infantiles, deportes ni ocupaciones.
-- No hay guía sobre el *estilo* de los captions en guaraní (formas verbales, estructura).
+*Documento de referencia para un sistema generador de captions en guaraní (avañe'ẽ) sobre imágenes de contextos paraguayos y guaraní. Cada entrada está orientada a lo visualmente identificable. Términos en guaraní en **negrita**, glosa en español entre paréntesis.*
 
 ---
 
-## PHASE 2 — Gap analysis with proposed additions
+## 1. Uso del documento y registro
 
-| # | Brecha | Adiciones propuestas | Fuentes clave |
-|---|---|---|---|
-| 1 | **Vestimenta** — el archivo menciona ñandutí + ao po'i pero no la indumentaria real. No hay distinción regional/festival. | Sección sobre traje típico (typói + pollera con volantes + encaje ju + dos trenzas + rosario tupãsy; hombre: camisa ao po'i + pantalón oscuro + faja + pañuelo + sombrero piri + poncho para'i de 60 listas). Distinguir festival/folklórico de uso diario (ausente en la mayoría de fotos cotidianas). | EcuRed, Trenalsur, sofiaschmodarte blog, Ministerio de Cultura |
-| 2 | **Arquitectura/vivienda** — completamente ausente. | Sección sobre kuláta jovái (planta simétrica con koty guasu central y dos culatas), ógaguy / korredor jere (galería), paredes de estaqueo + barro o adobe, techo de paja kapi'í sobre cumbrera, tatakua, pozo de balde. Casas urbanas coloniales de Asunción + ruinas jesuíticas (arenisca roja). | Wikipedia "Culata Yobái", ARQA, revista Mandu'a, Plan de Gestión Misiones |
-| 3 | **Festividades visibles** — ninguna mencionada. | Sección dedicada a San Juan Ára (juegos del fuego), Caacupé 8 dic, Semana Santa con chipa y tatakua, fiestas patronales con bandas koygua. | mec.gov.py, ABC Color, Última Hora, Wikipedia "Virgen de Caacupé" |
-| 4 | **Juegos infantiles** — ausentes. | Sección con pandorga, trompo, valita, tikichuela, kambuchi jejoka, payana, gallito ciego, tuka'ẽ. | ABC Color "Juegos de siempre", Portal Guarani, Correo Paraguayo |
-| 5 | **Utensilios/objetos domésticos** — solo "hamaca" mencionada vagamente. | Sección con angu'a (mortero), tatakua, kyha (hamaca), guampa (de cuerno o madera), bombilla, ajaka (canasto), termo, cocina a leña, fogón, machete, carro de bueyes. | Wikipedia "Tatakua", Alacarta, EFE/Swissinfo |
-| 6 | **Vocabulario guaraní visual** — el archivo no da glosario. | Glosario completo: árboles (tajy, yvyra pytã, samu'û, karanda'y, mbokaja…), frutas (arasa, mburukuja, ñangapiry, pakuri…), animales (jagua, mbarakaja, ryguasu, vaka, kavaju, jakare, mbói, panambi…), colores y materiales. | Portal Guarani (Guasch), Idioma-Guarani blog, Tesoro de Montoya |
-| 7 | **Distinción Mbya / Pãi / Aché / Avá / paraguayo mestizo** — el archivo lo agrupa todo. | Sección sobre 19 pueblos indígenas, cinco familias lingüísticas; señales visuales que distinguen Mbya (jeguaka, opy/óga guasu, mbaraka, takua) de criollo paraguayo (typói folklórico). Aclarar que "guaraní" en imágenes paraguayas suele referir a paraguayos no-indígenas. | IWGIA, Wikipedia "Pueblos indígenas de Paraguay", Tierraviva, INE 2022 |
-| 8 | **Deportes y ocio** — no existe. | Sección con fútbol (Olimpia, Cerro, Libertad, Guaraní, Albirroja), asado/parrilla, pesca en río Paraguay/Paraná, cacería en el Chaco. | ABC Color deportes |
-| 9 | **Cuadros ocupacionales visuales** — faltan. | Sección: chipera con ajaka en cabeza + apyteha'o, yuyera del Mercado 4, vendedor de mbeju, arenero con carro, olero/ceramista (Itá, Areguá, Tobatí), agricultor con machete, lavandera, motoquero. | Alacarta, ABC Color "La ruta de las chiperas", El Nacional, Museo del Mundo |
-| 10 | **Color/material/textura en guaraní** — ausente. | Glosario con morotĩ (blanco), pytã (rojo), hovy (azul/verde), sa'yju (amarillo), hũ (negro), etc.; texturas: po'i (fino), guasu (grande), mirĩ (pequeño), karẽ (torcido). | Paraguayología, gramática avañe'ẽ |
-| 11 | **Estilo lingüístico de captions** — el archivo es solo prosa española. | Sección con 8 ejemplos pareados español↔guaraní: características (estructura SOV/SVO flexible, mucho uso de oĩ/oĩva 'hay/que está', mba'e como conector, sufijo -kuéra para plural, prenasalización mb/nd/ng). Mencionar que Jopara aparece en captions periodísticos pero el track requiere guaraní. | ABC Remiandu, Wikipedia "Guarani language", Ñemitỹrã |
-| 12 | **Anti-estereotipos** — no hay sección. | Lista explícita: maíz no es solo Paraguay, hamaca no es solo Paraguay, sombreros de paja generales no son ao po'i, mate caliente ≠ tereré frío, asado ≠ específicamente paraguayo, "indígena" en una foto no implica "guaraní", flora subtropical es compartida. | Razonamiento sintético + Wikipedia comparativo |
+- El sistema describe **primero lo visible** (objetos, personas, escena, acción), y solo añade contexto cultural cuando un marcador específico lo justifica.
+- Evitar atribuciones culturales por defecto: una imagen "tropical" no implica "guaraní"; una imagen "rural" no implica "indígena".
+- La mayoría de imágenes paraguayas mostrarán **vida moderna ordinaria** (jeans, camiseta, moto, casa de ladrillo, celular). El folklore es minoritario.
+- Preferir el sustantivo guaraní cuando exista término preciso (chipa, tatakua, ñandutí, lapacho/tajy) por sobre la traducción.
 
 ---
 
-## PHASE 3 — Drafted new sections (en español, listo para pegar en el archivo)
+## 2. Lengua: guaraní paraguayo (avañe'ẽ)
 
-A continuación, las secciones nuevas. Mantengo numeración 17 en adelante para insertarlas después de "Leyendas y Tradición Oral" del archivo original; varias secciones existentes deberían además ser revisadas según el audit.
+- Lengua co-oficial con el español. Ampliamente hablada por la mayoría de la población paraguaya, indígena y no indígena.
+- **Jopara**: mezcla coloquial guaraní-español, dominante en habla cotidiana. Para captions formales (competencia AmericasNLP) se prefiere guaraní más puro, aunque préstamos hispanos asentados (kamionero, exportación, guela'ẽ) aparecen incluso en prensa en guaraní (ABC Remiandu).
+- Ortografía: vocales orales y nasales (a/ã, e/ẽ, i/ĩ, o/õ, u/ũ, y/ỹ); pusó **'** marca oclusión glotal; tilde nasal sobre vocal.
+- Estructura: SOV/SVO flexible; predicados verbales sin cópula; prefijo de persona pegado al verbo (**a-** 1ª, **re-** 2ª, **o-** 3ª); plural humano con **-kuéra**.
+- Construcción muy frecuente: **oĩ / oĩva** ("hay / que está") para describir presencia.
 
 ---
 
-### 17. Vestimenta tradicional y cotidiana
+## 3. Distinciones étnicas (crítico para no confundir)
 
-*La gran mayoría de las imágenes paraguayas mostrarán ropa moderna común (jeans, remera, camiseta de fútbol). El traje típico solo aparece en festivales, danza folklórica, escuelas el 14 de mayo o eventos religiosos.*
+Paraguay tiene **19 pueblos indígenas** en cinco familias lingüísticas. La familia guaraní incluye seis pueblos: **Aché, Avá Guaraní, Mbya, Pãi Tavyterã, Guaraní Ñandeva, Guaraní Occidental**. Pero:
+
+- La **mayoría de la población paraguaya no es indígena**: es mestiza (a veces autodenominada *koygua* o *paraguayo*) y habla guaraní paraguayo, no guaraní mbya.
+- La cultura folklórica paraguaya (chipa, ñandutí, polka, traje típico, San Juan, tereré urbano) es **mestiza**, no indígena.
+- Lo "indígena guaraní" propiamente dicho (Mbya, Pãi, Avá, Aché) tiene marcadores visuales propios.
+
+**Marcadores visuales paraguayo mestizo vs indígena:**
+- Jeans + remera + termo y guampa, en ciudad o ruta → paraguayo cotidiano (la norma).
+- Typói bordado + pollera de volantes + peinado con flores → paraguaya en traje folklórico (festival, escuela, danza).
+- Tipoy plano de algodón crudo + collares de semillas + entorno selvático + opy de palmas → indígena (Mbya, Avá, Pãi).
+- Hombre con jeguaka (corona de plumas) y mbaraka en círculo de tierra → ceremonia indígena, no folklore.
+
+> ⚠ Para el captioning, conviene preferir **paraguayo/a** o **kuña paraguáya / karai paraguáyo** cuando el sujeto sea mestizo, y reservar **Mbya, Avá, Pãi** cuando se vean marcadores específicos.
+
+---
+
+## 4. Vestimenta
+
+*La inmensa mayoría de fotos cotidianas mostrará ropa moderna común. El traje típico aparece principalmente en festivales, danza, escuelas el 14 de mayo, fiestas patronales y eventos religiosos.*
 
 **Traje folklórico femenino:**
-- **Typói** *(blusa de ao po'i, algodón blanco fino)*: escote amplio redondo bordado en negro, rojo o color, mangas tres cuartos rematadas con **encaje ju** *(encaje de bolillos)*; un hombro a veces cae descubierto.
-- **Pollera** larga hasta los tobillos, amplia, con uno o dos volados fruncidos; suele ser blanca, color sólido o estampada.
-- **Mantilla de ñandutí** atada en un hombro y cruzada al costado.
+- **Typói** *(blusa de **ao po'i**, algodón fino blanco)*: escote amplio redondo bordado en negro, rojo u otro color; mangas tres cuartos rematadas con **encaje ju** *(encaje de bolillos)*; un hombro a veces cae descubierto.
+- **Pollera** larga hasta los tobillos, amplia, con uno o dos volados fruncidos.
+- **Mantilla de ñandutí** atada al hombro y cruzada al costado.
 - Peinado: dos trenzas largas con moño en las puntas, adornadas con flores frescas (jazmín, rosa).
 - Joyas: rosario de filigrana (**tupãsy**), peinetas, aretes de oro, collares de coral.
 
 **Traje folklórico masculino:**
-- **Camisa de ao po'i** blanca con bordados a tono en pecho, puños y cuello.
+- Camisa de **ao po'i** blanca con bordados a tono en pecho, puños y cuello.
 - Pantalón recto oscuro (negro habitual).
 - **Faja** de seda o lana negra con flecos, o trenzada de algodón multicolor.
 - **Pañuelo** blanco o negro anudado al cuello en triángulo.
 - **Sombrero piri** *(de paja, cinta negra)*; **poncho para'i de 60 listas** sobre el hombro.
 - Frecuentemente descalzo o con zapato negro simple.
 
-**Vestimenta indígena Mbya/Avá/Pãi (cuando aparezca):**
-- **Tipoy** *(vestido recto sin mangas, hasta las rodillas)* en algodón o tela industrial; en fiestas se usa con bordados sencillos.
-- **Jeguaka** *(corona/diadema ritual de plumas)* en hombres en ceremonias, no a diario.
-- **Mbaraka** *(maraca de calabaza)* y **takua** *(bastón rítmico de bambú golpeado por mujeres)* en danzas religiosas.
-- Pintura corporal con **urucú** *(rojo de Bixa orellana)* en ceremonias.
+**Vestimenta indígena (Mbya, Avá, Pãi, Aché) — solo cuando aparezca explícitamente:**
+- **Tipoy** *(vestido recto sin mangas hasta las rodillas)* en algodón o tela industrial.
+- **Jeguaka** *(diadema/corona ritual de plumas)* en hombres durante ceremonias.
+- **Tembetá** *(adorno labial de madera o piedra)*, hoy residual.
+- Pintura corporal con **urucú** *(rojo de Bixa orellana)*; motivos zigzagueantes o rómbicos en ceremonias.
 - En la vida diaria, ropa industrial común; el folklore mediático suele exagerar lo "tradicional".
 
 **Señales visuales:**
 - Bordados blancos sobre fondo blanco → ao po'i.
 - Encaje circular policromo en abanicos radiales → ñandutí.
+- Mujer con varias botellas equilibradas en la cabeza → galopera (no traje cotidiano).
 - Hombre con poncho a rayas finas y sombrero de paja → traje típico paraguayo, no necesariamente gaucho.
-- Mujer con botellas en la cabeza bailando → galopera (no traje cotidiano).
 
 ---
 
-### 18. Arquitectura y vivienda
+## 5. Arquitectura y vivienda
 
 **Vivienda rural mestiza tradicional:**
-- **Kuláta jovái** *("culatas enfrentadas")*: planta simétrica con un espacio central abierto (**koty guasu**) y dos cuartos a los costados. Es el prototipo del rancho paraguayo.
-- **Ógaguy / korredor / korredor jere** *(galería frontal, lateral o períptera)*: alero ancho que rodea la casa, con horcones de madera; espacio social principal donde se cuelga la **kyha** *(hamaca)*, se ceba tereré y reciben visitas.
-- Paredes de **estaqueo** *(palos verticales rellenos de barro)* o **adobe** revocado; en versiones más pobres, **takuára** *(bambú)* y bosta + arcilla.
+- **Kuláta jovái** *("culatas enfrentadas")*: planta simétrica con un espacio central abierto (**koty guasu**) y dos cuartos laterales. Prototipo del rancho paraguayo.
+- **Ógaguy / korredor / korredor jere** *(galería frontal, lateral o períptera)*: alero ancho con horcones de madera; espacio social principal donde se cuelga la **kyha** y se ceba tereré.
+- Paredes de **estaqueo** *(palos verticales rellenos con barro)* o **adobe** revocado; en versiones más pobres, **takuára** *(bambú)* y mezcla de bosta + arcilla.
 - **Techo de paja kapi'í** quinchada sobre cumbrera de madera, dos aguas; en casas más modernas, tejas o chapa de zinc.
 - Piso de tierra apisonada o ladrillo.
-- Detrás: **tatakua** (horno), pozo, gallinero, plantación de mandi'o.
+- Detrás: **tatakua** (horno), pozo de balde, gallinero, plantación de mandi'o.
 
-**Vivienda urbana:**
-- Asunción centro: casas coloniales bajas, fachada continua a la vereda, ventanas con rejas de hierro forjado, patio interior con galería; pintadas de blanco, ocre o pastel.
-- Barrios populares: casas de ladrillo a la vista, techo de chapa, frente con portón corredizo de hierro.
-- Edificios modernos en torres en la zona financiera (Asunción centro, Villa Morra, Las Mercedes).
+**Vivienda urbana paraguaya:**
+- Asunción centro: casas coloniales bajas de fachada continua, ventanas con rejas de hierro forjado, patio interior con galería; pintadas en blanco, ocre o pastel.
+- Barrios populares: casas de ladrillo a la vista, techo de chapa, frente con portón corredizo de hierro, antena DirecTV, motos estacionadas.
+- Edificios modernos en torres en zona financiera (Asunción centro, Villa Morra, Las Mercedes).
 
 **Misiones Jesuíticas (Trinidad, Jesús, San Cosme, Santa María de Fe):**
-- Ruinas en **piedra arenisca roja**, sillares; estilo barroco hispano-guaraní.
-- Plaza mayor cuadrada con iglesia mayor, casas de indios alineadas, talleres, cementerio.
+- Ruinas en **piedra arenisca roja**, sillares; estilo barroco hispano-guaraní (s. XVII–XVIII).
+- Plaza mayor cuadrada, iglesia mayor, casas de indios alineadas, talleres, cementerio.
 - Frisos labrados con **ángeles músicos**, motivos vegetales locales (yvyra pytã, mbokaja).
 - Tono dominante: rojizo de la arenisca contra el verde del bosque atlántico.
 
+**Vivienda Mbya Guaraní:**
+- Casa pequeña de palmas y madera, sin ventanas, suelo de tierra.
+- **Opy / óga guasu** (templo): construcción comunitaria de palmas, techo a dos aguas muy bajo, sin paredes laterales completas; donde se realiza el **ñembo'e jeroky** (rezo-danza).
+
 **Señales visuales:**
-- Techo de paja en capas + galería con horcones → rancho paraguayo, no rancho gaucho argentino (este último suele tener mojinetes y blanqueado).
-- Bóveda baja de ladrillos visibles con boca de un metro → tatakua.
-- Pared roja-anaranjada con motivos labrados, sin techo → ruina jesuítica, no edificio activo.
+- Techo de paja en capas + galería con horcones → rancho paraguayo, no rancho gaucho argentino (este último suele tener mojinetes blanqueados y aire pampeano).
+- Bóveda baja de ladrillos visibles con boca de un metro → tatakua, no horno de pizzería.
+- Pared rojo-anaranjada con motivos labrados, sin techo → ruina jesuítica.
 
 ---
 
-### 19. Tatakua y otros utensilios domésticos visibles
+## 6. Utensilios domésticos y herramientas
 
-- **Tatakua** *("agujero de fuego")*: horno abovedado de barro y ladrillo en forma de cúpula, con boca de unos 60–80 cm; suele estar en el patio sobre una base de piedra o ladrillo. Usado para chipa, sopa paraguaya, mbeju, chipa guasu, asado.
-- **Angu'a** *(mortero)*: tronco ahuecado de madera dura, con mano larga; aún se usa para machacar maíz, mandioca o yuyos. En el tereré, el angu'a pequeño machaca pohã ñana.
-- **Kyha** *(hamaca paraguaya)* de algodón o ñandutí, colgada en la galería; muy ancha, sin flecos como la mexicana.
-- **Guampa**: vaso para tereré, originalmente de cuerno vacuno, hoy también de madera, palo santo, acero forrado en cuero, o porongo.
+- **Tatakua** *("agujero de fuego")*: horno abovedado de barro y ladrillo en forma de cúpula, boca de 60–80 cm; sobre base de piedra o ladrillo. Usado para chipa, sopa paraguaya, mbeju, chipa guasu, asado. Especialmente activo en Semana Santa.
+- **Angu'a** *(mortero)*: tronco ahuecado de madera dura con mano larga; aún usado para machacar maíz, mandioca y yuyos. Versión pequeña: **angu'a'i** para pohã ñana.
+- **Kyha** *(hamaca paraguaya)*: tejida en algodón o ñandutí, ancha, sin flecos como la mexicana; colgada en la galería.
+- **Guampa**: vaso para tereré; originalmente de cuerno vacuno, hoy también de madera, palo santo, acero forrado en cuero, o porongo.
 - **Bombilla**: caña metálica con filtro, para sorber tereré/mate.
-- **Termo**: cilíndrico, de plástico o acero, decorado con cuero repujado o estampados (banderas, equipos de fútbol). Casi siempre acompaña a la guampa.
-- **Ajaka**: canasto trenzado de tacuara o karanda'y, plano y ancho, usado por chiperas para cargar la mercadería en la cabeza, cubierto con un paño de **ao po'i**.
-- **Apyteha'o**: rodete de tela enrollada que se coloca entre la cabeza y el ajaka.
+- **Termo**: cilíndrico, de plástico o acero, decorado con cuero repujado o estampado (banderas, escudos de fútbol). Casi siempre acompaña a la guampa.
+- **Ajaka**: canasto trenzado de tacuara o karanda'y, plano y ancho; usado por chiperas con paño de **ao po'i** encima.
+- **Apyteha'o**: rodete de tela enrollada que se coloca entre la cabeza y el ajaka para distribuir el peso.
 - **Cocina a leña**: fogón con tres piedras o trípode de hierro; pava de aluminio ennegrecida.
-- **Carro de bueyes** *(carreta)* con ruedas de madera maciza, aún visible en zonas rurales del Chaco e interior.
+- **Carro de bueyes** *(carreta)* con ruedas de madera maciza, todavía visible en zonas rurales del Chaco e interior.
+- **Machete** y **azada (asáda)**: herramientas estándar del agricultor.
+- **Kambuchi**: cántaro de barro, panzón, color terracota; típicamente de Areguá o Tobatí.
 
 ---
 
-### 20. Festividades y eventos religiosos visibles
+## 7. Alimentación tradicional
 
-**San Juan Ára (24 de junio y todo junio)** — fiesta del fuego, sincretismo hispano-guaraní:
-- **Tatápe jehasa / tatapýi ári jehasa** *(caminar sobre brasas)*: alfombra de carbones encendidos de 3–5 m, gente descalza caminando.
-- **Pelota tata** *(pelota encendida)*: pelota de trapo empapada en kerosene, ardiendo, pateada entre la concurrencia.
-- **Toro candil**: armazón de madera y trapos en forma de toro con cuernos en llamas; un hombre lo lleva mientras "embiste".
-- **Yvyra sỹi** *(palo enjabonado)*: poste vertical engrasado, premio en la punta.
-- **Kambuchi jejoka**: cántaro colgado, lleno de premios, roto a palos con ojos vendados.
-- **Paila jeheréi**: lamer una sartén con monedas pegadas con caramelo.
-- **Judas kái**: muñeco de trapo relleno de petardos, colgado y quemado.
-- **Casamiento koygua**: boda paródica.
-- **Pruebera**: adivinadora con cartas.
-- Comidas típicas: chipa, mbeju, **pajagua mascada** *(croqueta de mandioca y carne)*, **pastel mandi'o**, **chicharõ trenzado**, sopa paraguaya, **batiburrillo**, **kosereva** *(dulce de naranja agria)*, **mbaipy he'ẽ** *(polenta dulce de maíz)*.
+Base agrícola: **mandi'o** (mandioca/yuca), **avati** (maíz), poroto, batata, queso fresco, carne vacuna y porcina.
+
+**Platos típicos visibles:**
+- **Chipa**: pan-rosca de almidón de mandioca con queso y huevo, color amarillo dorado, textura granulosa; forma de argolla, palomita (**lopi**) o yacaré en Semana Santa. Centros: Eusebio Ayala (Barrero), Coronel Bogado, Caacupé.
+- **Sopa paraguaya**: paradójicamente sólida; pan de maíz amarillo con queso y cebolla, cortado en cuadrados; corteza dorada.
+- **Chipa guasu**: torta de choclo (maíz tierno) y queso; textura más húmeda y grumosa que la sopa paraguaya, color amarillo claro.
+- **Mbeju**: tortilla densa de almidón de mandioca y queso, redonda, dorada, cocinada en sartén.
+- **Mbaipy he'ẽ**: polenta dulce de maíz, color amarillo intenso.
+- **Vori vori**: caldo con bolitas pequeñas de harina de maíz y queso; a veces con pollo (vori vori de gallina).
+- **Pajagua mascada**: croqueta achatada de mandioca cocida y carne molida, frita.
+- **Pastel mandi'o**: empanada de masa de mandioca con relleno de carne, frita.
+- **Chicharõ trenzado**: tira de cerdo frita y trenzada.
+- **Asado**: parrilla con costilla, vacío, chorizo, mollejas; común en domingos y festividades. *No es exclusivo del Paraguay.*
+- **Reviro**: especie de tortilla migada de harina y huevo, desayuno popular.
+- **Locro**, **puchero**: guisos.
+- **Kosereva**: dulce de naranja agria, en almíbar oscuro.
+- **Dulce de mamón** (papaya verde rallada en almíbar), dulce de guayaba (arasa), dulce de batata.
+
+**Señales visuales:**
+- Argolla amarilla horneada con grietas superficiales → chipa.
+- Cuadrado de pan amarillo con corteza tostada → sopa paraguaya.
+- Olla de caldo con bolitas blancas flotando → vori vori.
+
+---
+
+## 8. Bebidas y pohã ñana
+
+**Tereré** (declarado patrimonio cultural inmaterial UNESCO, 2020):
+- Infusión **fría** de yerba mate con agua y mucho hielo, a menudo con **pohã ñana** machacados.
+- Recipientes: **guampa** + **bombilla** + **termo** con agua helada.
+- Acto social: misma guampa rota por el grupo, el más joven ceba.
+- **Tereré rupá** *("cama del tereré")*: bocadillo previo a media mañana — chipa, empanada, sándwich de milanesa, marinera.
+- Variante **tereré ruso**: con jugo cítrico en vez de agua.
+
+**Mate**: versión caliente, mismo recipiente, más asociado al desayuno frío del invierno.
+
+**Mate cocido**: yerba en saquito con agua hervida, a veces con leche, desayuno popular.
+
+**Cocido quemado**: yerba quemada con azúcar al carbón, color caramelo intenso.
+
+**Caña**: aguardiente de caña de azúcar, transparente, alto grado.
+
+**Mosto**: jugo fresco de caña de azúcar exprimida en trapiche callejero.
+
+**Clericó**: ponche frutal con vino, de fiestas familiares.
+
+**Pohã ñana** (hierbas medicinales — visible en mercados como manojos verdes machacados en mortero):
+- Refrescantes (**pohã ro'ysã**): **menta'i** *(menta pequeña, para los nervios)*, **kokũ** *(para el hígado)*, **cedrón Paraguay**, **cedrón kapi'i**, **kapi'i kati**, **perdudilla blanca**, **santa lucía**, **batatilla**, **zarzaparrilla**, **mbokaja'i**.
+- Digestivos: **burrito**, **hinojo**, **anís**, **jaguarete ka'a**, **typycha kuratũ**.
+- Respiratorios: **eucalipto**, **urusu he'ẽ**, **agrial**.
+- Para los riñones: **parapara'i**, **cola de caballo**, **uña de gato**.
+- Antirreumáticos: **tarope**, **ysypo mil hombres**.
+- Tranquilizantes: **mburukuja**, **manzanilla**, **siempreviva**, **toronjil**.
+- Para diabetes: **jaguarete po**.
+
+**Señales visuales:**
+- Manojos de hojas verdes frescas atados con piolín, sobre cajón de madera → puesto de yuyera.
+- Mujer machacando hojas en mortero pequeño con mango largo → preparación de tereré con pohã ñana.
+- Termo con guampa de cuero negro y banderita → tereré, no mate uruguayo (este suele usar mate de calabaza redondo).
+
+---
+
+## 9. Flora y fauna — vocabulario guaraní
+
+**Árboles emblemáticos:**
+- **Tajy / lapacho**: flores en racimos densos rosa, amarillo o blanco que aparecen en agosto cuando el árbol está sin hojas. Variantes: **tajy hũ** (negro), **tajy sa'yju** (amarillo). *No confundir con jacarandá (flores azul-violetas, hojas finas pinnadas).*
+- **Yvyra pytã**: flores amarillas vistosas en racimos en primavera; árbol grande de copa ancha.
+- **Samu'û / palo borracho**: tronco verde-grisáceo abultado con espinas, flores rosadas en primavera-verano.
+- **Karanda'y**: palmera con hojas en forma de abanico; usada para tejido.
+- **Mbokaja**: cocotero (Acrocomia aculeata), tronco con espinas, racimos de fruto pequeño anaranjado.
+- **Pindo**, **jata'i**: palmeras de coquito.
+- **Ygary** *(cedro)*: árbol sagrado para los Mbya.
+- **Urunde'y**, **kurupa'y**, **timbo**, **guajayvi**, **peterevy**, **palo santo**, **quebracho**: maderas duras.
+- **Yerba mate** *(Ilex paraguariensis)*: arbusto perenne, hojas duras verde oscuro; en plantaciones en hileras geométricas en Itapúa, Alto Paraná, Caaguazú.
+- **Takuára**: bambú grueso; **takuarilla**: bambú fino para pandorga.
+
+**Frutas:**
+- **Arasa** (guayaba), **aratiku** (chirimoya), **ñangapiry** (pitanga, frutito rojo acanalado), **mamón** (papaya), **mburukuja** (pasionaria; flor nacional del Paraguay).
+- Silvestres: **pakuri**, **guavira**, **yvapurû**, **yvapovô**, **jakarati'a**, **inga**.
+- **Mandi'o / mandioca**: raíz alargada marrón con interior blanco; cultivo básico, hojas palmeadas.
+- **Avati** (maíz); **avatiky** (choclo tierno).
+
+**Animales:**
+- Domésticos: **jagua** (perro), **mbarakaja** (gato), **ryguasu** (gallina), **ryguasu mé** (gallo), **vaka** (vaca), **kavaju** (caballo), **kure** (cerdo), **ovecha** (oveja).
+- Silvestres: **jaguarete** (jaguar/yaguareté), **tatu** (armadillo), **kapi'yvâ** (carpincho), **akuti** (agutí), **mbói** (serpiente), **jakare** (yacaré), **karumbe** (tortuga), **mykurê** (zarigüeya).
+- Aves: **guyra** (pájaro genérico), **pykasu** (paloma), **mainumby** (colibrí), **tuka** (tucán), **ñandu** (ñandú; también nombra al arácnido tejedor → ñandutí), **chesy** (chajá), **caburé** (lechucita asociada a pajé).
+- **Panambi** (mariposa), **jate'i** (abeja silvestre), **kavichu'i** (avispa), **eira** (miel).
+
+---
+
+## 10. Glosario visual: colores, tamaños, materiales
+
+- **Morotĩ** (blanco), **pytã** (rojo), **hũ** (negro), **sa'yju** (amarillo), **hovy** (azul/verde — el guaraní no distingue los dos), **kara'ã** (gris).
+- **Guasu** (grande), **mirĩ** / **'i** (pequeño, sufijo).
+- **Po'i** (fino, delgado), **piru** (flaco/seco), **karẽ** (torcido), **vera** (brillante), **pyahu** (nuevo), **tuja** (viejo).
+- **Yvyra** (madera/palo/árbol), **ita** (piedra), **tuju** (barro), **arai** (nube), **ára** (cielo, día, tiempo), **yvy** (tierra), **y** (agua), **yvytu** (viento), **kuarahy** (sol), **jasy** (luna), **mbyja** (estrella), **tata** (fuego), **tanimbu** (ceniza).
+- **Óga** (casa); **óga guasu** (casa grande / templo); **kotyha** (habitación); **ao** (ropa, tela); **kambuchi** (cántaro); **kambuchi y'a** (cántaro de agua); **mbaraka** (maraca / instrumento de cuerda); **ajaka** (canasto); **kyha** (hamaca); **apyka** (banco/silla).
+
+---
+
+## 11. Mercados y economía popular
+
+- **Mercado 4** (Asunción): el más grande; venta de comida, ropa, electrónica, artesanía. Dentro está el **Paseo de los Yuyos**, herboristería al aire libre.
+- **Mercado de Abasto**: mayorista de frutas y verduras.
+- **Mercado Central de Luque**: artesanía, instrumentos, joyería de filigrana.
+- **Ciudad del Este — Microcentro**: comercio fronterizo, productos importados, locales abigarrados con cartelería intensa.
+- **Ferias semanales** en plazas de pueblos del interior los sábados.
+
+**Señales visuales:**
+- Toldo de plástico azul o naranja con mercadería en cajones → puesto de mercado.
+- Manojos verdes atados con piolín sobre tabla → puesto de yuyera.
+- Mujer sentada en banquito bajo con balde y termo → vendedora ambulante.
+
+---
+
+## 12. Ocupaciones y figuras visibles habituales
+
+- **Chipera**: mujer (a veces hombre, **chipero**) con un **ajaka** lleno de chipa equilibrado en la cabeza, cubierto con paño de ao po'i; usa **apyteha'o** debajo. Camina junto a rutas (km 67-69 ruta 2 en Eusebio Ayala), terminales y estadios.
+- **Yuyera**: mujer mayor que vende manojos de pohã ñana frescos; en esquinas céntricas de Asunción y en el Paseo de los Yuyos del Mercado 4. Machaca yuyos en angu'a sobre cajón de madera.
+- **Olero / Ceramista**: trabaja barro a mano. Centros: **Itá, Areguá, Tobatí**. Piezas: figuras antropomorfas, jarras, ollas, pesebres, escenas costumbristas. Tradición femenina (Rosa Brítez, Julia Isidrez, Ediltrudis Noguera).
+- **Arenero**: extrae arena del río con pala, la transporta en carro tirado por caballo o burro.
+- **Vendedor ambulante**: en autopistas y semáforos; ofrece pororó, chipa, frutas, cargadores.
+- **Agricultor**: sombrero piri, machete al cinto, camisa manga larga; cultivos de mandioca, maíz, soja, algodón, sésamo, tabaco.
+- **Lavandera**: en arroyos o patios; ropa tendida en alambres entre árboles.
+- **Motoquero / motodelivery**: repartidor en moto, omnipresente en Asunción.
+- **Galopera**: mujer con typói bailando equilibrando varias botellas en la cabeza; aparece en festivales.
+- **Mensú** (histórico): peón de yerbales, casi extinto; aparece principalmente en arte e iconografía.
+
+---
+
+## 13. Artesanía
+
+- **Ñandutí** *("tela de araña")*: encaje radial circular tejido sobre bastidor; hilos blancos o de colores; diseños geométricos y florales. Centro: Itauguá. Las grandes piezas pueden tomar meses.
+- **Ao po'i**: tela de algodón fino bordada a mano, mayoritariamente en blanco sobre blanco; producción centrada en Yataity (Guairá). Camisas, manteles, blusas.
+- **Encaje ju**: encaje de bolillos hecho a mano; usado en mangas del typói.
+- **Poyvi**: manta tejida en telar de cintura, rayada, en algodón o lana.
+- **Filigrana de plata**: joyería trenzada finísima; rosarios, peinetas, aros. Centros: Luque, Itá.
+- **Cerámica**: Itá (rojiza, modelado a mano, técnica de **colombín**); Areguá (más fina, torno y horno); Tobatí (piezas grandes).
+- **Tejido de karanda'y**: sombreros piri, esteras, canastos.
+- **Tallado en madera**: figuras religiosas en madera policromada (herencia jesuítica), instrumentos.
+- **Cuero crudo**: aperos de caballo, fundas de guampa.
+- **Cestería Mbya**: canastos de takuapí con motivos geométricos negros y amarillos, vendidos en rutas y centros turísticos.
+
+---
+
+## 14. Música y danza
+
+**Instrumentos:**
+- **Arpa paraguaya**: 36–40 cuerdas, sin pedales, madera clara; tocada de pie o sentado, instrumento emblemático.
+- Guitarra y **requinto** (guitarra menor de tono más agudo).
+- **Acordeón / bandoneón** en conjunto típico.
+- Mbya: **mbaraka** (maraca de calabaza con semillas), **takua** (bastón rítmico de bambú golpeado contra el suelo por mujeres), **rave** (violín pequeño de tres cuerdas).
+
+**Géneros:**
+- **Polka paraguaya**: ritmo binario rápido, alegre; *no es la polka centroeuropea*.
+- **Guarania**: género lento y melancólico, creado por José Asunción Flores en 1925.
+- **Galopa**: ritmo intermedio asociado a la danza de las galoperas.
+- **Purahéi jahe'o**: canto-llanto, lento y emotivo.
+
+**Danzas:**
+- **Polca jeroky** y **Galopa jeroky**: danzas de pareja con coreografía folklórica.
+- **Danza de la botella / galopa**: mujer con typói equilibra una botella (o varias, hasta 10–15) en la cabeza mientras baila; típica de festivales y vigilias religiosas.
+- **Solito**: hombre baila con una escoba que cede a otro.
+- **Chamamé**: género compartido con NE argentino, tocado con acordeón y guitarra.
+
+**Banda koygua**: charanga rural típica de fiestas patronales — bombo, redoblante, platillos, bronces; viste informalmente.
+
+---
+
+## 15. Religión y festividades
+
+Catolicismo predominante con sincretismo guaraní. Religiosidad popular muy visible (capillas rurales, altares, imágenes en los hogares).
 
 **Caacupé (8 de diciembre):**
-- Peregrinación masiva a la **Basílica de Caacupé** (cúpula azul); muchos peregrinos caminan desde Asunción (54 km) durante toda la noche del 7 al 8.
-- Imagen de la **Virgen de los Milagros / Virgen Azul**: pequeña talla en madera, manto azul con flores de **mburukuja** (pasiflora), parada sobre globo terráqueo azul con tres estrellas doradas y la cinta tricolor paraguaya, a sus pies serpiente. En procesiones se usan andas de plata.
-- Vigilia con galoperas (mujeres equilibrando botellas en la cabeza).
-- Gigantesca aglomeración con velas, banderas paraguayas y pancartas devocionales.
+- Peregrinación masiva a la **Basílica de Caacupé** (cúpula azul); muchos peregrinos caminan los 54 km desde Asunción durante la noche del 7 al 8.
+- Imagen de la **Virgen de los Milagros / Virgen Azul**: pequeña talla en madera (~50 cm), manto azul con flores de **mburukuja** (pasiflora), parada sobre globo terráqueo azul con tres estrellas doradas y la cinta tricolor paraguaya, serpiente a sus pies. En procesiones, andas de plata cincelada.
+- Vigilia con galoperas, banda, fuegos artificiales; aglomeraciones con velas, banderas paraguayas, pancartas devocionales.
+
+**San Juan Ára (24 de junio y todo junio):**
+Fiesta del fuego, sincretismo hispano-guaraní; hoy se celebra en clubes, escuelas, plazas:
+- **Tatápe jehasa / tatapýi ári jehasa**: alfombra de carbones encendidos de 3–5 m, gente descalza caminando.
+- **Pelota tata**: pelota de trapo empapada en kerosene, ardiendo, pateada entre la concurrencia.
+- **Toro candil**: armazón de madera con trapos en forma de toro y cuernos en llamas; un hombre lo lleva mientras embiste.
+- **Yvyra sỹi** *(palo enjabonado)*: poste vertical engrasado, premio en la punta.
+- **Kambuchi jejoka**: cántaro colgado con premios, roto a palos con ojos vendados.
+- **Paila jeheréi**: lamer una sartén con monedas pegadas con caramelo.
+- **Judas kái**: muñeco de trapo relleno de petardos, colgado y quemado.
+- **Casamiento koygua**: boda paródica; **pruebera**: adivinadora con cartas.
+- Comidas típicas: chipa, mbeju, pajagua mascada, pastel mandi'o, chicharõ trenzado, sopa paraguaya, batiburrillo, kosereva, mbaipy he'ẽ.
 
 **Semana Santa:**
-- Encendido masivo de tatakuas para hornear chipa.
-- Procesiones con cruces (kurusu).
-- Sopa paraguaya, chipa, chipa guasu en las mesas.
+- Encendido masivo de tatakuas para hornear chipa (incluida la **chipa kandói / chipa manduvi** con maní).
+- Procesiones con **kurusu** (cruz) y velas.
+- Vigilia y misa de Pascua.
 
-**Fiestas patronales locales:** bandas **koygua** (charanga rural), procesión del santo, fuegos artificiales, comida abundante.
+**Fiestas patronales locales** (santo del pueblo): banda koygua, procesión con anda, kermés, juegos típicos, comida, baile hasta la madrugada.
 
-**Carnaval Encarnaceno** (Encarnación): comparsas con plumas y trajes brillantes, similar a Río pero menor escala — no exclusivamente "guaraní", es importación brasileña.
+**Carnaval Encarnaceno** (febrero): comparsas con plumas y trajes brillantes; importación brasileña, no marcador étnico guaraní.
 
-**Señales visuales:**
-- Brasas extendidas + gente descalza saltando → tatápe jehasa, no parrillada.
-- Cúpula azul con domo blanco + multitud → Basílica de Caacupé.
-- Mujer con varias botellas equilibradas en la cabeza → galopera.
+**Día de la Tradición / 14 de mayo (Independencia):** desfiles escolares con traje típico, banderas paraguayas (rojo-blanco-azul horizontales).
+
+**Otros marcadores religiosos visibles:**
+- Capillas rurales pequeñas blancas con espadaña de campana.
+- Altares domésticos con velas, estampas, flores y rosarios.
+- **Kurusu vera**: cruces metálicas brillantes plantadas en la tierra como recuerdo en accidentes.
+- **Pesebres de barro** modelados por ceramistas en Itá y Areguá.
 
 ---
 
-### 21. Juegos tradicionales infantiles y pasatiempos
+## 16. Juegos tradicionales infantiles y pasatiempos
 
-- **Pandorga** *(barrilete/cometa)*: estructura de palillos de **takuarilla**, papel de colores con flecos y cola de tela; volada en patios o calles de tierra en días de viento, principalmente en agosto.
-- **Trompo**: peonza de madera dura (**guayabo**, **arasa**, **sapirangy**) con púa de clavo; se enrolla con piolín, se lanza, gira en el suelo. Variantes: trompo sele, trompo kora.
-- **Valita / balita** *(bolitas)*: bolitas de cristal, acero o coco; juego de varones, en hoyo o **kora'i** (círculo trazado en la tierra).
-- **Tikichuela / pisa-pizuela**: rayuela; cuadrículas trazadas en tiza o palito sobre tierra.
-- **Kambuchi jejoka**: piñata de barro con premios, rota con los ojos vendados (común en San Juan).
+- **Pandorga** *(barrilete/cometa)*: estructura de palillos de takuarilla, papel de colores con flecos y cola de tela; volada en patios y calles de tierra en agosto, mes de mucho viento. Formas: hexagonal, rectangular, kururu, avión.
+- **Trompo**: peonza de madera dura (**guayabo**, **arasa**, **sapirangy**) con púa de clavo; se enrolla con piolín, se lanza, baila al caer. Modalidades: trompo sele, trompo kora, trompo arasa.
+- **Valita / balita** *(bolitas)*: bolitas de cristal, acero o coco mascado por vacas; juego mayoritariamente de varones, en hoyo o en **kora'i** (círculo trazado en la tierra).
+- **Tikichuela / pisa-pizuela**: rayuela; cuadrículas dibujadas con tiza o palito.
+- **Kambuchi jejoka**: cántaro-piñata de barro con premios, golpeado con palo y ojos vendados (también juego de San Juan).
 - **Gallito ciego**: vendado, atrapar a otros.
-- **Tuka'ẽ**: rayuela con piedra.
-- **Pasará-pasará**: ronda con cantos.
+- **Tuka'ẽ**: rayuela con piedra; **pasará-pasará**: ronda con cantos.
 - **Piki pyta**: variante de escondite-corrida.
-- **Solterona**, **Un, do, tre, miro**, **karrera vosa** *(carrera de bolsas)*.
+- **Solterona**, **Un, do, tre, miro**, **karrera vosa** *(carrera de bolsas)*, **kuäirũ kañy** *(anillo perdido)*, **cinto kañy**.
+- **Maravichu** (adivinanzas tradicionales).
 
 **Señales visuales:**
-- Cometa de papel hexagonal con cola larga → pandorga (más casera y simple que un kite deportivo).
+- Cometa de papel hexagonal con cola larga → pandorga (más artesanal que un kite deportivo).
 - Niños sentados en círculo en la tierra con bolitas → valita.
 
 ---
 
-### 22. Glosario visual guaraní (objetos, plantas, animales, colores)
+## 17. Deportes y vida moderna
 
-*Para uso del modelo: cuando reconozca estos elementos, prefiera el sustantivo guaraní apropiado.*
-
-**Plantas y árboles:**
-- **Tajy** / lapacho — árbol emblemático, flores rosadas, amarillas o blancas en racimos en agosto (sin hojas).
-- **Yvyra pytã** — flores amarillas vistosas en primavera.
-- **Samu'û** — palo borracho, tronco abultado verde-grisáceo con espinas.
-- **Karanda'y** — palmera con hojas en forma de abanico.
-- **Mbokaja** — coco/cocotero (Acrocomia aculeata), tronco con espinas, fruto pequeño anaranjado.
-- **Pindo** / **jata'i** — palmeras de coquito.
-- **Ygary** — cedro, sagrado para los Mbya.
-- **Urunde'y**, **kurupa'y**, **timbo**, **guajayvi** — árboles madereros.
-- **Yerba mate** — *Ilex paraguariensis*; arbusto perenne, hojas duras verde oscuro.
-
-**Frutas:**
-- **Arasa** — guayaba.
-- **Aratiku** — chirimoya.
-- **Mburukuja** — fruto de pasionaria; flor nacional del Paraguay.
-- **Ñangapiry** — pitanga, frutito rojo acanalado.
-- **Pakuri**, **guavira**, **yvapurû**, **yvapovô**, **jakarati'a** — frutos silvestres.
-- **Mamón** — papaya.
-- **Mandi'o / mandioca** — raíz alargada marrón con interior blanco; alimento básico.
-- **Avati** — maíz; **avatiky** = choclo tierno.
-
-**Animales:**
-- **Jagua** — perro; **jaguarete** — jaguar; **mbarakaja** — gato.
-- **Ryguasu** — gallina; **ryguasu mé** — gallo.
-- **Vaka** / **mymba** — vaca/ganado; **kavaju** — caballo; **kure** — cerdo.
-- **Mbói** — serpiente.
-- **Jakare** — yacaré.
-- **Panambi** — mariposa.
-- **Pykasu** — paloma; **mainumby** — colibrí; **tuka** — tucán; **guyra** — pájaro genérico.
-- **Karumbe** — tortuga.
-- **Tatu** — armadillo.
-- **Kapi'yvâ** — carpincho.
-- **Ñandu** — ñandú; también arácnido tejedor → de ahí ñandutí.
-
-**Colores y propiedades visuales:**
-- **Morotĩ** — blanco; **pytã** — rojo; **hũ** — negro; **sa'yju** — amarillo; **hovy** — azul/verde; **kara'ã** — gris.
-- **Guasu** — grande; **mirĩ** / **'i** — pequeño; **po'i** — fino, delgado; **piru** — flaco/seco; **karẽ** — torcido; **vera** — brillante.
-
-**Objetos cotidianos:**
-- **Óga** — casa; **óga guasu** — casa grande, también templo Mbya.
-- **Kyha** — hamaca; **apyka** — banco/silla.
-- **Ao** — ropa, tela; **ao po'i** — tela fina.
-- **Kambuchi** — cántaro de barro.
-- **Yrenda / kambuchi y'a** — cántaro de agua.
-- **Mbaraka** — maraca/guitarra (genérico para instrumento de cuerda).
-- **Ajaka** — canasto.
-- **Tata** — fuego; **tatakua** — horno; **tanimbu** — ceniza.
+- **Fútbol**: deporte central. Equipos populares: **Olimpia** (negro y blanco, franja vertical), **Cerro Porteño** (azul y rojo, "Ciclón"), **Libertad** (negro y amarillo, "Gumarelo"), **Guaraní** (rojo y blanco a rayas, "El Aborigen / El Legendario"). Selección nacional **La Albirroja** (rayas blancas y rojas verticales). Estadio **Defensores del Chaco** (Asunción), **La Nueva Olla** (Cerro), **La Huerta** (Olimpia). Hinchas con bombo, cornetas, banderas extensas.
+- **Asado**: parrilla con costilla, vacío, chorizo, mollejas; común en domingos y festividades. *Compartido con Argentina, Uruguay, sur de Brasil.*
+- **Pesca** en los ríos Paraguay y Paraná: pacú, dorado, surubí, mandi'í; cañas y lanchas pequeñas.
+- **Tereré rupá**: refrigerio matutino antes del tereré.
+- **Vida urbana**: motos como medio de transporte popular, shoppings (Mariscal, Del Sol, Paseo La Galería), ferias de artesanía, terminales con buses largos, puestos de empanadas, kioscos.
+- **Rural cotidiano**: motos también dominantes en el interior; almacén de barrio, escuelita rural, cancha de fútbol de tierra.
 
 ---
 
-### 23. Distinciones étnicas y regionales (importante para no confundir)
+## 18. Mitología y tradición oral guaraní
 
-Paraguay tiene **19 pueblos indígenas** en cinco familias lingüísticas. La familia guaraní incluye seis pueblos: **Aché, Avá Guaraní, Mbya, Pãi Tavyterã, Guaraní Ñandeva y Guaraní Occidental**. Pero:
+*Importante: estas figuras aparecen principalmente en pinturas, esculturas en barro, ilustraciones, libros escolares, festivales temáticos. Rara vez en fotografías directas. No atribuir un paisaje boscoso a un mito por defecto.*
 
-- La **mayoría de la población paraguaya no es indígena**: es mestiza ("criolla", a veces autodenominada *koygua*) y habla guaraní paraguayo, no guaraní mbya.
-- La cultura folklórica paraguaya (chipa, ñandutí, polka, traje típico, San Juan) es **mestiza**, no indígena.
-- Lo "indígena guaraní" propiamente dicho (Mbya, Pãi) tiene marcadores visuales distintos: comunidades en zonas selváticas, **opy** *(templo)* de palmas, **mbaraka**+**takua** en ceremonias, vestimenta más sencilla en lo cotidiano.
+- **Jasy Jateré**: niño rubio desnudo con bastón dorado; atrae a niños durante la siesta con silbidos. Solo identificable en imágenes ilustradas o esculturas.
+- **Pombero**: espíritu del monte, peludo y bajito, con pies al revés o sin articulaciones; protector y travieso. Aparece en figuras de barro y dibujos.
+- **Kurupí**: ser del monte asociado a la fertilidad; figura velluda.
+- **Ao Ao**: criatura monstruosa con dientes; figura de pesadilla en arte popular.
+- **Mbói Tu'i**: serpiente con cabeza de loro.
+- **Moñái**: espíritu travieso del engaño y robo.
+- **Luisón / Lobizón**: hombre lobo (séptimo hijo varón).
+- **Teju Jagua**: lagarto gigante con varias cabezas, guardián de cuevas y tesoros; figura en escultura ceramista.
+- **Karai Octubre**: símbolo de escasez en octubre; tradición de preparar **jopara** (guiso de poroto y locro) ese mes para ahuyentarlo.
+- **Plata Yvyguy** *(plata enterrada)*: tesoros enterrados durante guerras; aparece en relatos, no en fotos directas.
 
-**Señales visuales que ayudan a distinguir:**
-- Tipoy plano de algodón crudo + collares de semillas + entorno de selva → indígena (Mbya, Avá).
-- Typói bordado + pollera de volantes + escenario folklórico → paraguayo mestizo en traje folklórico.
-- Gente común en jeans con guampa y termo en mano → paraguayo cotidiano (mestizo o no, no es identificable solo por la imagen).
+**Funciones culturales:** explicar fenómenos naturales, transmitir valores, marcar normas (no salir a la siesta, respetar el monte).
 
-> ⚠ **Tensión señalada:** el archivo original engloba todo bajo "guaraní" sin distinguir. Para el captioning, conviene preferir términos como "paraguayo/a", "campesino/a paraguayo/a", "mujer paraguaya" cuando el sujeto sea mestizo, y reservar "indígena Mbya / Avá / Pãi" cuando se vean marcadores específicos.
-
----
-
-### 24. Deportes, ocio y vida moderna
-
-- **Fútbol**: deporte central. Equipos populares: Olimpia (negro y blanco, franja vertical), Cerro Porteño (azul y rojo), Libertad (negro y amarillo), Guaraní (rojo y blanco a rayas, "El Aborigen / El Legendario"). Selección nacional **La Albirroja** (camiseta a rayas blancas y rojas verticales). Estadio Defensores del Chaco. Hinchas con cornetas y bombo, banderas extensas.
-- **Asado**: parrilla con carne vacuna (costilla, vacío, chorizo); habitual los domingos. *No es exclusivo del Paraguay; también argentino, uruguayo, brasileño.*
-- **Pesca** en los ríos Paraguay y Paraná: pacú, dorado, surubí, mandi'í; cañas de pescar y embarcaciones pequeñas.
-- **Tereré rupá**: refrigerio matutino antes del tereré (chipa so'o, empanadas, sándwich).
-- **Cumpleaños y reuniones**: típicamente al aire libre, en galería o patio, con polka, asado, sopa paraguaya y mbeju.
-- Vida urbana moderna: motos en alto número (medio principal de transporte popular), shoppings, ferias de artesanía, carrera de motos.
+**Señales visuales:**
+- Olla de poroto con locro a fines de octubre → **jopara** (el guiso, no la mezcla lingüística), tradición Karai Octubre.
+- Escultura de barro de figura grotesca con varias cabezas → probable Teju Jagua o Ao Ao en artesanía de Itá.
 
 ---
 
-### 25. Ocupaciones y figuras urbanas/rurales habituales
+## 19. Estilo lingüístico para captions
 
-- **Chipera**: mujer (a veces hombre, llamado *chipero*) con un **ajaka** lleno de chipa equilibrado en la cabeza, cubierto con un paño de ao po'i. Camina junto a rutas, en plazas, terminales y estadios. El cuello sostiene el peso; usa **apyteha'o** debajo. Centro de producción tradicional: **Eusebio Ayala (Barrero), Coronel Bogado, Caacupé**.
-- **Yuyera**: mujer (a menudo mayor) que vende manojos de hierbas medicinales frescas (pohã ñana). Se ubica en esquinas céntricas de Asunción y en el **Paseo de los Yuyos del Mercado 4**. Frecuentemente machaca yuyos en angu'a sobre un cajón de madera.
-- **Olero / Ceramista**: trabaja barro a mano; mujeres son la mayoría. Centros: **Itá, Areguá, Tobatí**. Piezas: figuras antropomorfas, jarras, ollas, pesebres, escenas de la vida campesina.
-- **Arenero**: extrae arena del río con pala y la transporta en carro tirado por caballo o burro.
-- **Vendedor ambulante**: en autopistas y semáforos; ofrece pororó *(palomitas)*, chipa, frutas, cargadores.
-- **Agricultor**: típicamente con sombrero piri, machete, camisa de mangas largas; en cultivos de mandioca, maíz, soja, algodón, sésamo.
-- **Lavandera**: en arroyos y patios; ropa tendida en alambres.
-- **Motoquero**: repartidor en moto, muy común en Asunción.
-- **Galopera**: mujer con typói bailando con varias botellas equilibradas en la cabeza; aparece en festivales.
+Características del guaraní paraguayo escrito en pies de foto:
 
----
+- Oraciones cortas, voz activa, presente o pasado con sufijo **-va'ekue**.
+- Mucho uso de **oĩ / oĩva** ("hay / que está"): *Peteĩ kuña oĩ óga renondépe* = "Una mujer está frente a la casa".
+- Plural humano con **-kuéra**, omitible si el contexto es claro.
+- Sufijos posicionales/locativos: **-pe** (en, a), **-gui** (de, desde), **-rehe** (sobre, acerca de), **ári** (encima de), **guýpe** (debajo de), **renondépe** (delante de).
+- Preferir construcciones nominales simples: *peteĩ + sustantivo* + verbo **o-**.
+- Evitar Jopara con español incrustado en captions formales (a menos que la competencia lo permita).
 
-### 26. Estilo lingüístico para captions en guaraní
-
-Características del guaraní paraguayo escrito en pies de foto o titulares:
-- Estructura SOV o SVO, flexible. Muchos predicados verbales sin cópula explícita.
-- Verbos llevan prefijo de persona pegado: **o-** 3ª (oguata = "camina"), **a-** 1ª, **re-** 2ª.
-- Plural humano con sufijo **-kuéra** (mitãkuéra = "los niños"), pero a menudo se omite si el contexto es claro.
-- Abundante **oĩ / oĩva** *("hay / que está")* para describir presencia: *Peteĩ kuña oĩ óga renondépe* = "Una mujer está frente a la casa".
-- Nasalización marcada con tilde (ã, ẽ, ĩ, õ, ũ, ỹ); pusó **'** marca oclusión glotal.
-- En el dialecto popular, se usa frecuentemente **jopara** (mezcla con español: "*ahávo* la *escuela-pe*"); **el track de la competencia probablemente requiera guaraní más puro**, pero registros de prensa en guaraní (ABC Remiandu) muestran préstamos hispanos comunes (kamionero, exportación).
-- Captions y titulares periodísticos tienden a usar oraciones cortas, voz activa, presente o pasado con sufijo **-va'ekue**.
-
-**Ejemplos de pares (descripción ↔ caption guaraní idiomático):**
+**Ejemplos de pares español ↔ guaraní idiomático:**
 
 1. *Hombre tomando tereré bajo un árbol* ↔ **Peteĩ karai oy'u tereré peteĩ yvyra guýpe.**
-2. *Mujeres bailando la danza de la botella* ↔ **Kuñakuéra ojeroky botella jerokýpe.** *(o, más natural:)* **Galoperakuéra ojeroky.**
+2. *Mujeres bailando la danza de la botella* ↔ **Galoperakuéra ojeroky.**
 3. *Niños jugando con un trompo en la calle de tierra* ↔ **Mitãkuéra oñembosarái trompo reheve tape kapi'ipére.**
 4. *Una chipera con su canasto sobre la cabeza* ↔ **Peteĩ chipera oguereko ajaka iñakã ári.**
-5. *La basílica de Caacupé llena de peregrinos* ↔ **Caacupé tupãópe oĩ heta tapicha oguahẽva'ekue oñembo'ehag̃ua.**
+5. *La basílica de Caacupé llena de peregrinos* ↔ **Caacupé tupãópe oĩ heta tapicha oñembo'eha.**
 6. *Lapacho en flor sobre fondo azul* ↔ **Tajy poty hovýre yvága.**
 7. *Familia compartiendo asado en el patio* ↔ **Pehẽngue oñembyaty so'o kaiguépe okápe.**
-8. *Mujer mayor machacando yuyos en mortero* ↔ **Kuña tuja oñepyrũ ojoso pohã ñana angu'ápe.**
-
-> ⚠ El modelo debe evitar generar Jopara con español incrustado, salvo que la competencia lo permita explícitamente.
+8. *Mujer mayor machacando yuyos en mortero* ↔ **Kuña tuja ojoso pohã ñana angu'ápe.**
 
 ---
 
-## PHASE 4 — Anti-estereotipos (lista de cuidado)
+## 20. Anti-estereotipos (lista de cuidado)
 
-El modelo NO debe asumir lo siguiente solo porque la imagen "parece" paraguaya:
+El sistema NO debe asumir lo siguiente solo porque la imagen "parece" paraguaya:
 
-1. **No todo paraguayo es indígena.** La mayoría es mestiza. Solo describir como "indígena Mbya/Avá/Pãi" si hay marcadores claros (entorno selvático, vestimenta indígena específica, instrumentos rituales).
-2. **El maíz, la mandioca, el poroto y la calabaza son pan-latinoamericanos.** No describir un plato con maíz como "típicamente guaraní" sin más contexto.
-3. **La hamaca no es exclusiva del Paraguay.** Aparece en todo el trópico americano. El distintivo paraguayo es la combinación hamaca + galería + tereré.
-4. **El asado, el mate caliente y el sombrero de paja son compartidos** con Argentina, Uruguay, sur de Brasil. **El tereré frío con yuyos** sí es un marcador fuerte de Paraguay (también NE argentino).
-5. **El traje típico solo aparece en festivales y danzas.** En la vida cotidiana paraguaya, la gente viste igual que en cualquier país sudamericano: jeans, remera, camisetas de fútbol, bermudas. Imágenes urbanas modernas son la norma.
+1. **No todo paraguayo es indígena.** La mayoría es mestiza. Reservar "indígena Mbya/Avá/Pãi" para marcadores claros.
+2. **El maíz, la mandioca, el poroto, la calabaza** son pan-latinoamericanos. No describir un plato con maíz como "típicamente guaraní" sin más contexto.
+3. **La hamaca no es exclusiva del Paraguay**; aparece en todo el trópico americano. El distintivo paraguayo es la combinación hamaca + galería + tereré.
+4. **Asado, mate caliente y sombrero de paja** son compartidos con Argentina, Uruguay, sur de Brasil. **El tereré frío con yuyos** sí es marcador fuerte de Paraguay (también NE argentino).
+5. **El traje típico solo aparece en festivales y danzas.** En la vida cotidiana paraguaya, la gente viste como en cualquier país sudamericano: jeans, remera, camisetas de fútbol, bermudas. Imágenes urbanas modernas son la norma.
 6. **No toda mujer con canasta sobre la cabeza es chipera** — puede ser frutera, vendedora de pororó, etc. La chipera específicamente lleva ajaka cubierto con paño blanco.
 7. **No toda construcción de techo de paja es paraguaya.** El kuláta jovái es específico, pero un rancho de paja simple existe en todo el Cono Sur.
-8. **Los mitos (Pombero, Jasy Jateré, Karai Octubre)** rara vez aparecen en fotos reales — son temas de pintura, dibujo, escultura en barro, ilustración. Si la imagen es una fotografía de paisaje, evitar atribuirla a un mito.
+8. **Los mitos (Pombero, Jasy Jateré, Karai Octubre)** rara vez aparecen en fotos reales — son temas de pintura, dibujo, escultura en barro. Si la imagen es una fotografía de paisaje, evitar atribuirla a un mito.
 9. **El ñandutí es paraguayo, pero el encaje genérico no.** No describir cualquier puntilla como ñandutí sin verificar el patrón circular radial.
 10. **"Polka" en Paraguay no es la polka centroeuropea**: es género propio en 6/8.
 11. **El Carnaval Encarnaceno** se parece al brasileño, no es marcador étnico guaraní.
-12. **Las ruinas de piedra arenisca roja en Itapúa son jesuíticas**, no aztecas, mayas, ni "ruinas guaraníes precolombinas". Son del s. XVIII.
+12. **Las ruinas de piedra arenisca roja en Itapúa son jesuíticas (s. XVIII)**, no aztecas, mayas, ni "guaraníes precolombinas".
 13. **La selva en una foto** no implica automáticamente Pombero ni Jasy Jateré — describir lo visible.
-14. **Lapacho** ≠ jacarandá. El lapacho (tajy) florece sin hojas en agosto en racimos densos rosa, amarillo o blanco; el jacarandá tiene flores azules-violáceas y hojas finas pinnadas.
+14. **Lapacho ≠ jacarandá.** El lapacho (tajy) florece sin hojas en agosto en racimos densos rosa, amarillo o blanco; el jacarandá tiene flores azul-violetas y hojas pinnadas.
+15. **No toda música con arpa es guarania.** La guarania es lenta y melancólica; la polka es rápida y alegre.
+16. **La cerámica de Areguá no es la misma que la de Itá ni la de Tobatí.** Areguá usa torno; Itá y Tobatí, modelado a mano (colombín).
 
 ---
 
-## Lista de fuentes
+## 21. Directrices generales para el captioning
+
+1. **Describir primero lo visible** (objeto, persona, acción, escena, color); el contexto cultural se añade solo si hay marcador específico.
+2. **Preferir el sustantivo guaraní** cuando exista término preciso (chipa, tatakua, ñandutí, lapacho/tajy, kyha).
+3. **No proyectar folklore sobre vida moderna**: imágenes urbanas con motos, edificios y ropa común son la norma.
+4. **Distinguir paraguayo mestizo de indígena** por marcadores visuales, no por defecto.
+5. **Evitar atribuciones míticas** salvo en imágenes de arte explícitamente mitológico.
+6. **Captions cortos** en presente con verbo prefijado (**o-** 3ª persona) y construcciones con **oĩ**.
+7. Si no se puede identificar con certeza, **describir lo genérico visible** sin inventar detalle cultural.
+
+---
+
+## 22. Fuentes consultadas
 
 | Fuente | URL | Confiabilidad |
 |---|---|---|
 | MEC Paraguay — Fiesta de San Juan | mec.gov.py | Alta — Ministerio de Educación y Cultura |
-| ABC Color — Suplementos / artículos sobre tatakua, chiperas, juegos, San Juan, Caacupé | abc.com.py | Alta — diario de referencia paraguayo |
-| Última Hora — pohã ñana, San Juan, indígenas | ultimahora.com | Alta — segundo diario nacional |
-| Wikipedia es. — Tatacuá, Culata Yobái, Pueblos indígenas, Mbyás, Virgen de Caacupé | es.wikipedia.org | Media-alta — bien referenciada en estos artículos |
-| Wikipedia en. — Tereré, Guaraní language, Guaraní people | en.wikipedia.org | Media-alta |
+| ABC Color (suplementos sobre tatakua, chiperas, juegos, San Juan, Caacupé) | abc.com.py | Alta — diario de referencia paraguayo |
+| ABC Remiandu (sección guaraní de ABC Color) | abc.com.py/especiales/remiandu | Alta — corpus de prosa periodística en guaraní |
+| Última Hora (pohã ñana, San Juan, indígenas) | ultimahora.com | Alta — segundo diario nacional |
+| Wikipedia es. (Tatacuá, Culata Yobái, Pueblos indígenas, Mbyás, Virgen de Caacupé, Guaraníes) | es.wikipedia.org | Media-alta |
+| Wikipedia en. (Tereré, Guarani language, Guaraní people) | en.wikipedia.org | Media-alta |
 | IWGIA — El Mundo Indígena Paraguay | iwgia.org | Alta — organización internacional especializada |
 | Tierraviva | tierraviva.org.py | Alta — ONG paraguaya de derechos indígenas |
-| Asociación Indigenista del Paraguay | asociacionindigenistaparaguay.org | Alta |
+| Asociación Indigenista del Paraguay (AIP) | asociacionindigenistaparaguay.org | Alta |
 | INE Paraguay — Censo Indígena 2022 | citado vía IWGIA, AIP | Alta — fuente oficial |
-| Portal Guarani — Antonio Guasch (flora/fauna), Roberto Vera (juegos), Rosa Brítez (cerámica), Mario Rubén Álvarez (folklore) | portalguarani.com | Alta — archivo cultural paraguayo |
-| Idioma-Guarani blog (David Galeano Olivera) | idioma-guarani.blogspot.com | Media-alta — autor reconocido en lengua guaraní |
+| Portal Guarani (Guasch, Vera, Brítez, Álvarez) | portalguarani.com | Alta — archivo cultural paraguayo |
+| Idioma-Guarani blog (David Galeano Olivera) | idioma-guarani.blogspot.com | Media-alta |
 | Paraguayología | paraguayologia.com | Media — divulgación cultural seria |
-| Ñemitỹrã (revista UNA) | revistascientificas.una.py/index.php/nemityra | Alta — revista académica de UNA |
-| EcuRed — Traje típico de Paraguay | ecured.cu | Media — solo descriptivo, contrastado con fuentes paraguayas |
+| Ñemitỹrã (revista UNA) | revistascientificas.una.py/index.php/nemityra | Alta — revista académica |
+| EcuRed — Traje típico de Paraguay | ecured.cu | Media |
 | Trenalsur — vestimenta | trenalsur.net | Media |
-| ARQA, Mandu'a, ArchDaily — arquitectura | arqa.com / mandua.com.py / archdaily.com | Alta para arquitectura paraguaya contemporánea |
+| ARQA, Mandu'a, ArchDaily — arquitectura | arqa.com / mandua.com.py / archdaily.com | Alta para arquitectura paraguaya |
 | Camino de los Jesuitas / SENATUR — Misiones | caminodelosjesuitas.com / senatur.gov.py | Alta — fuentes oficiales de turismo |
 | UNESCO — Misiones Jesuíticas | whc.unesco.org/es/list/648 | Alta |
-| Alacarta — chipa, Sebastián Jara | alacarta.com.py | Media-alta — periodismo gastronómico paraguayo |
-| El Nacional, OviedoPress — chiperas, San Juan | elnacional.com.py / oviedopress.com | Media |
-| Swissinfo / Infobae / EFE — tereré, pohã ñana | swissinfo.ch / infobae.com | Alta |
+| Alacarta (chipa, chiperas) | alacarta.com.py | Media-alta — periodismo gastronómico |
+| El Nacional, OviedoPress (chiperas, San Juan) | elnacional.com.py / oviedopress.com | Media |
+| Swissinfo / Infobae / EFE (tereré, pohã ñana) | swissinfo.ch / infobae.com | Alta |
 | Pueblo Mbyá Guaraní (Brasil-PIB / ISA) | pib.socioambiental.org | Alta — Instituto Socioambiental |
-| Tesoro de Montoya (1639) — guaranime.blogspot.com | guaranime.blogspot.com | Alta histórica — diccionario fundacional |
-| ABC Remiandu (sección guaraní de ABC Color) | abc.com.py/especiales/remiandu | Alta — corpus de prosa periodística en guaraní |
+| Tesoro de Montoya (1639) | guaranime.blogspot.com | Alta histórica — diccionario fundacional |
 | Paraguay Mba'e | paraguaymbae.com | Media — blog de viajes informado |
-
----
-
-**Nota final sobre el procedimiento.** Donde el archivo original ya cubría algo bien, no agregué redundancia. Donde detecté tensión (la generalización "guaraní" para toda cultura paraguaya), añadí señalamientos explícitos. Algunas categorías —en particular la *moda urbana cotidiana*— tienen poca documentación específicamente paraguaya en los corpus disponibles y dependen del sentido común visual; lo señalo en lugar de inventar. El glosario guaraní está conservador: los términos marcados con ortografía estándar provienen de fuentes lexicográficas verificadas (Guasch, Tesoro de Montoya, MEC). No se introdujo vocabulario fabricado.
