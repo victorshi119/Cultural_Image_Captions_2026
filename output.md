@@ -78,21 +78,3 @@ Same resources as above but with prompt version v3.
 ## Ablation v2 (new resources, prompt v4) — pending
 
 Job 6965487 submitted 2026-05-01. Resources: grammar parallel → `guarani_exemplar_bank_claude.md` (n=30), interlinear → `guarani_grammar_primer_claude.md` (n=60), apertium → `apertium-grn-caption-cheatsheet.md`, parallel examples → `flores_dev_examples_en-gn.json` (n=200). Code rules removed.
-
----
-
-## Ablation v3 — prompt v4, updated resources (3 runs avg)
-
-Resources: culture knowledge (`Claude_2step_guarani_cultural_knowledge.txt`), interlinear (`guarani_grammar_primer_claude.md`, n=60), grammar parallel (`guarani_exemplar_bank_claude.md`, n=30), apertium (`apertium-grn-caption-cheatsheet.md`), parallel examples (`flores_dev_examples_en-gn.json`, n=200). Code rules removed. Jobs: 6965615 (r0), 6965645 (r1), 6965660 (r2).
-
-| Condition | r0 | r1 | r2 | Avg |
-|-----------|----|----|-----|-----|
-| none | 19.67 | 19.55 | 19.15 | **19.46** |
-| +ck | 19.68 | 20.72 | 20.55 | **20.32** |
-| +il | 19.65 | 19.96 | 20.29 | **19.97** |
-| +gp | 19.84 | 18.70 | 19.15 | **19.23** |
-| +ap | 15.12 | 15.55 | 15.40 | **15.36** |
-| +pe | 22.60 | 23.26 | 23.11 | **22.99** |
-| all | 20.35 | 20.74 | 20.51 | **20.53** |
-
-**Key finding:** +pe remains the strongest contributor. +ap hurts significantly with updated resources. +ck and +il show modest gains.
