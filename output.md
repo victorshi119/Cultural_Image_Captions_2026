@@ -78,3 +78,22 @@ Same resources as above but with prompt version v3.
 ## Ablation v2 (new resources, prompt v4) — pending
 
 Job 6965487 submitted 2026-05-01. Resources: grammar parallel → `guarani_exemplar_bank_claude.md` (n=30), interlinear → `guarani_grammar_primer_claude.md` (n=60), apertium → `apertium-grn-caption-cheatsheet.md`, parallel examples → `flores_dev_examples_en-gn.json` (n=200). Code rules removed.
+
+---
+
+## Ablation v3prompt+dampy — prompt v3, updated resources + dampy captions (r0 only)
+
+Resources: culture knowledge (`Claude_2step_guarani_cultural_knowledge.txt`), interlinear (`guarani_grammar_primer_claude.md`, full), grammar parallel (`guarani_exemplar_bank_claude.md`, full), apertium (`apertium-grn-caption-cheatsheet.md`), parallel examples (`flores_dev_examples_en-gn.json`, full), cultural caption exemplars (`dampy_gemma_claude_caption.txt`, full). Jobs: 6966213 (r0), 6966221 (r1, pending), 6966222 (r2, pending).
+
+| Output file | Description | chrF++ |
+|-------------|-------------|--------|
+| `ablation_v3prompt_dampy_05-01_none` | prompt v3, no resources | **20.15** |
+| `ablation_v3prompt_dampy_05-01_pe` | prompt v3, +parallel examples (full FLORES) | **23.37** |
+| `ablation_v3prompt_dampy_05-01_ck` | prompt v3, +culture knowledge | **21.02** |
+| `ablation_v3prompt_dampy_05-01_ap` | prompt v3, +apertium | **17.51** |
+| `ablation_v3prompt_dampy_05-01_il` | prompt v3, +interlinear (full) | **21.76** |
+| `ablation_v3prompt_dampy_05-01_gp` | prompt v3, +grammar parallel (full) | **19.28** |
+| `ablation_v3prompt_dampy_05-01_dampy` | prompt v3, +dampy cultural captions (full) | **21.33** |
+| `ablation_v3prompt_dampy_05-01_all` | prompt v3, all resources | **22.14** |
+
+**Finding (r0 only):** +pe still strongest (23.37). +il (21.76) and +dampy (21.33) both outperform the none baseline. +ap continues to hurt. `all` (22.14) falls short of +pe alone, suggesting +ap and/or +gp drag it down.
