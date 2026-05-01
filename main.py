@@ -160,12 +160,11 @@ def parse_code_rules(path: str) -> list[tuple[str, str]]:
             chunks.append((header, code))
     return chunks
 
-def _describe_image(image_path: str, client: OpenAI, model: str):
-    #Get a brief English description of an image via the VLM.
+def _describe_image(image_path: str, client: OpenAI, model: str, lang: str = "English"):
     img = Image.open(image_path).convert("RGB")
     messages = [{"role": "user", "content": [
         {"type": "image_url", "image_url": {"url": _pil_to_data_url(img)}},
-        {"type": "text", "text": "Briefly describe what you see in this image in 1-2 English sentences. Focus on objects, people, actions, and setting."},
+        {"type": "text", "text": f"Briefly describe what you see in this image in 1-2 {lang} sentences. Focus on objects, people, actions, and setting."},
     ]}]
     return client.chat.completions.create(
         model=model, messages=messages, max_tokens=80
@@ -201,6 +200,96 @@ def retrieve_relevant_rules_bm25(
         rules_text += f"# === {header} ===\n{code}\n"
     return rules_text
 
+
+def load_dictionary(path: str):
+    from rank_bm25 import BM25Okapi
+    with open(path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    entries = data["spanish_to_guarani"]
+    corpus = []
+    for e in entries:
+        text = e["headword"] + " " + " ".join(e.get("definitions", []))
+        tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", text.lower())
+        corpus.append(tokens)
+    return entries, BM25Okapi(corpus)
+
+def retrieve_dictionary_entries(image_path: str, entries: list, bm25, client: OpenAI, model: str, top_k: int = 10):
+    desc = _describe_image(image_path, client, model, lang="Spanish")
+    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", desc.lower())
+    scores = bm25.get_scores(query_tokens)
+    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
+    top_indices = sorted(top_indices)
+    lines = ["VOCABULARIO GUARANÍ RELEVANTE (español → guaraní):"]
+    for i in top_indices:
+        e = entries[i]
+        defs = "; ".join(e.get("definitions", []))
+        lines.append(f"{e['headword']} → {defs}")
+    return "\n".join(lines)
+
+def parse_grammar_sections(path: str) -> list[tuple[str, str]]:
+    from rank_bm25 import BM25Okapi
+    section_pat = re.compile(r"^#{1,3} \d")
+    with open(path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+    chunks = []
+    current_header = None
+    current_lines = []
+    for line in lines:
+        if section_pat.match(line):
+            if current_header and current_lines:
+                chunks.append((current_header.strip(), "".join(current_lines).strip()))
+            current_header = line.strip("# \n")
+            current_lines = []
+        elif current_header is not None:
+            current_lines.append(line)
+    if current_header and current_lines:
+        chunks.append((current_header.strip(), "".join(current_lines).strip()))
+    return chunks
+
+def build_grammar_bm25(chunks: list[tuple[str, str]]):
+    from rank_bm25 import BM25Okapi
+    corpus = []
+    for header, content in chunks:
+        text = header + " " + content
+        tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", text.lower())
+        corpus.append(tokens)
+    return BM25Okapi(corpus)
+
+def retrieve_grammar_sections(image_path: str, chunks: list[tuple[str, str]], bm25, client: OpenAI, model: str, top_k: int = 5):
+    desc = _describe_image(image_path, client, model, lang="Spanish")
+    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", desc.lower())
+    scores = bm25.get_scores(query_tokens)
+    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
+    top_indices = sorted(top_indices)
+    lines = ["SECCIONES DE GRAMÁTICA GUARANÍ RELEVANTES:"]
+    for i in top_indices:
+        header, content = chunks[i]
+        # cap each section at 300 chars to avoid overflow
+        lines.append(f"### {header}\n{content[:300]}")
+    return "\n\n".join(lines)
+
+def build_flores_bm25(pairs: list[dict]):
+    from rank_bm25 import BM25Okapi
+    corpus = []
+    for p in pairs:
+        text = p["en"] + " " + p.get("es", "")
+        tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", text.lower())
+        corpus.append(tokens)
+    return BM25Okapi(corpus)
+
+def retrieve_flores_by_image(image_path: str, pairs: list[dict], bm25, client: OpenAI, model: str, top_k: int = 100):
+    desc = _describe_image(image_path, client, model, lang="English")
+    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", desc.lower())
+    scores = bm25.get_scores(query_tokens)
+    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
+    top_indices = sorted(top_indices)
+    lines = ["EJEMPLOS DE ORACIONES DE GUARANÍ (pares naturales EN→GN para referencia):"]
+    for i in top_indices:
+        p = pairs[i]
+        lines.append(f"English: {p['en']}")
+        lines.append(f"Guaraní: {p['gn']}")
+        lines.append("")
+    return "\n".join(lines)
 
 #-- end code generation rag function helper --#
 def load_culture_knowledge(path: str):
@@ -267,23 +356,27 @@ def build_system_prompt(
 ):
     prompt = base_prompt
 
+    # 1. Cultural context
     if culture_knowledge_path:
         prompt += "\n" + load_culture_knowledge(culture_knowledge_path)
 
-    if interlinear_path:
-        prompt += "\n" + load_interlinear(interlinear_path,num_interlinear)
+    # 2. Linguistic reference (morphology / rules)
+    if apertium_path:
+        prompt += "\n" + load_apertium_summary(apertium_path, apertium_chars)
 
-    if grammar_parallel_path:
-        prompt += "\n" + load_grammar_parallel(grammar_parallel_path,num_grammar_parallel)
-
+    # 3. Grammar and structure examples
     if grammar_book_path:
         prompt += "\n" + load_grammar_book(grammar_book_path, num_grammar_book)
 
+    if grammar_parallel_path:
+        prompt += "\n" + load_grammar_parallel(grammar_parallel_path, num_grammar_parallel)
+
+    if interlinear_path:
+        prompt += "\n" + load_interlinear(interlinear_path, num_interlinear)
+
+    # 4. Parallel examples — closest to the task, placed last
     if parallel_path:
         prompt += "\n" + load_parallel_examples(parallel_path, num_parallel)
-
-    if apertium_path:
-        prompt += "\n" + load_apertium_summary(apertium_path,apertium_chars)
 
     return prompt
     
@@ -311,7 +404,16 @@ def run_captioning(
     model_name: str,
     bm25_chunks: Optional[list] = None,
     bm25_index=None,
-    bm25_top_k: Optional[int] =10,
+    bm25_top_k: Optional[int] = 10,
+    dict_entries: Optional[list] = None,
+    dict_bm25=None,
+    dict_top_k: Optional[int] = 10,
+    grammar_chunks: Optional[list] = None,
+    grammar_bm25=None,
+    grammar_bm25_top_k: Optional[int] = 5,
+    flores_pairs: Optional[list] = None,
+    flores_bm25=None,
+    flores_bm25_top_k: Optional[int] = 100,
 ):
     results = []
     for img_path in image_paths:
@@ -320,6 +422,15 @@ def run_captioning(
         if bm25_index is not None:
             retrieved = retrieve_relevant_rules_bm25(image_path=str(img_path),chunks=bm25_chunks,bm25=bm25_index,client=client,model=model_name,top_k=bm25_top_k)
             per_img_prompt+="\n"+retrieved
+        if dict_bm25 is not None:
+            vocab = retrieve_dictionary_entries(image_path=str(img_path),entries=dict_entries,bm25=dict_bm25,client=client,model=model_name,top_k=dict_top_k)
+            per_img_prompt+="\n"+vocab
+        if grammar_bm25 is not None:
+            grammar_retrieved = retrieve_grammar_sections(image_path=str(img_path),chunks=grammar_chunks,bm25=grammar_bm25,client=client,model=model_name,top_k=grammar_bm25_top_k)
+            per_img_prompt+="\n"+grammar_retrieved
+        if flores_bm25 is not None:
+            flores_retrieved = retrieve_flores_by_image(image_path=str(img_path),pairs=flores_pairs,bm25=flores_bm25,client=client,model=model_name,top_k=flores_bm25_top_k)
+            per_img_prompt+="\n"+flores_retrieved
         
         caption = generate_caption(str(img_path),system_prompt=per_img_prompt,client=client,model=model_name,caption_prompt=CAPTION_INSTRUCTION)
         results.append((img_name, caption))
@@ -349,6 +460,12 @@ def main():
     parser.add_argument("--apertium_chars",type=int,default=15000,help="number of characters to take from apertium summary")
     parser.add_argument("--grammar_book",type=str,default=None,help="path to grammar book file")
     parser.add_argument("--num_grammar_book",type=int,default=50,help="number of lines to take from grammar book")
+    parser.add_argument("--grammar_book_bm25",type=str,default=None,help="path to grammar book for per-image BM25 retrieval")
+    parser.add_argument("--grammar_book_bm25_top_k",type=int,default=5,help="number of grammar sections to retrieve per image")
+    parser.add_argument("--flores_bm25",type=str,default=None,help="path to flores JSON for per-image BM25 retrieval")
+    parser.add_argument("--flores_bm25_top_k",type=int,default=100,help="number of flores pairs to retrieve per image")
+    parser.add_argument("--dictionary",type=str,default=None,help="path to guarani_dictionary.json")
+    parser.add_argument("--dictionary_top_k",type=int,default=10,help="number of dictionary entries to retrieve per image")
     args = parser.parse_args()
     
     api_key = os.environ.get("REALLMS_API_KEY")
@@ -364,6 +481,7 @@ def main():
     apertium_path = to_path(args.apertium)
     culture_knowledge_path = to_path(args.culture_knowledge)
     grammar_book_path = to_path(args.grammar_book)
+    dictionary_path = to_path(args.dictionary)
     code_rules_path = to_path(args.code_rules)
 
     base_prompt = prompt_version[args.prompt_version]
@@ -388,6 +506,21 @@ def main():
         bm25_chunks = parse_code_rules(code_rules_path)
         bm25_index = build_bm25_index(bm25_chunks)
 
+    dict_entries, dict_bm25 = None, None
+    if dictionary_path:
+        dict_entries, dict_bm25 = load_dictionary(dictionary_path)
+
+    grammar_chunks, grammar_bm25_index = None, None
+    if args.grammar_book_bm25:
+        grammar_chunks = parse_grammar_sections(to_path(args.grammar_book_bm25))
+        grammar_bm25_index = build_grammar_bm25(grammar_chunks)
+
+    flores_all_pairs, flores_bm25_index = None, None
+    if args.flores_bm25:
+        with open(to_path(args.flores_bm25), "r", encoding="utf-8") as f:
+            flores_all_pairs = json.load(f)
+        flores_bm25_index = build_flores_bm25(flores_all_pairs)
+
     run_captioning(
         image_paths=image_paths,
         output_file=args.output,
@@ -397,6 +530,15 @@ def main():
         bm25_chunks=bm25_chunks,
         bm25_index=bm25_index,
         bm25_top_k=args.retrieval_top_k,
+        dict_entries=dict_entries,
+        dict_bm25=dict_bm25,
+        dict_top_k=args.dictionary_top_k,
+        grammar_chunks=grammar_chunks,
+        grammar_bm25=grammar_bm25_index,
+        grammar_bm25_top_k=args.grammar_book_bm25_top_k,
+        flores_pairs=flores_all_pairs,
+        flores_bm25=flores_bm25_index,
+        flores_bm25_top_k=args.flores_bm25_top_k,
     )
 if __name__ == "__main__":
     main()
