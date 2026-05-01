@@ -278,7 +278,7 @@ def build_flores_bm25(pairs: list[dict]):
     return BM25Okapi(corpus)
 
 def retrieve_flores_by_image(image_path: str, pairs: list[dict], bm25, client: OpenAI, model: str, top_k: int = 100):
-    desc = _describe_image(image_path, client, model, lang="English")
+    desc = _describe_image(image_path, client, model, lang="Spanish")
     query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", desc.lower())
     scores = bm25.get_scores(query_tokens)
     top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
