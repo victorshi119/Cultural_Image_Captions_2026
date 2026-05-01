@@ -1,0 +1,4 @@
+conda version 25.3.0 python 3.12.7 loaded.
+/var/spool/slurm/job6965651/slurm_script: line 22: cd: /geode2/home/u070/partkaew/BigRed200/Cultural_Image_Captions_2026: Permission denied
+Task 5  config: gp
+Output: outputs/ablation_v3_05-01_gp.tsv
