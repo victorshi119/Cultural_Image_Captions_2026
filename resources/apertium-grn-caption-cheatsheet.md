@@ -1,220 +1,115 @@
-# Apertium Guarani → Caption Cheat-Sheet
+GUARANI (Avañeʼẽ) — STANDARD PARAGUAYAN. Image-caption generation cheat-sheet.
 
-*Distilled from `apertium-grn` (`grn.lexc`, `grn.twol`, `grn.rlx`, `modes.xml`) for the AmericasNLP 2026 Image-Captioning Shared Task, Guarani track.*
+ORTHOGRAPHY
+- Tilde marks nasal vowels: ã ẽ ĩ õ ũ ỹ. Always include. They are characters.
+- Puso (apostrophe) ʼ marks glottal stop in: haʼe, peteĩ→peteĩ, ñeʼẽ, kaʼaru, etc. Always include.
+- Use g̃ in hag̃ua / gu̱arã where the stem requires it. If unsure, use haguã / guarã (also accepted).
 
----
+NASAL HARMONY (most important rule)
+A stem contains a nasal if it has any of: ã ẽ ĩ õ ũ ỹ ñ m n. Affixes attached to a nasal stem switch to nasal allomorphs:
+- Plural -kuéra → -nguéra:  jagua-kuéra ‘dogs’,  mitã-nguéra ‘children’.
+- Locative -pe → -me:  óga-pe ‘at home’,  tetã-me ‘in the country’.
+- Emphatic -ko → -ngo:  upéa-ko / hetã-ngo.
+- 1pl.incl ja- → ña-:  ja-guata ‘we walk’,  ña-ñoty ‘we plant’.
+- Reflexive je- → ñe-:  je-juhu ‘meet’,  ñe-mongeta ‘converse’.
+- Causative mbo- → mo-:  mbo-pu ‘play(it)’,  mo-mýi ‘move(it)’.
+- Future -ta vs -mbota:  o-guata-ta ‘will walk’,  o-ñeʼẽ-mbota? Use -ta after oral, -mbota after stems ending in oral V before a consonant; after nasal stems, m simplifies (oñeʼẽta).
+- Possessor nde-/ñande-/pende- → ne-/ñane-/pene-:  nde róga ‘your house’,  ne retã ‘your country’,  ñane ñeʼẽ ‘our language’.
 
-## 0. What's in the four files (one-line each)
+SUBJECT PREFIXES — ACTIVE (areal) vs INACTIVE (chendal)
+Active verbs (most actions). Use:
+  1SG a-,  2SG re-,  3 o-,  1PL.INCL ja-/ña-,  1PL.EXCL ro-,  2PL pe-.
+  o-guata ‘s/he walks’,  o-karu ‘s/he eats’,  o-hecha ‘s/he sees’,  o-jeroky ‘s/he dances’.
+Inactive (stative, body states, “have/be-X”) verbs and inalienable possession. Use:
+  1SG che-, 2SG nde-/ne-, 3 i-/ij-/iñ-/h-, 1PL.INCL ñande-/ñane-, 1PL.EXCL ore-, 2PL pende-/pene-.
+  i-porã ‘it’s pretty’,  che-rasy ‘I’m sick’,  hasy ‘it hurts’,  i-puku ‘it’s long’.
+3p inactive/possessive allomorphs by stem onset:
+  i- before consonant:  i-jagua ‘his dog’.
+  ij- before oral vowel:  ij-ape ‘its surface’.
+  iñ- before nasal vowel:  iñ-akã ‘his head’.
+  hiʼ- before tonal vowel:  hiʼ-ára ‘its day’.
 
-- **`apertium-grn.grn.lexc`** (17,341 lines, ≈9,200 lemmas): full morphotactics with 6 active and 6 inactive person prefixes, tense/voice/case suffixes, ~4,450 nouns, ~2,560 verbs (Tv/Iv), ~1,660 adjectives, ~555 Spanish-origin items tagged `<barb>`. Defines the tag inventory mined here.
-- **`apertium-grn.grn.twol`** (245 lines): regressive nasal-harmony rule (`{J}:ñ`), progressive nasal allomorphy in suffixes/postpositions (`{N}{K}` for plural, `{m}` for locative `-pe`/`-me`), 3p-possessive allomorphs `{H}{I}` (h-/i-/j-/ñ-/iʼ-), negative circumfix `n(d)-…-i` allomorphy, glottal-stop epenthesis (`{P}`), aireal `-i-` insertion (`{i}`), tonal-vowel shifting before atonal suffixes.
-- **`apertium-grn.grn.rlx`** (375 lines): CG disambiguator. Cares about: noun/verb selection, transitivity, dat/acc cases, plural agreement, demonstrative+N concord, copula `haʼe<vbser>`, postposition selection (`-pe`, `-gua`, `-guarã`, `-rõ`), nominal tense `-kue`/`-rã`, `peteĩ` numeral. Implicitly never references most fine tense/aspect tags from lexc — implementation cares more about big morphosyntactic categories than fine TAM.
-- **`modes.xml`**: defines 6 HFST/lt-proc/vislcg3 pipelines (`grn-morph`, `grn-trace`, `grn-segment`, `grn-gener`, `grn-tagger`, `grn-disam`). Pure plumbing — **dropped from cheat-sheet**.
+INALIENABLE NOUNS (t-/r-/h-)
+Body parts and kin alternate. Citation form starts with t-; 1/2-person possessor uses r-; 3-person uses h-:
+  tesa ‘eye’ — che resa ‘my eye’ — hesa ‘his/her eye’.
+  tape ‘path’ — nde rape — hape.
+  tetã ‘country’ — ñane retã ‘our country’ — hetã.
 
----
+INCLUSIVE / EXCLUSIVE 1PL — DISTINCT
+  ñande / ñane = inclusive (you and I).   ore = exclusive (we, not you).
+  ore róga ‘our house (not yours)’ vs ñande róga ‘our house (yours and mine)’.
 
-## 1. Executive summary
+DEMONSTRATIVES
+SG:  ko ‘this’,  pe ‘that’,  amo ‘that-yonder’,  upe ‘that’,  ku ‘that’.
+PL:  koʼã ‘these’,  umi ‘those’,  ã ‘these’.
+  ko jagua ‘this dog’,  umi mitãnguéra ‘those children’,  pe yvyra ‘that tree’.
 
-- **The metric (ChrF++) rewards getting the surface form right, not just the lemma.** Every wrong allomorph (oral vs. nasal prefix, `-pe` vs. `-me`, `-kuéra` vs. `-nguéra`) is a chunk of chrF lost. Morphology cannot be skipped.
-- **Five non-Spanish/English-default features dominate caption quality:** (i) regressive nasal harmony across prefixes, (ii) the active (areal) / inactive (chendal) split, (iii) inclusive vs. exclusive 1pl (`ñande` vs. `ore`), (iv) obligatory possessor on inalienable nouns with the t-/r-/h- triformes alternation, (v) nominal tense `-kue` (ex-) and `-rã` (future).
-- **Captions are short.** Most useful tags collapse to: person prefix on V (areal or chendal proclitic), demonstrative + N, postposition (esp. locative `-pe`/`-me`), plural `-kuéra`/`-nguéra` only on definite/animate, present tense (no marker). Almost nothing else is per-caption obligatory.
-- **Register: target standard Paraguayan Guarani in Academia (ALG-2018) orthography.** Apertium's lexicon and prior AmericasNLP Guarani training data (legal/health/educational; Estigarribia 2020; Wikipedia-grn) are all in this register. Suppress jopará code-switching unless the dev set shows otherwise; keep the puso `ʼ`, the tilde `g̃`, and nasal vowels `ã ẽ ĩ õ ũ ỹ`.
-- **Apertium ↔ descriptive grammar divergences worth knowing:** Apertium uses `<ac>/<in>` (active/inactive) where descriptions use *areal/chendal*; Apertium hides the *aireal* subclass inside the `{i}` archiphoneme rather than giving it a tag; Apertium analyses some chendal-class transitives as plain `<tv>`. Use Apertium's tags internally, but explain to the LLM in standard Guaranist terms.
+PERSONAL PRONOUNS (verbatim — do not alter)
+  che (I), nde (you.sg), haʼe (s/he/it), ñande (we.incl), ore (we.excl), peẽ (you.pl), haʼekuéra (they).
+Dative: chéve, ndéve, ichupe, ñandéve, oréve, peẽme, chuguikuéra.
+Accusative object clitics on V: che-, nde-, i-, ñande-, ore-, pende- (same as inactive).
 
----
+POSTPOSITIONS (verbatim, attach with > ; subject to nasal harmony where noted)
+  -pe / -me     ‘in, at, to’
+  -gui          ‘from’
+  -ndi / -ndive ‘with’
+  -re / -rehe   ‘about, by, for’
+  -gua          ‘of, from’ (origin):  Paraguái-gua ‘Paraguayan’
+  -guarã / -hag̃ua ‘for, in order to’
+  -rupi         ‘along, via’
+  -guive        ‘since, from’
+  -mboyve       ‘before’
+  -rire         ‘after’
+  -ndive ~ ndi  ‘with’
+  -ʼỹre         ‘without’
 
-## 2. Tiered table of categories
+NOMINAL TENSE (suffixes on nouns — distinctive of Guarani)
+  -kue ‘former, ex-, used-to-be’:  mburuvicha-kue ‘ex-leader’,  óga-kue ‘former house’.
+  -rã  ‘future, to-be’:  tembiʼu-rã ‘food-to-be’,  mbaʼaporã ‘future-work / task’.
+After nasal stems use the same surface (no allomorph), but apply nasal harmony if a further suffix follows.
 
-(Source codes: **L** = lexc, **T** = twol, **R** = rlx)
+NUMERALS 1–10
+  peteĩ, mokõi, mbohapy, irundy, po, poteĩ, pokõi, poapy, porundy, pa.
+  Numerals precede the noun:  mokõi jagua ‘two dogs’,  mbohapy mitãnguéra.
 
-| # | Category | Src | One-line description | Tier | Justification | Example |
-|---|---|---|---|---|---|---|
-| 1 | **Areal subject prefixes** `a-/re-/o-/ja-/ro-/pe-` | L,R | Active-class person/number marker on most verbs | **1** | Every verb with an active subject. Wrong prefix = wrong agreement. | `a-guata` "1SG-walk" = *I walk* |
-| 2 | **Chendal proclitics** `che/nde/i-/ñande/ore/pende` | L,T,R | Inactive-class proclitic for stative V's & possessors | **1** | Used for stative predicates ("I'm sick", "it's red") and for ALL possession. | `che-rasy` "1SG-sick" = *I am sick* |
-| 3 | **Inclusive vs. exclusive 1pl** | L,R | `ja-/ñande` include addressee; `ro-/ore` exclude | **1** | A photo of "us" requires choosing. LLMs default to one form. | `ja-guata` *we (incl.) walk* / `ro-guata` *we (excl.) walk* |
-| 4 | **Regressive nasal harmony** | T | Nasal stem nasalises prefixes leftward; voiceless stops transparent | **1** | Wrong allomorph on every nasal-stem verb. ChrF-critical. | `o-mboʼe` (oral) vs. `o-ñe-mongeta` (nasal stem ⇒ `je-→ñe-`) |
-| 5 | **3p possessive allomorphy** `i-/ij-/iñ-/h-/iʼ-` | L,T,R | 3p prefix shape depends on stem onset & nasality | **1** | Picks the form before `ñ-`/vowel/consonant. | `i-jagua` *his dog* / `h-óga` *his house* / `iñ-akã` *his head* |
-| 6 | **Triformes / Biformes** (t-/r-/h-) | L | Body parts & kin terms have 3 stem forms by possessor | **1** | Body parts can never appear bare. `tesa/resa/hesa` = absolute/1-2poss/3poss "eye". | `che resa hovy` *my eyes are blue* / `hesa` *his eye(s)* |
-| 7 | **Plural `-kuéra` / `-nguéra`** | L,T,R | Animate/definite plural; nasal allomorph after nasal stems | **1** | Optional but ubiquitous in scenes with multiple people/animals. | `mitã-nguéra` *children* (nasal stem `mitã`) vs. `jagua-kuéra` *dogs* |
-| 8 | **Locative `-pe` / `-me`** | L,T,R | "in/at/to"; nasal allomorph after nasal stem | **1** | Spatial relations are caption-defining. | `óga-pe` *at home* / `tetã-me` *in the country* |
-| 9 | **Nominal tense `-kue` / `-rã`** | L,R | `-kue` = ex-, former; `-rã` = future, prospective | **1** | Distinguishes "former president" from "future president"; used in descriptive captions ("his former house"). | `mboʼehára-kue` *ex-teacher* / `tembiʼu-rã` *food-to-be* |
-| 10 | **Demonstratives** ko / pe / amo + pl ã/koʼã/umi | L,R | 3-way deictic (proximal/medial/distal); pl uses pl form | **1** | Captions point: "this man", "those mountains". | `ko kuña` *this woman* / `umi yvyra` *those trees* |
-| 11 | **Negation circumfix `nd(a)-…-i`** | L,T | `nd-` prefix + `-i` suffix on V; allomorphy by stem | **1** | A photo *not* showing X gets negation. | `nda-ha-i` *I'm not going* / `nda-i-porã-i` *it's not pretty* |
-| 12 | **Copula `haʼe<vbser>`** | L,R | Equational "is/are"; SELECT rule in .rlx triggers it for "X is Y" | **1** | "X is a cat" is a frequent caption shape. Copula `haʼe` ≠ pronoun `haʼe` (3sg). | `haʼe peteĩ jagua` *(it) is a dog* |
-| 13 | **Future `-ta` / `-vaʼerã`** | L | `-ta` = imminent; `-vaʼerã` = prospective/should | **2** | Less common in pure descriptions; appears in instructive/intentional captions. | `o-jahu-ta` *(s)he will bathe* |
-| 14 | **Past `-vaʼekue` / `-kuri`** | L | Aux-like perfective and recent past | **2** | Captions narrating past scenes; less common than present. | `o-guata vaʼekue` *(s)he walked (past)* |
-| 15 | **Progressive `-hína`** | L | Aux for ongoing action; very common in image-as-snapshot captions | **2** | A picture often *is* a snapshot of an ongoing action. | `o-puka hína` *(s)he is laughing* |
-| 16 | **Causative `mbo-`/`mo-`** (Voices) | L,T | Adds an agent: "make X V" | **2** | Common in scenes of caregiving, herding, teaching. | `o-mbo-puka` *(s)he makes (someone) laugh* |
-| 17 | **Reflexive `je-` / Reciprocal `jo-`** | L,T | `je-/ñe-` = REFL (nasal alt.); `jo-/ño-` = RECIP | **2** | Action-on-self captions ("she is washing herself"). | `o-ñe-mongeta` *(s)he is talking (to themselves)* / `o-jo-hayhu` *they love each other* |
-| 18 | **Postpositions** ndive, gui, rehe, gotyo, guarã, ári, pype | L,R | Comitative/ablative/topical/directional/benefactive/super/in | **2** | Caption spatial logic ("with X", "on top of Y"). | `mesa ári` *on the table* / `tape rupi` *along the road* |
-| 19 | **Numerals 1–10** peteĩ, mokõi, mbohapy, irundy, po, poteĩ, pokõi, poapy, porundy, pa | L,R | Native count system (vigesimal-ish, with -pa for 10s) | **2** | Counted-entity captions. | `mokõi mitã` *two children* |
-| 20 | **Substantivising / relative `-va`** | L,R | Turns V into participle/relativiser ("the one who Vs") | **2** | Useful for describing roles in a scene ("a man who is reading"). | `o-mbaʼapo-va` *(one) who works* |
-| 21 | **Imperative prefix e-/pe- (+`-na`/`-ke`)** | L | 2sg/2pl imperative + politeness; in didactic captions | **3** | Almost never in descriptive captions. | `e-juhu` *find!* — cut |
-| 22 | **Optative `t(a)-/tere-/to-`** | L | Hortative/jussive ("let me/them V") | **3** | Tag declared in lexc; unused in rlx. | drop |
-| 23 | **Diminutive `-mi`/`-ʼi`/`-mimi`** | L | Affectionate/small | **3** | Not declared in rlx; very low yield. | one-line mention |
-| 24 | **Evidentials/discourse particles** `niko<nar>`, `piko<qst>`, `nipo`, `katu` | L | Narrative/interrogative/contrastive markers | **3** | Rare in image captions; risky to over-use. | drop except if dev set shows them |
-| 25 | **Fine past tense subdivision** `<ifi>/<pii>/<pmp>/<past>` | L | Several past markers Apertium distinguishes | **3** | rlx mostly ignores them; collapse to one "past" bucket. | compress |
-| 26 | **Caritive `-ỹ` (`<car>`)** | L | "Without" suffix on N | **3** | Rare; unused in rlx. | drop |
-| 27 | **Object pronominal proclitics** `che/nde/ro/po/i-` on V | L | Marks O when prefix already marks S | **3** | Hierarchical/portmanteau system; complex. Limit to one note. | one-line ("`ro-` = I→2sg portmanteau") |
-| 28 | **Apertium-internal machinery** | L,T | Continuation-class names (`POS-COMPL`, `CASE-INFL`…), archiphonemes (`{N}`, `{K}`, `{P}`, `{i}`…), CG syntax (`SELECT`, `BARRIER`), modes.xml | **3** | Helps no LLM. | drop entirely |
+COMMON ADJECTIVES (postnominal). All take -ve ‘more’, -ete/-eterei ‘very’.
+Colours: morotĩ ‘white’, hũ ‘black’, pytã ‘red’, hovy ‘blue/green’, saʼyju ‘yellow’, aky ‘green(unripe)’.
+Size:    tuicha / guasu ‘big’, michĩ / chuʼi ‘small’, puku ‘long’, mbyky ‘short’.
+Other:   pyahu ‘new’, tuja ‘old’, porã ‘pretty’, vai ‘ugly/bad’, piru ‘thin’, kyra ‘fat’, hatã ‘hard’.
 
----
+QUANTIFIERS
+  heta ‘many’, mbovy ‘few’, opa ‘all’, mayma ‘every’, peteĩ ‘one/a’, ambue ‘other’, mbaʼeve ‘nothing’, opavave ‘all (people)’.
 
-## 3. THE CHEAT-SHEET (paste into system prompt)
+WORD ORDER & STRUCTURE
+- Default order: SUBJECT VERB OBJECT, but Subject often dropped (recoverable from prefix).
+- Adjective and demonstrative typically follow the noun, except `ko/pe/amo/umi/koʼã` which precede:
+   ko mitã michĩ ‘this small child’.
+- Possessor precedes possessum:   mitã sy ‘the child’s mother’,   che jagua porã ‘my pretty dog’.
+- Locatives/postpositional phrases typically follow the verb:  o-puka ko óga-pe ‘s/he laughs in this house’.
 
-```
-GUARANI (Avañeʼẽ) – CAPTION-CRITICAL GRAMMAR. Use standard Paraguayan
-Guarani orthography: nasal vowels ã ẽ ĩ õ ũ ỹ, g̃, puso ʼ. NEVER drop diacritics.
+HIGH-FREQUENCY CONTENT WORDS (pick from these before reaching for Spanish loans)
+People: kuña ‘woman’, kuimbaʼe ‘man’, mitã ‘child’, mitãkuña ‘girl’, mitãʼi ‘baby’, tapicha ‘person’.
+Animals: jagua ‘dog’, mbarakaja ‘cat’, kavaju ‘horse’, vaka ‘cow’, ovecha ‘sheep’, guyra ‘bird’, pira ‘fish’.
+Nature: yvyra ‘tree’, yvoty ‘flower’, y ‘water’, kuarahy ‘sun’, jasy ‘moon’, ára ‘sky/day’, yvy ‘ground/earth’.
+Objects: óga ‘house’, apyka ‘chair’, aripaka ‘table’, aranduka ‘book’, ao ‘clothing’, tape ‘road/path’.
+Body: akã ‘head’, tesa ‘eye’, juru ‘mouth’, po ‘hand’, py ‘foot’.
+Verbs (3sg active): oguata ‘walks’, oñani ‘runs’, oguapy ‘sits’, oke ‘sleeps’, opuka ‘laughs’, ohecha ‘sees’, okaru ‘eats’, oñeʼẽ ‘speaks’, ojeroky ‘dances’, ovyʼa ‘is happy’, oĩ ‘is/exists’.
+Inactive predicates (3): hasy ‘hurts/is sick’, iporã ‘is pretty’, ipiru ‘is thin’, ikyra ‘is fat’, ipyahu ‘is new’, ituja ‘is old’, hetã ‘is many’.
+Existential / copula: oĩ ‘there is, is located’, haʼe ‘is, equals’ (predicate identifier).
+Conjunctions: ha ‘and’, térã ‘or’, katu ‘but’.
 
-== VERB FORM = PREFIX + STEM (+ optional suffixes) ==
+EXAMPLES
+- A child eats bread.       Peteĩ mitã okaru mbujape.
+- The dog sleeps in the house.   Pe jagua oke ógape.
+- Two women walk on the road.    Mokõi kuña oguata tape rehe.
+- The flower is pretty.          Pe yvoty iporã.
+- A man and his son.             Peteĩ kuimbaʼe ha taʼýra.   ! son uses r-form: che raʼy ‘my son’ → ‘his son’ here marked by context; in the standalone phrase “his son” use taʼýra/taʼýrakuéra.
+- The black cat is on the table. Pe mbarakaja hũ oĩ aripakape.
+- Many flowers in the field.     Heta yvoty ñúme.   ! ñu ‘field’ + me (nasal).
 
-Two prefix sets — pick by verb class (active = action; inactive = state/feeling):
-
-ACTIVE (areal):  a- 1SG | re- 2SG | o- 3 | ja- 1PL.INCL | ro- 1PL.EXCL | pe- 2PL
-                 a-guata "I walk", o-puka "(s)he laughs", ja-jahu "we (incl) bathe"
-
-INACTIVE (chendal, written separate or hyphenated):
-                 che 1SG | nde 2SG | i-/ij-/iñ-/h- 3 | ñande 1PL.INCL | ore 1PL.EXCL | pende 2PL
-                 che-rasy "I am sick", h-aku "it is hot", ñande-vyʼa "we (incl) are happy"
-
-INCL vs EXCL is OBLIGATORY for "we": ñande/ja- includes the addressee; ore/ro- excludes them.
-
-== NASAL HARMONY (regressive, very common, ChrF-critical) ==
-
-If the stem has any nasal segment (ã ẽ ĩ õ ũ ỹ, m, n, ñ, mb, nd, ng, g̃),
-the prefix takes its nasal allomorph:
-  ja- → ña-     (ja-mboʼe ✗ → ña-mboʼe ✓ "we teach")
-  je- → ñe-     (reflexive/passive: o-ñe-monge "he sleeps himself = sleeps")
-  mbo- → mo-    (causative on nasal stem: mo-ñembyahýi "make hungry")
-  i- (3POSS) → iñ- before vowel-initial nasal stem (iñ-akã "his head")
-            → h-  before tonal vowel (h-óga "his house", h-esa "his eye")
-            → ij- before atonal vowel-initial oral stem (ij-ao "his clothes")
-Voiceless stops (p, t, k, ch, s) are TRANSPARENT and do not block harmony.
-
-== INALIENABLE NOUNS (body parts, kin) — possessor is OBLIGATORY ==
-
-Triformes alternate t- (no possessor) / r- (1-2 poss) / h- (3 poss):
-  tesa "an eye"  → che resa "my eye"  → hesa "his/her eye(s)"
-  tape "path"    → che rape "my path" → hape "his path"
-  túva "father"  → che ru   "my father" → itúva / túva  (3p uses i- elsewhere)
-Biformes (e.g. óga "house"): bare for 3 with h-, with r- for 1-2: che róga / hóga.
-NEVER write a body part or kin term bare if the picture shows whose it is.
-
-== NUMBER ==
-
-Plural is marked with -kuéra ONLY on definite/animate plurals; -nguéra after nasal stem.
-  mitã-nguéra "the children", jagua-kuéra "the dogs", umi yvyra "those trees".
-3rd person verb is unmarked for number; use "hikuái" auxiliary to force "they": o-puka hikuái "they laugh".
-
-== NOMINAL TENSE (very Guarani; Spanish/English have nothing like it) ==
-
--kue = former, ex-, used-up:  mboʼehára-kue "ex-teacher", tembiʼu-kue "leftovers"
--rã  = future, prospective:    tembiʼu-rã "food-to-be", che ru-rã "my future husband"
-
-== TENSE/ASPECT (verbal, all suffixes) ==
-
-PRESENT = bare verb (default for image captions of ongoing scenes).
-PROGRESSIVE = add hína:           o-puka hína "he is laughing"
-PAST: -kuri (recent), -vaʼekue (perfective), -akue, -mi (imperfective long-ago)
-FUTURE: -ta (imminent: o-ho-ta "he will go"), -vaʼerã (prospective/should)
-NEGATION: circumfix nd(a)-…-i:    nd-a-ha-i "I am not going",  nda-i-porã-i "it is not pretty"
-                                  (n- before nasal stems: na-ñe-mongeta-i)
-
-== POSTPOSITIONS (Guarani has no prepositions) ==
-
--pe / -me (after nasal): "in, at, to"     óga-pe "at home", tetã-me "in the country"
--gui  "from"        -rehe / -re  "about, on, onto"     -ndive  "with"
--gua  "of, from"    -guarã  "for (purpose)"            -ári  "on top of"
--pype "inside"      -gotyo  "toward"                   -rupi  "through, along"
-
-== DEMONSTRATIVES ==
-
-ko "this" | pe "that" | amo "that yonder"  (sg)
-ã / koʼã "these" | umi "those"             (pl)
-Word order: DEM N — ko jagua "this dog", umi mitã-nguéra "those children".
-
-== WORD ORDER & MODIFIERS ==
-
-Default: prefix on V already encodes subject; explicit S optional and usually first.
-Adjective FOLLOWS noun:    jagua hũ "black dog", kuña porã "pretty woman".
-Possessor PRECEDES possessed:  mitã sy "the child's mother", che jagua "my dog".
-Copula "is/are" = haʼe (different from 3sg pronoun haʼe):  haʼe peteĩ jagua "it is a dog".
-
-== FREQUENT LEXICAL ANCHORS FOR CAPTIONS ==
-
-people: kuimbaʼe "man", kuña "woman", mitã "child", karai "Mr/elder",
-        tapicha "person", mboʼehára "teacher", tetãygua "compatriot"
-body:   akã "head", tĩ "nose", juru "mouth", tesa "eye", po "hand", py "foot",
-        hete "body", áva "hair"
-animals: jagua "dog", mbarakaja "cat", kavaju "horse", guyra "bird", pira "fish",
-         mbói "snake", tymba "(domestic) animal"
-nature: kuarahy "sun", jasy "moon", mbyja "star", ára "day/sky", yvága "sky",
-        yvy "earth/ground", y "water", kaʼaguy "forest"
-objects/places: óga "house", tape "path", tenda "place", aranduka "book",
-                ao "clothing", tembiʼu "food", mesa "table"
-colors: pytã "red", hovy "blue", aky "green", saʼyju "yellow", morotĩ "white",
-        hũ "black"
-size/quality: tuicha "big", michĩ/mirĩ "small", puku "long", mbyky "short",
-              porã "beautiful/good", vai "bad/ugly", pyahu "new", tuja "old"
-numerals: peteĩ 1, mokõi 2, mbohapy 3, irundy 4, po 5
-```
-
----
-
-## 4. Drop list (what was cut and why)
-
-### From `.lexc`
-- **All continuation-class names** (`POS-COMPL`, `CASE-INFL`, `IRR-INFL`, `DEM-PRN-INFL`, `V-INFL`, `MODES`, `MODES-AUX`, etc.). Apertium plumbing.
-- **Archiphonemes as visible symbols** (`{N}`, `{K}`, `{P}`, `{H}`, `{I}`, `{i}`, `{m}`, `{b}`, `{a}`, `{e}`, `{Y}`, `{p}`, `{r}`, `{d}`, `{D}`, `{J}`, `{T}`, `{t}`, `{o}`, `{g}`, `{E}`, `•`). Replaced by plain-language allomorphy notes for the four cases that matter: `i-/ij-/iñ-/h-`, `-pe/-me`, `-kuéra/-nguéra`, `ja-/ña-`.
-- **Fine past-tense distinctions** (`<ifi>` pretérito perfecto, `<pii>` imperfecto, `<pmp>` pluperfect, separate `<past>`). The .rlx never disambiguates among them; collapsed to "past suffixes."
-- **Fine future** (`<fts>` subjunctive future, `<fti>` indicative future). Collapsed.
-- **Voice subdistinctions** `<obj>` (objective), `<sub>` (subsumptive), `<recip>`. Kept only causative + reflexive/reciprocal.
-- **Modal/discourse tags** `<vol>`, `<nar>`, `<car>`, `<emph>`, `<dist>` (distributive `-ve`). Apertium-only; rare in captions.
-- **Diminutive** `<dim>` (`-mi`, `-ʼi`). Mentioned in cheat-sheet only as note-worthy if seen.
-- **Imperative** `<imp>` and **optative** `<opt>`. Captions describe; they don't command.
-- **Question particle** `<qst>` (`-pa`, `-piko`, `-po`). Captions are not questions.
-- **`<incp>`** (incorporation): Apertium's CG explicitly REMOVEs every Incp reading. This is a noun-verb-compounding analysis Apertium produces but doesn't trust; captions don't need it.
-- **Punctuation/symbol/abbreviation tags** (`<sym>`, `<abbr>`, `<percent>`, `<sent>`, `<guio>`, `<cm>`, `<apos>`, `<rquot>`, `<lquot>`, `<rpar>`, `<lpar>`). Trivia.
-- **The Spanish loan lexicon** (`SpaNouns`, `SpaAdjectives`, `BARB`, `Barbarismes`, ~555 items tagged `<barb>`). Cut from cheat-sheet — but flagged: see Risks §5.
-- **Roman numerals**, **digits**, **proper-noun lists** (~600 toponyms incl. Indianapolis, Wisconsin, Wyoming…). The LLM already knows world geography.
-
-### From `.twol`
-- **The rule notation itself** (alphabet declarations, archiphoneme realisations, `<=>` operators, `where … matched` clauses). Translated to four plain-language rules: regressive nasal harmony; -kuéra/-nguéra; -pe/-me; 3-poss prefix allomorphy. Glottal-stop epenthesis (`{P}`) is also kept implicitly through correct lexical forms.
-- **Tonal-vowel/atonal-vowel shifting before suffixes** (the `Va:Vt` rule). The LLM should use lexical forms verbatim; this rule fires automatically inside the FST. Mentioning it would invite over-correction.
-- **The `-rehe → -re` reduction**, the `-ndive → -ndie` orthographic variant, **`Err/Orth` Dir/LR variants** (these are surface-spelling alternatives Apertium generates for tolerance, not what to produce).
-
-### From `.rlx`
-- **CG syntax** (`SELECT`, `REMOVE`, `MAP`, `BARRIER`, subreadings `SUB:0`, etc.). Translated to plain-language rules where they bear on captioning (e.g., "after `peteĩ` the next noun is the head" → not even mentioned because numerals already precede N).
-- **`@nsubj`/`@dobj`/`@iobj`/`@amod`/`@compound`/`@ccomp`/`@advmod`/`@conj`/`@cc`/`@advcl`/`@acl` syntactic-relation labels.** Useful only for downstream parsing.
-- **Heuristic REMOVEs** of low-frequency analyses (`Incp`, `Guess`, `A+Prn`, `Re+Prn`, `Top` near `Cog`/`Ant`).
-- **`Ñandejára`-specific rule** (a hardcoded selector for "Our Lord"). Not generalisable.
-
-### From `modes.xml`
-- **Everything.** Six pipeline definitions (`grn-morph`, `grn-trace`, `grn-segment`, `grn-gener`, `grn-tagger`, `grn-disam`) describe how to invoke `hfst-proc`/`lt-proc`/`vislcg3`. None of it is linguistic.
-
----
-
-## 5. Risks, open questions, ablations
-
-### Disagreements between Apertium and descriptive grammars
-- **Active/inactive labelling.** Apertium uses `<ac>`/`<in>`; Estigarribia (2020), Velázquez-Castillo, the Wikipedia entry, and the LING073 Apertium-style materials use *areal/chendal/aireal*. The cheat-sheet uses Apertium's `<ac>/<in>` only internally; the LLM-facing text uses the descriptive terms because they are more searchable and more linguistically transparent. Not a real conflict — just terminology.
-- **Aireal subclass is invisible in Apertium's tags.** In descriptive grammar, *aireal* verbs (a-i-ko, a-i-pota, a-i-kuaa) are a third subclass with an /-i-/ between prefix and stem. Apertium implements them via the `{i}` archiphoneme set on individual lemmas (e.g., `poriahuvereko:%{i%}poriahuvereko V` in lexc). This means the LLM, given Apertium tags only, cannot tell aireal from areal. In the cheat-sheet I've described the consequence at the level of attested forms (`a-iko`, not `a-ko`) rather than as a class label.
-- **Apertium's analysis of `ñe-` as a 1pl.incl pronominal accusative** (lexc line 7031: `ñande<prn>…<acc>:ñe Verbs`) is suspicious. In descriptive grammar `ñe-` is the nasal allomorph of the reflexive/passive `je-`. This is a place where Apertium's lexicon will mis-tag forms; for captioning we should treat `ñe-` as REFL-after-nasal-stem, full stop.
-- **`<tv>` vs. `<iv>` does not equal active vs. inactive.** Apertium's transitivity tag splits verbs by valence, while areal/chendal class is a separate (and partly orthogonal) split. Several lemmas tagged `<tv>` are chendal (e.g., `poriahuvereko<v><tv>` 'pity', which inflects with `che`/`nde`/`i-`, not `a`/`re`/`o-`). The cheat-sheet handles this by describing prefix sets in semantic terms ("active = action; inactive = state/feeling") rather than by transitivity.
-
-### Disagreements among the four files
-- **The `-niko/<nar>` particle** is declared in lexc and twol allomorphy rules, but rlx never references the `<nar>` tag. Either nar is rare or the disambiguator simply doesn't need to disambiguate it. Either way, low priority.
-- **The aireal class is not named in lexc tags**, yet twol has a dedicated rule "Add [i] for aireales." A genuine cross-file inconsistency: the rule exists but the tag does not.
-- **Plural marking discrepancy.** lexc has both `<det><pl>` `kuéra` (a separate post-nominal "plural determiner") and `SUF-PL` `-ita<adj><ind><pl>`. rlx only uses the `<pl>` tag. The `-ita` plural is probably a Spanish-loan adjective plural and unlikely to occur in native captions; cut from cheat-sheet.
-
-### Other open questions
-- **Register / loan tolerance.** Apertium tags ~555 items as `<barb>` (Spanish loans like *trabajo*, *colegio*, *hospital*, *familia*). The AmericasNLP 2023 Guarani training data spans legal/health/educational domains where such loans appear naturally. Whether the 2026 image-caption gold uses standard ALG-2018 forms (e.g., *mboʼehao* for school, not *escuela*) or jopará-tolerant forms is unknown until the dev set is read. **Recommended:** target standard PG; if dev captions show Spanish-origin tokens, allow `<barb>` words verbatim but never mix orthographies (don't write *jaha-mos* or anything jopará).
-- **Orthographic variation in the wild.** The Apertium lexicon contains many `Err/Orth` entries (e.g., `paragu•ái:paragu•ái` and `paraguái:paraguái`, accent placement differing). The dev/test set will probably be normalised, but if it isn't, chrF++ will sting on accent placement. **Verify on dev** before final submission.
-- **Word segmentation of person prefix + verb.** Apertium represents these joined (`o-puka` written `opuka`, no hyphen). The conventional written form omits the hyphen; the cheat-sheet shows hyphens for clarity. **Important: tell the LLM to OUTPUT joined forms** (`opuka`, `cherasy`, not `o-puka`, `che-rasy`) — otherwise chrF++ punishes every prefix.
-
-### Suggested ablations on the dev set
-1. **Nasal-harmony block.** Run the LLM with vs. without the harmony rule paragraph. Hypothesis: removing it costs ≥1 chrF++ point on captions whose images have ≥1 nasal-stem verb. If so, keep it; otherwise inspect why the model ignored it.
-2. **Inalienable-possession block.** Remove the triformes/biformes paragraph and the body-part lexical anchors. Captions of people/animals where body parts are visible should degrade; if they don't, the LLM is already handling this via patterns from training data and the block is redundant.
-3. **Inclusive/exclusive 1pl.** Captions describing groups including the (implicit) viewer ("us at the festival") vs. excluding them ("the men working") should differ. Test whether explicit incl/excl guidance changes the model's choice. If the dev set rarely uses 1pl, drop the paragraph entirely.
-4. **Loan-word policy.** Two prompts: (a) "use only native Guarani lexicon"; (b) "Spanish-origin words are acceptable when standard." Compare chrF++. Set the policy that wins; the difference will tell you the dev set's register without you needing to read all 50 examples manually.
-5. **`-kue` / `-rã` block.** These are unique to Guarani and Spanish-defaulting LLMs almost never produce them. If the dev set captions never use them (likely for static images of present-time scenes), the block can be cut. Otherwise it's the highest-leverage Tier-1 instruction.
+DEFAULT RULES OF THUMB
+1. If unsure between affix allomorphs, scan the stem for {ã ẽ ĩ õ ũ ỹ ñ m n}; if any present → nasal allomorph.
+2. Prefer 3sg present (o-VERB or i-/h-INACT) for descriptive captions.
+3. Prefer native lexicon; only fall back on Spanish loans for objects with no common Guarani word (avión, télefono, kompu).
+4. Plural is morphologically optional — Guarani often leaves number unmarked when context is clear, especially after numerals: mokõi jagua (NOT *mokõi jaguakuéra).
+5. Articles do not exist; bare noun = definite or indefinite. Use peteĩ ‘one’ for explicit indefiniteness.
