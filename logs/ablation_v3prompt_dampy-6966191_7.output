@@ -1,0 +1,4 @@
+conda version 25.3.0 python 3.12.7 loaded.
+Task 7  config: all
+Output: outputs/ablation_v3prompt_dampy_05-01_all.tsv
+slurmstepd: error: *** JOB 6966191 ON nid0018 CANCELLED AT 2026-05-01T16:08:25 ***
