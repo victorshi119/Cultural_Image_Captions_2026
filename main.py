@@ -238,6 +238,12 @@ def load_parallel_examples(path: str, n:int):
 
     return "\n".join(lines)
 
+def load_grammar_book(path: str, n: int):
+    header = "REFERENCIA DE GRAMÁTICA GUARANÍ (libro de gramática):"
+    with open(path, "r", encoding="utf-8") as f:
+        lines = [line.strip() for line in f if line.strip()]
+    return header + "\n" + "\n".join(lines[:n])
+
 def load_apertium_summary(path: str, chars:int):
     with open(path,"r",encoding="utf-8") as f:
         text = f.read(chars)
@@ -255,7 +261,9 @@ def build_system_prompt(
     num_grammar_parallel: Optional[int] = None,
     apertium_path: Optional[str] = None,
     apertium_chars: Optional[int] = 15000,
-    culture_knowledge_path: Optional[str] = None, 
+    culture_knowledge_path: Optional[str] = None,
+    grammar_book_path: Optional[str] = None,
+    num_grammar_book: Optional[int] = None,
 ):
     prompt = base_prompt
 
@@ -267,6 +275,9 @@ def build_system_prompt(
 
     if grammar_parallel_path:
         prompt += "\n" + load_grammar_parallel(grammar_parallel_path,num_grammar_parallel)
+
+    if grammar_book_path:
+        prompt += "\n" + load_grammar_book(grammar_book_path, num_grammar_book)
 
     if parallel_path:
         prompt += "\n" + load_parallel_examples(parallel_path, num_parallel)
@@ -336,6 +347,8 @@ def main():
     parser.add_argument("--retrieval_top_k",type=int,default=10,help="number of code rules to retrieve per image")
     parser.add_argument("--apertium",type=str,default=None,help="path to summary of apertium morphology apertium_grn_summary.txt")
     parser.add_argument("--apertium_chars",type=int,default=15000,help="number of characters to take from apertium summary")
+    parser.add_argument("--grammar_book",type=str,default=None,help="path to grammar book file")
+    parser.add_argument("--num_grammar_book",type=int,default=50,help="number of lines to take from grammar book")
     args = parser.parse_args()
     
     api_key = os.environ.get("REALLMS_API_KEY")
@@ -350,6 +363,7 @@ def main():
     grammar_parallel_path = to_path(args.grammar_parallel)
     apertium_path = to_path(args.apertium)
     culture_knowledge_path = to_path(args.culture_knowledge)
+    grammar_book_path = to_path(args.grammar_book)
     code_rules_path = to_path(args.code_rules)
 
     base_prompt = prompt_version[args.prompt_version]
@@ -364,7 +378,9 @@ def main():
         apertium_path=apertium_path,
         apertium_chars=args.apertium_chars,
         base_prompt=base_prompt,
-        culture_knowledge_path=culture_knowledge_path
+        culture_knowledge_path=culture_knowledge_path,
+        grammar_book_path=grammar_book_path,
+        num_grammar_book=args.num_grammar_book,
     )
 
     bm25_chunks, bm25_index = None, None
