@@ -318,7 +318,7 @@ def run_captioning(
         out.parent.mkdir(parents=True,exist_ok=True)
         with open(out, "w",encoding="utf-8") as f:
             for img_id, caption in results:
-                f.write(f"{img_id}\t{caption}\n")
+                f.write(f"{img_id}\t{caption.replace(chr(10), ' ').replace(chr(13), ' ')}\n")
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("image_dir",type=str,help="Folder of test images to caption")
