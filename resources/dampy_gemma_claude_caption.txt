@@ -1,0 +1,117 @@
+## 1. Comida
+achura_0	Chúra, ñane so'o rembiapo yvykuáva, oñembo'y tatakuápe ha ojehayhuvéva asadope; oje'u ñane atýpe ára rekohápe, oñemyandukávo ñane tembiapo ha ñane rekojera so'o rekahagua rupi.
+alfajor_0	Alfajorkuéra, he'ẽ ha ñandýgui rupi ojejapóva, ojehayhuvéva ñane ñemomba'e ára pyahúpe ha torypópe; oje'u ñane ogakuéra ha ñane atýpe, ombouva ñane tembi'u he'ẽva rekojera.
+asadito_0	Mokõi avakuéra oñembosako'i tatakuápe, so'o yvytu ári ojejapyhyvo mbytehápe; ko ñane rembi'u rekojera ojehechaukáva mba'éicha ñane aty ojoaju ñembo'y ha ñane ñemoirũ rupi.
+asadoalaestaca_0	So'o mbichy oñembo'y tatápe, tata pytã ombojy ñane yvakuégui; oje'u ñane atýpe ára rekohápe, oñemyandukávo ñane so'o rekaha ha ñane rekojera Paraguái ka'aguy ha tape renondégua.
+asadoalaolla_0	Asado alaolla, so'o mandioca ndive tatakuápe pailape ojejapóva, ojehayhuvéva ñane ogápe; omohesakã ñane rembi'u rekojera ha ñane ñemoirũ araguápe, oje'u torypópe.
+asadoalaparrilla_0	So'o ha jevýkuéra oñembo'y tatakuápe, yvyru pytã ári; ko ñane aty rekojera ojehechaukáva mba'éicha ñane ñemoirũ ojoaju ñembo'y ha ñane ka'aguy ñombyaty rupi.
+asadodetira_0	Asadodetira, ñane so'o yvytu rekojera tatakuápe, oñembosako'i hetave avakuéra ndive; oje'u ñane atýpe torypópe ha ñemomba'epýpe, oñemyandukávo ñane rekojera ka'aguy ha ñane ñemoirũ rupi.
+bizcochuelo_0	Bizcochuelo, ryguásu ha he'ẽ rupi ojejapóva tatakuápe, oĩ poteýpe; ojehayhuvéva ñane ñemomba'e ára pyahúpe ha ñane ñemoirũ araguápe, oje'u ñane ogápe ha atýpe.
+bocadito_0	Bocaditokuéra, ryguásu ha kesú rupi ojejapóva, oñemosẽ ñane atýpe ha ñemomba'epýpe; ojehechaukávo mba'éicha ñane tembi'u oñembopyre ha oñemomba'eguasu ñane ñemoirũ ha ñane rekojera rupi.
+bollo_0	Bollokuéra, aramirõ ha ñandýgui rupi ojejapóva, oĩ mbokahápe; ojehayhuvéva pyhareve ha ko'ẽmbotápe, oje'u tereré térã ka'ay ndive ñane ogakuéra ha mbo'ehahápe.
+bori_0	Vori vori, avatiku'i ha kesú rupi ojejapóva tatakuápe, oje'u yakã pytũme ha yvága pytaite jave; omohesakã ñane rembi'u akuã oñemoheẽva ñane ñemoirũ ha ñane tekohápe.
+cabure_0	Kavure, aramirõ ha kesú rupi ojejapóva, ojehayhuvéva ñane mitã ha ymaguaré ndive; oje'u pyhareve tereré ndive, ombouva ñane rekojera ha ñane tembi'u aramirõgua arandu.
+candial_0	Kamby rypy'ũ, avatiku'i ha kesú rupi ojejapóva pailape, oje'u yakã pytũme ha tatakuápe ombohévo; ojehayhuvéva ñane ñemoirũ ha torypópe, omohesakã ñane tembi'u rekojera.
+cecina_0	Cecina, ñane so'o yvytu ári ojembichy ha tatakuápe ojembo'y, oje'u ñane ogápe ha atýpe; oñemyandukávo ñane tembiapo ha ñane rekojera so'o rekahagua ha ñane ka'aguy rupi.
+chastaca_0	Chastaca, mandioca rupi ojejapóva ha'eva, oje'u ñane atýpe ha ñembosaraikuaápe; oñemyandukávo ñane oga ha ñane tembiapo rehegua, ombouva ñane rembi'u rekojera mandiocagua rupi.
+chipa_0	Chipakuéra, aramirõ ha kesú rupi ojejapóva tatakuápe, ojehayhuvéva pyhareve tereré ndive; oje'u San Blas ha Semana Santa arásýpe, ojehechaukávo ñane ñemomba'e ha ñane reko.
+chipaabati_0	Chipaabati, avatiku'i ha kesú rupi ojejapóva, oĩ poty yvotyguápe; oje'u pyhareve ha tembiasa porãhápe, oñemyandukávo ñane ka'aguy rekojera ha ñane tembi'u avatigua arandu.
+chipaargolla_0	Chipaargolla, aramirõ ha kesú rupi ojejapóva, imykõiva ha ijojáva tatakuápe; ojehayhuvéva pyhareve tereré ha ka'ay ndive, oje'u ñane ogakuéra ha mbo'ehahápe San Blas ha Semana Santa arásýpe.
+chipaasador_0	Chipaasador, aramirõ ha kesú ndive ojejapóva tataápe, ojehayhuvéva ñahávo yvytu ári; oje'u pyhareve tereré ndive, oñemomba'eguasu ñane ñemomba'e ha ñane rekojera chipa reheguápe.
+chipaguasu_0	Chipaguasú, avatiku'i ha kesú rupi ojejapóva tatakuápe pailápe, ojehayhuvéva ñane ñemoirũ arásýpe; oje'u torypópe ha ñane atýpe, oñemomba'eguasu ñane rembi'u rekojera ha ñane reko.
+chipamestizo_0	Chipamestizo, aramirõ ha kesú rupi ojejapóva, imbyky ha ijojáva tatakuápe; ojehayhuvéva pyhareve ka'ay ndive, oñemomba'eguasuva ñane tembi'u ha ñane reko chipa rekojera rupi.
+chipapiru_0	Chipapiru, aramirõ ha kesú rupi ojejapóva, ituichava ha oyváva; oje'u ñane atýpe ha torypópe, oñemomba'eguasu ñane rekojera chipa reheguápe ha ñane ñemomba'e rupi.
+chupindepescado_0	Chupín depescado, pira ha kesú rupi ojejapóva pailape, ojehayhuvéva ñane ysyrymba; oje'u torypópe ha ñemomba'epýpe, oñemyandukávo ñane pira rekajera ha ñane ysyry Paranáguape.
+cocido_0	Cocido, ka'ay he'ẽva ha ñandýgui ndive ojejapo, oje'u pyhareve ñane ñemoirũ pypépe; ojehayhuvéva yakã pytũme ha tatakuápe ombohévo, omohesakã ñane py'aguapy areguápe.
+coquito_0	Coquito, pindo yva'águi ojejapóva, oje'u ñane atýpe ha torypópe; oñemomba'eguasu ñane rembi'u rekojera ha ñane ñe'ẽpoty pindo reheguápe, omohesakã ñane ka'aguy ha ñane tembiapo.
+galleta_0	Galleta, aramirõ ha kesú rupi ojejapóva, imbyky ha ijojáva; ojehayhuvéva pyhareve tereré ndive, oje'u ñane ogakuéra ha mbo'ehahápe, ombouva ñane rembi'u rekojera aramirõgua rupi.
+horchata_0	Horchata, yvoty ha ka'avo rupi ojejapo, oje'u haku jave oheka haguã py'aguapy; omohesakã ñane rembi'u rekojera ha ñane pohã ñana arandu, oñemyandukávo ñane ñe'ẽ ha ñane tembiapo.
+locro_0	Locro, avati ha mandioca ndive ojejapóva pailape, oje'u yakã pytũme ha torypópe; oñemyandukávo ñane tembi'u rekojera ha ñane aty rehegua, oje'u ñane atýpe ha ñane ka'aguy.
+mazamorra_0	Mazamorra, avatiku'i ha he'ẽ rupi ojejapóva tatakuápe ombohévo, oje'u yakã pytũme; ojehayhuvéva ñane mitã ha ymaguaré ndive, oñemyandukávo ñane rembi'u he'ẽva ha ñane reko.
+mbeyu_0	Mbejú, aramirõ ha kesú rupi ojejapóva tatakuápe, ojehayhuvéva pyhareve tereré ndive; oje'u Semana Santa arásýpe ha torypópe, ojehechaukávo ñane ñemomba'e ha ñane reko.
+palito_0	Palitokuéra kesú rupi ojejapóva, oĩ plato morotĩ ári; ojehayhuvéva ñane atýpe ha ñembosaraikuaápe, oje'u tereré ha ka'ay ndive ñane ñemoirũ ha ñane reko arásýpe.
+panca_C3_B1on_0	Panchón mokõi, aramirõ ha kesú rupi ojejapóva tatakuápe, oĩ mesa ári; ojehayhuvéva pyhareve ha torypópe, oñemomba'eguasuva ñane tembi'u rekojera ha ñane reko.
+pandemiga_0	Pandemiga puku, aramirõ ha ñandýgui rupi ojejapóva, oĩ ñane ogakuéra mesa ári; ojehayhuvéva pyhareve tereré ha ka'ay ndive, omohesakã ñane tembi'u rekojera aramirõgua ko'ẽguápe.
+pandetrincha_0	Pandetrincha, aramirõ ha kesú rupi ojejapóva, imbyky ha ijojáva tatakuápe; ojehayhuvéva ñane ogakuéra ha mbo'ehahápe, oje'u pyhareve tereré ha ka'ay ndive, omohesakã ñane tembi'u rekojera.
+pannavidad_0	Pannavidad, he'ẽ ha ñandýgui rupi ojejapóva tatakuápe, oĩ mesa ári Navidad arásýpe; ojejapóva ñane ogápe ha ojehayhuvéva ñane ñemoirũ retãme, ombouva ñane reko ha ñane tembi'u arandu.
+panqueque_0	Panquekekuéra, ryguásu ha he'ẽ rupi ojejapóva, ojehayhuvéva pyhareve ha ñembosaraikuaápe; oje'u he'ẽ ha yvopytĩ ndive, omohesakã ñane tembi'u rekojera ha ñane ñemoirũ araguápe.
+pastelmandio_0	Pastelmandio mokõi, mandioca rupi ojejapóva tatakuápe, ojehayhuvéva ñane atýpe ha torypópe; oje'u tereré ha ka'ay ndive, oñemyandukávo ñane ñemomba'e ha ñane rekojera mandiocagua rupi.
+pireca_0	Pireca, aramirõ rupi ojejapóva ñandýgui ape ári, ojehayhuvéva ñane mitã ha ymaguaré ndive; oje'u pyhareve ha torypópe, oñemyandukávo ñane tembi'u rekojera aramirõgua rupi.
+sopaparaguaya_0	Sopa paraguaya, avatiku'i ha kesú rupi ojejapóva tatakuápe, ojehechaukáva ñane rembi'u tee; oje'u torypópe ha ñemomba'epýpe, oñemomba'eguasu ñane rekópe ha ñane ñe'ẽpotyhápe.
+soyo_0	Soyo, so'o ha pohã ñana rupi ojejapóva, oje'u yakã pytũme ha haku jave; ojehayhuvéva ñane ogápe ha atýpe, ombouva ñane rembi'u rekojera ha ñane pohã ñana arandu.
+torta_0	Torta, ryguásu ha he'ẽ rupi ojejapóva tatakuápe, ojehayhuvéva ñane ñemomba'e ára pyahúpe; oje'u torypópe ha ñembosaraikuaápe, oñemomba'eguasu ñane aty ha ñane ñemoirũ retãme.
+tortilla_0	Tortilla, aramirõ ha kesú rupi ojejapóva, ijojáva ha ihe'ẽva tatakuápe; ojehayhuvéva pyhareve tereré ndive, oje'u ñane ogakuéra ha ñane atýpe, oñemyandukávo ñane ñemomba'e rupi.
+
+## 2. Fauna
+acuti_0	Acutí oguata yvyrákuéra mbytépe, oheka tembi'u ka'aguyhápe; ojehecha ñane ka'aguyhápe ha ñane ysyryme, oñemomba'eguasu ñane mymba rekojera ha ñane tembiapo ka'aguy rupi.
+aguara_0	Aguara guasu oĩ yvyráre, iñarávo ho'u yva ka'aguy yvagagua; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemyandukávo ñane mymba rekojera ha ñane ka'aguy.
+ano_0	Año oĩ yvyra kása ári, iñarávo oheka tembi'u kokuépe; ojehecha ñane kokuépe ha ñane ka'aguyhápe, oñemomba'eguasu mba'éicha guyra oñeñangareko iñe'ẽngópe ha iñakuãtekópe.
+arara_0	Arara mokõi oĩ yvyra rakãre, iñakã sa'yju ha hovy; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemyandukávo ñane guyra rekojera ha ñane mombe'upy arara reheguápe.
+cabure_0	Kavure oĩ yvyra pytu'áre, iñe'ẽmi ijyvy; ojehecha ñane ka'aguyhápe pyhareve ha ko'ẽgua jave, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy kavure reheguápe.
+caracara_0	Caracara hovy ha pytã oĩ yvyra kágui ári, ohecha ijerére; ojehecha ñane ka'aguyhápe ha ñane kokuépe, oñemomba'eguasu ñane guyra rekojera ha ñane tembiapo ka'aguy rupi.
+carau_0	Carau oĩ yvýpe ha ysyryme, iñe'ẽ oñemyanduka; ojehecha ñane ysyryhápe ha yvoty ñanáme, oñemomba'eguasu mba'éicha guyra oĩ ñane ysyrymba ha ñane tembiapo reheve.
+caraya_0	Carayá okáramo yvyráre, iñe'ẽ oñemyanduka ka'aguy mbytépe ojokupytávo hógaháicha; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba rekojera ha ñane ka'aguy.
+carpincho_0	Kapi'yva oĩ ysyry ñanáme, iñakuã ikuáre ojehapévo ysyryme; ojehecha ñane ysyryhápe ha ñane yvoty ñanáme, oñemomba'eguasu ñane mymba rekojera ha ñane mombe'upy kapi'yva reheguápe.
+carumbe_0	Carumbe oguata tape puku ári, iguyrâ oipytyvõ chupe; ojehecha ñane ysyryhápe ha ñane yvy pytãme, oñemomba'eguasu ñane mymbarakuã rekojera ha ñane ka'aguy.
+chaja_0	Chaja oguata kokuépe, iñe'ẽ oñemyanduka; ojehecha ñane yvytyhápe ha ñane ysyryme, oñemyandukávo ñane mymba rekojera ha ñane yvy ape ka'aguy rupi.
+chancho_0	Chancho oĩ yvyra pývape, iñarávo oheka tembi'u; ojehecha ñane kokuépe ha ñane ogakuéra jerére, oñemomba'eguasu ñane tembiapo ha ñane rekojera mymba ñañangarekóva rupi.
+coati_0	Mbarakaja guasu oĩ yvyráre, iñakãrã ijetu'u oipytyvõ chupe oheka haguã tembi'u ka'aguype; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, omohesakã mba'éicha mymba oñeñangareko iñarandúpe.
+colibri_0	Mainumby michĩ oĩ yvyra rakãre, ijyva pytã; ojehecha ñane ka'aguyhápe ha ñane yvoty ñanáme, oñemomba'eguasu ñane mombe'upy ha ñane ñe'ẽpoty mainumby reheguápe.
+curiyu_0	Curiyu guasu oguata yvytýpe, iñarávo oheka mymba ka'aguype; ojehecha ñane ka'aguyhápe ha ñane ysyryme, oñemyandukávo ñane mymba rekojera ha ñane ka'aguy.
+cururu_0	Cururu oĩ ka'aguy peve, yvyra pohy ári; ojehecha ñane ka'aguyhápe ha ñane ysyryme, ojehechaukávo mba'éicha mymba michĩ oĩ ñane tekohápe ha ñane ka'aguy.
+dorado_0	Dorado, ñane pira ypykuéra Paranágui, oĩ peteĩ platópe; ojehayhuvéva pira rekahárape ha oñemomba'eguasu ñane ysyry rekópe, ojehechaukávo mba'éicha pira oĩ ñane ysyryme.
+eira_0	Eira oguata ka'aguy yvy ape ári, oñembo'y oheka haguã tembi'u; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, omohesakã mba'éicha mymba michĩ oĩ ñane ka'aguyhápe.
+gatoonza_0	Gato onza oĩ ka'aguy mbytépe, pyhareve; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba rekojera ha ñane ka'aguy.
+guasu_0	Guasú ohecha ijerére ka'aguype, iñarávo oheka tembi'u; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemyandukávo ñane mymba rekojera ha ñane ka'aguy.
+guasuvira_0	Guasuvira oĩ ka'aguyre, yvyra rupa ári; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba rekojera ha ñane mombe'upy guasuvira reheguápe.
+leon_0	Leon oĩ yvoty ha pytu rupi, iñarávo oñemombo'y; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba rekojera ha ñane ka'aguy.
+lorito_0	Lorítokuéra hovy oĩ yvyra ári, oñomongeta; ojehecha ñane ka'aguyhápe ha ñane ogakuéra jerére, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy.
+maracana_0	Marakaná oĩ yvyra rakáre, iñakã sa'yju ha hovy; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane guyra rekojera ha ñane ñe'ẽpoty.
+mbigua_0	Mbiguá hovy oñemombávo yvýpe, iñakuã omboivúva; ojehecha ñane ysyryhápe ha ñane yvoty ñanáme, ojehechaukávo mba'éicha guyra oheka pira ysyryme.
+mborevi_0	Mboreví oĩ ysyry potyýpe, iñakuã ombo'íva; ojehecha ñane ka'aguyhápe ha ñane ysyryme, oñemomba'eguasu ñane mymba rekojera ha ñane ñe'ẽpoty mboreví reheguápe.
+nacurutu_0	Nacurutu oĩ yvyra kágui, iñarávo ohecha kuarahy; ojehecha ñane ka'aguyhápe pyhareve ha ko'ẽgua jave, oñemomba'eguasu ñane mombe'upy guyra pytu reheguápe.
+nanday_0	Nanday hovy oĩ yvyráre, oñomongeta; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy.
+nandu_0	Ñandú oĩ ka'aguyre, iñarávo oheka tembi'u yvytyhápe; ojehecha ñane yvytyhápe ha ñane ka'aguyhápe, oñemomba'eguasu ñane mymba rekojera ha ñane ñe'ẽpoty ñandú reheguápe.
+pajarocampana_0	Pajero campana oĩ yvyra rakãre, iñe'ẽ oñemyanduka; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy.
+piririta_0	Piririta oĩ yvyra rakãre, iñakuã hovy ha puku; ojehecha ñane ka'aguyhápe ha ñane yvoty ñanáme, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy.
+pitogue_0	Pitogue oĩ yvyra poyvi ári, iñakã hovy ha pytã; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy.
+taguato_0	Taguato oĩ yvyra poty ári, iñarávo ohecha ijerére; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane guyra rekojera ha ñane ka'aguy.
+tanicati_0	Tanicatikuéra oĩ yvyra'y rupi, oñemombo'y oñomongeta; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba michĩ rekojera ha ñane ka'aguy.
+tatu_0	Tatú oĩ yvy puku ári, iñarávo oheka tembi'u; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba rekojera ha ñane ñe'ẽpoty tatú reheguápe.
+terotero_0	Terotero oĩ yvy ári, iñe'ẽ oñemyanduka kapi'i ha yvy mongúyvápe; ojehecha ñane yvytyhápe ha ñane kokuépe, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy.
+teyu_0	Teyú guasu oguata yvy pytã ári, iñarávo oheka tembi'u; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymbarakuã rekojera ha ñane ka'aguy.
+tordo_0	Tordo hovy oĩ yvyra kágui ári, iñe'ẽ oñemyanduka; ojehecha ñane ka'aguyhápe ha ñane ogakuéra jerére, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy.
+tucan_0	Tucan guasu oĩ yvyra rakãre, ijyva pytã ha hovy; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane guyra rekojera ha ñane mombe'upy.
+tuyuyu_0	Tuyuyú oĩ yvoty ysyrype, iguyrâ ipuku; ojehecha ñane ysyryhápe ha ñane yvoty ñanáme, oñemomba'eguasu ñane guyra rekojera ha ñane ysyrymba.
+urutau_0	Urutau oĩ yvyrare, iñe'ẽ oñemyanduka pyhareve; oñemomba'eguasu ñane mombe'upýpe ndesy ñembyasy rembihára iñe'ẽ rupi, ojehechaukávo ñane ñe'ẽpoty ha ñane rekojera pytu reheguápe.
+vaquilla_0	Va'i puku oñembo'y yvyrehe, ñane tembiapo rekojera; ojehecha ñane kokuépe ha ñane ka'aguypehápe, oñemomba'eguasu ñane mymba rekojera ha ñane tembiapo.
+venadohembra_0	Guasú va'i oĩ kapi'i pytu peẽme, iñarávo oheka tembi'u; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba rekojera ha ñane ka'aguy.
+venadohembra_1	Guasú va'i oĩ kokuépe, ohecha ijerére; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba rekojera ha ñane tembiapo ka'aguy rupi.
+yacare_0	Jakare oĩ yvyra'y ha yvoty rupi, hysyry yvape; ojehecha ñane ysyryhápe ha ñane yvoty ñanáme, oñemomba'eguasu ñane mymbarakuã rekojera ha ñane ñe'ẽpoty jakare reheguápe.
+yaguarete_0	Yaguarete mokõi oĩ ka'aguy peguápe, ohecha opaite mba'e; oñemomba'eguasu ñane ñe'ẽpotýpe Ka'aguy Jára rembihára iñe'ẽ rupi, ojehechaukávo ñane ka'aguy ha ñane rekojera.
+yaguarundi_0	Yaguarundi oguata yvyrahaápe, iñarávo oñemombo'y; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mbarakaja rekojera ha ñane ka'aguy.
+yurumi_0	Yurumí oguata yvyra'y ha tata'y rupi, iñakuã ipuku; ojehecha ñane ka'aguyhápe ha ñane yvytýpe, oñemomba'eguasu ñane mymba rekojera ha ñane ñe'ẽpoty yurumí reheguápe.
+
+## 3. Flora
+aguacate_0	Aguakáte yvyra oĩ ñane kokuépe, iyva he'ẽva ha ikyra porã haguére; ojehayhuvéva tembi'u ha pohã ñana rupi, oñemomba'eguasu ñane rembi'u rekojera ha ñane ka'aguy.
+ambay_0	Ambay yvate oĩ kokuépe, ihogue guasu ha hovy; ojeipuru pohã ñanápe asy ñandurépe ha okyhápe, oñemomba'eguasu ñane pohã ñana arandu yvyra rupi.
+apepu_0	Apepu, yvyra yvoty sa'yjuháva oĩ ñane ka'aguyhápe, iyva he'ẽva ha haky'ẽva; ojehayhuvéva tembi'u ha y'u rupi, oñemomba'eguasu ñane rembi'u rekojera ha ñane pohã ñana arandu.
+cangorosa_0	Cangorosa, yvoty michĩ sa'yjuháva, oĩ ka'aguy mbytépe; ojeipuru pohã ñanápe asy ñandure ha ñe'ẽ rupi, oñemomba'eguasu ñane pohã ñana arandu ha ñane ka'aguy.
+caraguata_0	Caraguatá puku oĩ ka'aguy mbytépe, yvoty pytã ha hovy; ojeipuru tembiapo ha pohã ñana rupi, oñemomba'eguasu ñane yvyra rekojera ha ñane mombe'upy.
+cebolladeverdeoodehoja_0	Cebolla de verdeo, ka'avo hovyvéva, oĩ ñane kokuépe; ojehayhuvéva tembi'u ha pohã ñana rupi, oñemomba'eguasu ñane rembi'u rekojera ha ñane ka'aguy.
+cocoterombocaya_0	Pindo ñeĩ mbohapy oĩ kokuépe, yvaga hovýpe; iyva ha iñandýgui ojehayhuvéva tembi'u ha rembiapo rupi, oñemomba'eguasu ñane ñe'ẽpoty pindo reheguápe ha ñane ka'aguy.
+curupay_0	Kurupay yvyra guasu oĩ ka'aguyhápe, itero itikuéva ha yvoty morotĩva; ojeipuru pohã ñanápe asy ñandurépe ha rembiapo rupi, oñemomba'eguasu ñane yvyra rekojera ha ñane tembiapo.
+curupicay_0	Yvyra vai, yvoty hovyvéva, oĩ ka'aguype; oje'evo ndéve oiko Pombero ha Kurupí ysypópe, oñemomba'eguasu ñane ñe'ẽpoty ha ñane mombe'upy yvyra reheguápe.
+frutilla_0	Frutilla pyporéva ha hakuáiva oĩ peteĩ ta'ãga rupi, kuarahy ombosakóvo; ojehayhuvéva tembi'u ha y'u rupi, oñemomba'eguasu ñane rembi'u rekojera ha ñane kokuépe.
+guapuru_0	Guapuru, yvyra iñandutíva, oĩ ñane yvytýpe; iyva he'ẽva ha pytãva ojehayhuvéva tembi'u ha y'u rupi, oñemomba'eguasu ñane pohã ñana arandu ha ñane ka'aguy.
+guayaibi_0	Guayaibí yvyrare oĩ ka'aguy rupi, iguyrâ opurutu ha ipohãva; ojeipuru pohã ñanápe ha rembiapo rupi, oñemomba'eguasu ñane yvyra rekojera ha ñane ka'aguy.
+guembe_0	Guembé hovyvéva oĩ poteýpe, ihogue ituĩva ha hovy; ojeipuru rembiapo ha pohã ñana rupi, oñemomba'eguasu ñane yvyra rekojera ha ñane ka'aguy.
+guinoto_0	Guinoto porã oĩ kapi'i tata ári, iyva he'ẽva; ojehayhuvéva tembi'u ha y'u rupi, oñemomba'eguasu ñane rembi'u rekojera ha ñane kokuépe.
+lapachoamarillo_0	Tajy sa'yju, yvoty sa'yju ombojurúva eiru ha mainumby, oĩ ka'aguype; ipotyjave = ára pyahu ha Paraguái rembo'y rupi, oñemomba'eguasu ñane ñe'ẽpoty ha ñane rekojera tajy reheguápe.
+lapachoblanco_0	Tajy morotĩ guasu oĩ tape mbytépe, yvoty morotĩva ombojurúva eiru; oñemomba'eguasu ñane ñe'ẽpoty ha ñane rembiapo tajy reheguápe, oñemyandukávo ára pyahu ha ñane rekojera.
+lapachorosado_0	Tajy pytã guasu, yvoty pytã ombojurúva eiru ha mainumby, oĩ tape gotyo; oñemomba'eguasu ñane ñe'ẽpoty ha ñane rekojera tajy reheguápe, oñemyandukávo ára pyahu ha ñane tekohápe.
+paloborracho_0	Palo borracho guasu, itronko itikuéva ha yvoty pytã porã, oĩ kokuépe; oñemomba'eguasu ñane yvyra rekojera ha ñane ka'aguy, ojehechaukávo mba'éicha yvyra oĩ ñane tekohápe.
+patadebuey_0	Yvoty paka-ovai oĩ kokuépe, yvyra jerére; ojeipuru pohã ñanápe ha rembiapo rupi, oñemomba'eguasu ñane yvyra rekojera ha ñane ka'aguy.
+petereby_0	Peterevy yvyra oĩ kokuépe, yvoty hovyhuvéva; ojeipuru rembiapo ha pohã ñana rupi, oñemomba'eguasu ñane yvyra rekojera ha ñane ka'aguy.
+rosamosqueta_0	Yvoty morotĩkuéra oĩ pindo yvytu rupi, oñemombo'y yvytu rehe; ojehayhuvéva rembiapo ha pohã ñana rupi, oñemomba'eguasu ñane yvyra rekojera ha ñane tekohápe.
+tacuara_0	Takuapi oĩ kokuépe ha ka'aguype, ipuku ha itikuéva; ojeipuru tembiapo ha tembi'u rupi — vombílla ha so'o rekaha — oñemomba'eguasu ñane tembiapo arandu ha ñane mombe'upy.
