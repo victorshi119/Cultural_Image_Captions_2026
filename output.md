@@ -81,19 +81,19 @@ Job 6965487 submitted 2026-05-01. Resources: grammar parallel → `guarani_exemp
 
 ---
 
-## Ablation v3prompt+dampy — prompt v3, updated resources + dampy captions (r0 only)
+## Ablation v3prompt+dampy — prompt v3, updated resources + dampy captions (3 runs avg)
 
-Resources: culture knowledge (`Claude_2step_guarani_cultural_knowledge.txt`), interlinear (`guarani_grammar_primer_claude.md`, full), grammar parallel (`guarani_exemplar_bank_claude.md`, full), apertium (`apertium-grn-caption-cheatsheet.md`), parallel examples (`flores_dev_examples_en-gn.json`, full), cultural caption exemplars (`dampy_gemma_claude_caption.txt`, full). Jobs: 6966213 (r0), 6966221 (r1, pending), 6966222 (r2, pending).
+Resources: culture knowledge (`Claude_2step_guarani_cultural_knowledge.txt`), interlinear (`guarani_grammar_primer_claude.md`, full), grammar parallel (`guarani_exemplar_bank_claude.md`, full), apertium (`apertium-grn-caption-cheatsheet.md`), parallel examples (`flores_dev_examples_en-gn.json`, full), cultural caption exemplars (`dampy_gemma_claude_caption.txt`, full). Jobs: 6966213 (r0), 6966221 (r1), 6966222 (r2).
 
-| Output file | Description | chrF++ |
-|-------------|-------------|--------|
-| `ablation_v3prompt_dampy_05-01_none` | prompt v3, no resources | **20.15** |
-| `ablation_v3prompt_dampy_05-01_pe` | prompt v3, +parallel examples (full FLORES) | **23.37** |
-| `ablation_v3prompt_dampy_05-01_ck` | prompt v3, +culture knowledge | **21.02** |
-| `ablation_v3prompt_dampy_05-01_ap` | prompt v3, +apertium | **17.51** |
-| `ablation_v3prompt_dampy_05-01_il` | prompt v3, +interlinear (full) | **21.76** |
-| `ablation_v3prompt_dampy_05-01_gp` | prompt v3, +grammar parallel (full) | **19.28** |
-| `ablation_v3prompt_dampy_05-01_dampy` | prompt v3, +dampy cultural captions (full) | **21.33** |
-| `ablation_v3prompt_dampy_05-01_all` | prompt v3, all resources | **22.14** |
+| Condition | r0 | r1 | r2 | Avg |
+|-----------|----|----|-----|-----|
+| none | 20.15 | 20.13 | 20.55 | **20.28** |
+| +pe | 23.37 | 22.65 | 23.18 | **23.07** |
+| +ck | 21.02 | 20.86 | 20.78 | **20.89** |
+| +ap | 17.51 | 17.27 | 18.02 | **17.60** |
+| +il | 21.76 | 20.94 | 20.84 | **21.18** |
+| +gp | 19.28 | 19.37 | 19.54 | **19.40** |
+| +dampy | 21.33 | 20.70 | 20.69 | **20.91** |
+| all | 22.14 | 22.20 | 21.96 | **22.10** |
 
-**Finding (r0 only):** +pe still strongest (23.37). +il (21.76) and +dampy (21.33) both outperform the none baseline. +ap continues to hurt. `all` (22.14) falls short of +pe alone, suggesting +ap and/or +gp drag it down.
+**Key finding:** +pe remains the strongest single resource (23.07 avg). +il (21.18) and +dampy (20.91) both outperform the none baseline. +ap continues to hurt. `all` (22.10) falls short of +pe alone, suggesting +ap and/or +gp drag it down.
