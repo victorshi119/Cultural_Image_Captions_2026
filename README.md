@@ -1,4 +1,4 @@
-# Cultural Image Captions 2026
+# IUHoosier's Official Submission to the AmericasNLP 2026 Cultural Image Captioning Shared Task
 
 This is IUHoosier's Official Submission to the AmericasNLP 2026 Cultural Image Captioning shared task — Guarani (Avañe'ẽ), a language spoken by people in Paraguay, Brazil, Bolivia, and Argentina.
 
