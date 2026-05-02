@@ -358,15 +358,13 @@ def load_dampy_visual_pairs(images_dir, captions_path, n=0, n_per_category=0):
         # take the first n_per_category matched images from each category dir
         pairs = []
         for cat in sorted(Path(images_dir).iterdir()):
-            if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption:
-            imgs = sorted(p for p in cat.rglob("*"))
-            for p in imgs[:n_per_category]
+            imgs = sorted(p for p in cat.rglob("*") if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption)
+            for p in imgs[:n_per_category]:
                 pairs += [load(p)]
         return pairs
 
     # collect all matched images across categories, return first n
-    if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption:
-        imgs = [p for p in Path(images_dir).rglob("*")]
+    imgs = [p for p in Path(images_dir).rglob("*") if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption]
     return [load(p) for p in imgs[:n]]
 
 def load_apertium_summary(path: str, chars:int):
