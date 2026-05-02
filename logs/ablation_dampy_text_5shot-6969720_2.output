@@ -1,0 +1,4 @@
+conda version 25.3.0 python 3.12.7 loaded.
+Task 2  config: all
+Output: outputs/ablation_dampy_text_5shot_05-02_all.tsv
+Injected dampy text captions (5 per category) into system prompt
