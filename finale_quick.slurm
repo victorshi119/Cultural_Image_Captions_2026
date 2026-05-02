@@ -3,12 +3,12 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --mem=16G
-#SBATCH --time=24:00:00
+#SBATCH --time=2:00:00
 #SBATCH --partition=general
-#SBATCH --job-name=finale
+#SBATCH --job-name=finale_quick
 #SBATCH --array=0-8
-#SBATCH --output=/geode2/home/u070/partkaew/BigRed200/Cultural_Image_Captions_2026/logs/finale_%A_%a.out
-#SBATCH --error=/geode2/home/u070/partkaew/BigRed200/Cultural_Image_Captions_2026/logs/finale_%A_%a.err
+#SBATCH --output=/geode2/home/u070/partkaew/BigRed200/Cultural_Image_Captions_2026/logs/finale_quick_%A_%a.out
+#SBATCH --error=/geode2/home/u070/partkaew/BigRed200/Cultural_Image_Captions_2026/logs/finale_quick_%A_%a.err
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=partkaew@iu.edu
 
@@ -25,7 +25,7 @@ mkdir -p logs outputs
 ID=$SLURM_ARRAY_TASK_ID
 
 # --------------------------------------------------
-# FIXED (full context)
+# FIXED (reduced context for speed)
 # --------------------------------------------------
 GRAMMAR_LINES=157
 INTERLINEAR_LINES=144
@@ -38,15 +38,15 @@ if [ $ID -le 5 ]; then
     MODE="text"
 
     case $ID in
-      0) DAMPY_K=5;  FLORES_K=100;  DEV_K=5;  CULTURE_K=5 ;;
-      1) DAMPY_K=10;  FLORES_K=100;  DEV_K=10;  CULTURE_K=5 ;;
-      2) DAMPY_K=15;  FLORES_K=100; DEV_K=10;  CULTURE_K=5 ;;
-      3) DAMPY_K=20;  FLORES_K=100; DEV_K=10;  CULTURE_K=6 ;;
-      4) DAMPY_K=15; FLORES_K=120; DEV_K=10;  CULTURE_K=8 ;;
-      5) DAMPY_K=15; FLORES_K=150; DEV_K=10; CULTURE_K=10 ;;
+      0) DAMPY_K=3;  FLORES_K=15;  DEV_K=3;  CULTURE_K=3 ;;
+      1) DAMPY_K=5;  FLORES_K=20;  DEV_K=5;  CULTURE_K=3 ;;
+      2) DAMPY_K=5;  FLORES_K=25;  DEV_K=5;  CULTURE_K=3 ;;
+      3) DAMPY_K=8;  FLORES_K=25;  DEV_K=5;  CULTURE_K=4 ;;
+      4) DAMPY_K=5;  FLORES_K=20;  DEV_K=5;  CULTURE_K=5 ;;
+      5) DAMPY_K=8;  FLORES_K=30;  DEV_K=8;  CULTURE_K=5 ;;
     esac
 
-    OUTFILE="outputs/finale_text_${ID}.tsv"
+    OUTFILE="outputs/finale_quick_text_${ID}.tsv"
 
     echo "TEXT MODE | ID=$ID"
     echo "DAMPY=$DAMPY_K FLORES=$FLORES_K DEV=$DEV_K CULTURE=$CULTURE_K"
@@ -81,12 +81,12 @@ else
     MODE="visual"
 
     case $ID in
-      6) SHOTS=15; FLORES_K=100;  DEV_K=10 ;;
-      7) SHOTS=25; FLORES_K=100;  DEV_K=15 ;;
-      8) SHOTS=50; FLORES_K=100; DEV_K=20 ;;
+      6) SHOTS=3;  FLORES_K=20;  DEV_K=5 ;;
+      7) SHOTS=5;  FLORES_K=20;  DEV_K=5 ;;
+      8) SHOTS=10; FLORES_K=25;  DEV_K=8 ;;
     esac
 
-    OUTFILE="outputs/finale_visual_${SHOTS}shot.tsv"
+    OUTFILE="outputs/finale_quick_visual_${SHOTS}shot.tsv"
 
     echo "VISUAL MODE | ID=$ID"
     echo "SHOTS=$SHOTS FLORES=$FLORES_K DEV=$DEV_K"
@@ -98,7 +98,7 @@ else
       --output "$OUTFILE" \
       \
       --culture_bm25 resources/Claude_2step_guarani_cultural_knowledge.txt \
-      --culture_bm25_top_k 5 \
+      --culture_bm25_top_k 3 \
       \
       --grammar_book resources/guarani_ref.md \
       --num_grammar_book $GRAMMAR_LINES \
