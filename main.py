@@ -248,13 +248,37 @@ def retrieve_dampy_bm25(spanish_desc: str, entries: list[dict], bm25, top_k: int
     query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", spanish_desc.lower())
     scores = bm25.get_scores(query_tokens)
     top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
-    lines = ["EJEMPLOS DE SUBTÍTULOS EN GUARANÍ (recuperados por relevancia con esta imagen):"]
+    lines = ["EJEMPLOS DE REFERENCIA (descripción → subtítulo guaraní):"]
     for i in top_indices:
         e = entries[i]
-        lines.append(f"[ES] {e['spanish']}")
-        lines.append(f"[GN] {e['guarani']}")
-        lines.append("")
+        lines.append(f"\n• Descripción: {e['spanish']}")
+        lines.append(f"  Subtítulo: {e['guarani']}")
+    lines.append("\n---")
+    lines.append("Para la imagen actual, genera ÚNICAMENTE el subtítulo en guaraní.")
     return "\n".join(lines)
+
+def load_trilingual_entries(jsonl_path: str, images_dir: str) -> list[dict]:
+    entries = []
+    images_dir = Path(images_dir)
+    for line in Path(jsonl_path).read_text().splitlines():
+        if not line.strip():
+            continue
+        obj = json.loads(line)
+        img_path = images_dir / Path(obj["filename"]).name
+        if img_path.exists():
+            entries.append({
+                "stem": obj["id"],
+                "spanish": obj["spanish_caption"],
+                "guarani": obj["target_caption"],
+                "img_path": str(img_path),
+            })
+    return entries
+
+def retrieve_dev_visual_bm25(spanish_desc: str, entries: list[dict], bm25, top_k: int = 5) -> list[tuple]:
+    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", spanish_desc.lower())
+    scores = bm25.get_scores(query_tokens)
+    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
+    return [(Image.open(entries[i]["img_path"]).convert("RGB"), entries[i]["guarani"]) for i in top_indices]
 
 #-- end code generation rag function helper --#
 def load_culture_knowledge(path: str):
@@ -439,6 +463,13 @@ def run_captioning(
     dampy_bm25_entries: Optional[list] = None,
     dampy_bm25=None,
     dampy_bm25_top_k: Optional[int] = 5,
+    culture_chunks: Optional[list] = None,
+    culture_bm25=None,
+    culture_bm25_top_k: Optional[int] = 5,
+    dev_entries: Optional[list] = None,
+    dev_bm25=None,
+    dev_bm25_text_top_k: Optional[int] = 0,
+    dev_bm25_visual_top_k: Optional[int] = 0,
     few_shot_pairs: Optional[list] = None,
 ):
     results = []
@@ -449,7 +480,8 @@ def run_captioning(
         # compute image descriptions once and reuse across BM25 retrievers
         needs_desc = grammar_bm25 is not None or flores_bm25 is not None
         img_desc = _describe_image(str(img_path), client, model_name) if needs_desc else None
-        img_desc_es = _describe_image(str(img_path), client, model_name, lang="Spanish") if dampy_bm25 is not None else None
+        needs_desc_es = dampy_bm25 is not None or dev_bm25 is not None or culture_bm25 is not None
+        img_desc_es = _describe_image(str(img_path), client, model_name, lang="Spanish") if needs_desc_es else None
 
         if grammar_bm25 is not None:
             grammar_retrieved = retrieve_grammar_sections(image_path=str(img_path),chunks=grammar_chunks,bm25=grammar_bm25,client=client,model=model_name,top_k=grammar_bm25_top_k,desc=img_desc)
@@ -457,12 +489,23 @@ def run_captioning(
         if flores_bm25 is not None:
             flores_retrieved = retrieve_flores_by_image(image_path=str(img_path),pairs=flores_pairs,bm25=flores_bm25,client=client,model=model_name,top_k=flores_bm25_top_k,desc=img_desc)
             per_img_prompt+="\n"+flores_retrieved
+        if culture_bm25 is not None:
+            culture_retrieved = retrieve_grammar_sections(image_path=str(img_path),chunks=culture_chunks,bm25=culture_bm25,client=client,model=model_name,top_k=culture_bm25_top_k,desc=img_desc_es)
+            per_img_prompt+="\n"+culture_retrieved
         if dampy_bm25 is not None:
             dampy_retrieved = retrieve_dampy_bm25(img_desc_es, dampy_bm25_entries, dampy_bm25, dampy_bm25_top_k)
             per_img_prompt+="\n"+dampy_retrieved
+        if dev_bm25 is not None and dev_bm25_text_top_k > 0:
+            dev_retrieved = retrieve_dampy_bm25(img_desc_es, dev_entries, dev_bm25, dev_bm25_text_top_k)
+            per_img_prompt+="\n"+dev_retrieved
+
+        dev_few_shot = None
+        if dev_bm25 is not None and dev_bm25_visual_top_k > 0:
+            dev_few_shot = retrieve_dev_visual_bm25(img_desc_es, dev_entries, dev_bm25, dev_bm25_visual_top_k)
+        combined_few_shot = (few_shot_pairs or []) + (dev_few_shot or [])
 
         caption = generate_caption(str(img_path), system_prompt=per_img_prompt, client=client, model=model_name,
-                                   caption_prompt=CAPTION_INSTRUCTION, few_shot_pairs=few_shot_pairs)
+                                   caption_prompt=CAPTION_INSTRUCTION, few_shot_pairs=combined_few_shot or None)
         results.append((img_name, caption))
 
     if output_file:
@@ -483,7 +526,9 @@ def main():
     parser.add_argument("--num_interlinear",type=int,default=8,help="number of interlinear blocks to inject")
     parser.add_argument("--grammar_parallel",type=str,default=None,help="path to grammar book parallel examples ie. gua_parallel.txt")
     parser.add_argument("--num_grammar_parallel",type=int,default=5,help="number of grammar book parallel pairs to inject")
-    parser.add_argument("--culture_knowledge",type=str,default=None,help="path to guarani culture knowledge")
+    parser.add_argument("--culture_knowledge",type=str,default=None,help="path to guarani culture knowledge (static injection)")
+    parser.add_argument("--culture_bm25",type=str,default=None,help="path to culture knowledge file for per-image BM25 retrieval (queries in Spanish)")
+    parser.add_argument("--culture_bm25_top_k",type=int,default=5,help="number of culture knowledge sections to retrieve per image")
     parser.add_argument("--apertium",type=str,default=None,help="path to summary of apertium morphology apertium_grn_summary.txt")
     parser.add_argument("--apertium_chars",type=int,default=15000,help="number of characters to take from apertium summary")
     parser.add_argument("--grammar_book",type=str,default=None,help="path to grammar book file")
@@ -492,6 +537,10 @@ def main():
     parser.add_argument("--grammar_book_bm25_top_k",type=int,default=5,help="number of grammar sections to retrieve per image")
     parser.add_argument("--flores_bm25",type=str,default=None,help="path to flores JSON for per-image BM25 retrieval")
     parser.add_argument("--flores_bm25_top_k",type=int,default=100,help="number of flores pairs to retrieve per image")
+    parser.add_argument("--dev_jsonl",type=str,default=None,help="path to dev trilingual JSONL for BM25 retrieval (e.g. data/dev/guarani/guarani_trilingual.jsonl)")
+    parser.add_argument("--dev_images_dir",type=str,default=None,help="path to dev images dir (required with --dev_jsonl for visual few-shot)")
+    parser.add_argument("--dev_bm25_text_top_k",type=int,default=0,help="if >0, inject this many dev Spanish-Guaraní text pairs per image via BM25")
+    parser.add_argument("--dev_bm25_visual_top_k",type=int,default=0,help="if >0, use this many BM25-retrieved dev images as visual few-shot")
     parser.add_argument("--dampy_spanish_captions_dir",type=str,default=None,help="path to dir containing guarani_*_captions_es.tsv files for BM25 retrieval")
     parser.add_argument("--dampy_bm25_top_k",type=int,default=5,help="number of DAMPY Spanish-Guaraní pairs to retrieve per image")
     parser.add_argument("--dampy_images",type=str,default=None,help="path to dampy images root dir (subfolders: Comida/Fauna/Flora)")
@@ -556,6 +605,21 @@ def main():
         )
         print(f"Loaded {len(few_shot_pairs)} dampy visual few-shot pairs")
 
+    culture_chunks, culture_bm25_index = None, None
+    if args.culture_bm25:
+        culture_chunks = parse_grammar_sections(to_path(args.culture_bm25))
+        culture_bm25_index = build_grammar_bm25(culture_chunks)
+        print(f"Loaded {len(culture_chunks)} culture knowledge sections for BM25")
+
+    dev_entries, dev_bm25_index = None, None
+    if args.dev_jsonl and args.dev_images_dir and (args.dev_bm25_text_top_k > 0 or args.dev_bm25_visual_top_k > 0):
+        dev_entries = load_trilingual_entries(
+            jsonl_path=to_path(args.dev_jsonl),
+            images_dir=to_path(args.dev_images_dir),
+        )
+        dev_bm25_index = build_dampy_bm25(dev_entries)
+        print(f"Loaded {len(dev_entries)} dev entries for BM25")
+
     dampy_bm25_entries, dampy_bm25_index = None, None
     if args.dampy_spanish_captions_dir and args.dampy_captions:
         dampy_bm25_entries = load_dampy_spanish_entries(
@@ -589,6 +653,13 @@ def main():
         dampy_bm25_entries=dampy_bm25_entries,
         dampy_bm25=dampy_bm25_index,
         dampy_bm25_top_k=args.dampy_bm25_top_k,
+        culture_chunks=culture_chunks,
+        culture_bm25=culture_bm25_index,
+        culture_bm25_top_k=args.culture_bm25_top_k,
+        dev_entries=dev_entries,
+        dev_bm25=dev_bm25_index,
+        dev_bm25_text_top_k=args.dev_bm25_text_top_k,
+        dev_bm25_visual_top_k=args.dev_bm25_visual_top_k,
         few_shot_pairs=few_shot_pairs,
     )
 if __name__ == "__main__":
