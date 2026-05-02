@@ -117,4 +117,32 @@ Same setup as above but with updated apertium resource (`.txt`). Job 6967979 (r3
 | +ap | 19.81 |
 | all | 21.62 |
 
+---
+
+## Ablation — dampy visual few-shot (2 per category: Comida, Fauna, Flora), single run
+
+Visual few-shot: 6 image-caption pairs injected as prior conversation turns (not text in system prompt).
+`all` = ck + il + gp + ap + pe + 6 visual dampy shots. Job 6968211.
+
+| Condition | score |
+|-----------|-------|
+| none | 21.38 |
+| +dampy_vis | 21.71 |
+| all | 22.69 |
+
 ## Conclusion: Upon manual check, the apertium was deemed helpful. However, it seems like the improved apertium did not help with the performance. 
+
+---
+
+## Ablation — dampy visual few-shot (5 per category: Comida, Fauna, Flora), single run
+
+Visual few-shot: 15 image-caption pairs injected as prior conversation turns.
+`all` = ck + il + gp + ap + pe + 15 visual dampy shots. Job 6969327.
+
+| Condition | score |
+|-----------|-------|
+| none | 20.76 |
+| +dampy_vis (5×3) | 22.48 |
+| all | 23.39 |
+
+## Observation: It seems like incrementing the visual few-shot pairs significantly help with the result, might be best if we can do RAG to get the k-most-similar images (to the target image) while considering their captions while generating the caption for the target image.

@@ -1,0 +1,4 @@
+conda version 25.3.0 python 3.12.7 loaded.
+Task 2  config: all
+Output: outputs/ablation_dampy_vis_05-01_all.tsv
+Loaded 6 dampy visual few-shot pairs
