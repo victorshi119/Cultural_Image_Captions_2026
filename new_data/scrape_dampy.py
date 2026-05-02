@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Scrape DamPy (https://spl.gov.py/dampy/) — Comida, Fauna, Flora categories.
 

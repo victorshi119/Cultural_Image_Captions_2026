@@ -3,7 +3,6 @@
 #use reallms api as backbone
 import argparse
 import base64
-from contextlib import contextmanager
 import json
 import os
 from pathlib import Path
@@ -143,23 +142,6 @@ def _pil_to_data_url(img: Image.Image, fmt: str = "JPEG"):
     b64 = base64.b64encode(buf.getvalue()).decode("ascii")
     return f"data:{mime};base64,{b64}"
 
-#-- start code generate rag part --#
-def parse_code_rules(path: str) -> list[tuple[str, str]]:
-    #Parse code rules file into (section_header, code_block) pairs.
-    with open(path, "r", encoding="utf-8") as f:
-        content = f.read()
-    chunks = []
-    for block in content.split("# === "):
-        block = block.strip()
-        if not block or block.startswith('"""'):
-            continue
-        lines = block.splitlines()
-        header = lines[0].strip().strip("=").strip()
-        code = "\n".join(lines[1:]).strip()
-        if code:
-            chunks.append((header, code))
-    return chunks
-
 def _describe_image(image_path: str, client: OpenAI, model: str, lang: str = "English"):
     img = Image.open(image_path).convert("RGB")
     messages = [{"role": "user", "content": [
@@ -170,64 +152,7 @@ def _describe_image(image_path: str, client: OpenAI, model: str, lang: str = "En
         model=model, messages=messages, max_tokens=80
     ).choices[0].message.content.strip()
 
-def build_bm25_index(chunks: list[tuple[str, str]]):
-    from rank_bm25 import BM25Okapi
-    corpus = []
-    for header, code in chunks:
-        text = header + " " + code
-        tokens = re.findall(r"[a-zA-Z'ãẽĩõũáéíóúñ]+", text.lower())
-        corpus.append(tokens)
-    return BM25Okapi(corpus)
-
-def retrieve_relevant_rules_bm25(
-    image_path: str,
-    chunks: list[tuple[str,str]],
-    bm25,
-    client: OpenAI,
-    model: str,
-    top_k: int = 10,
-):
-    desc = _describe_image(image_path, client, model)
-    query_tokens = re.findall(r"[a-zA-Z'ãẽĩõũáéíóúñ]+", desc.lower())
-    scores = bm25.get_scores(query_tokens)
-    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
-    top_indices = sorted(top_indices)
-
-    rules_text = "Reglas de formato de código guaraní (recuperadas para esta imagen):\n"
-    rules_text += f"# Descripción de la imagen: {desc}\n"
-    for i in top_indices:
-        header, code = chunks[i]
-        rules_text += f"# === {header} ===\n{code}\n"
-    return rules_text
-
-
-def load_dictionary(path: str):
-    from rank_bm25 import BM25Okapi
-    with open(path, "r", encoding="utf-8") as f:
-        data = json.load(f)
-    entries = data["spanish_to_guarani"]
-    corpus = []
-    for e in entries:
-        text = e["headword"] + " " + " ".join(e.get("definitions", []))
-        tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", text.lower())
-        corpus.append(tokens)
-    return entries, BM25Okapi(corpus)
-
-def retrieve_dictionary_entries(image_path: str, entries: list, bm25, client: OpenAI, model: str, top_k: int = 10):
-    desc = _describe_image(image_path, client, model, lang="Spanish")
-    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", desc.lower())
-    scores = bm25.get_scores(query_tokens)
-    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
-    top_indices = sorted(top_indices)
-    lines = ["VOCABULARIO GUARANÍ RELEVANTE (español → guaraní):"]
-    for i in top_indices:
-        e = entries[i]
-        defs = "; ".join(e.get("definitions", []))
-        lines.append(f"{e['headword']} → {defs}")
-    return "\n".join(lines)
-
 def parse_grammar_sections(path: str) -> list[tuple[str, str]]:
-    from rank_bm25 import BM25Okapi
     section_pat = re.compile(r"^#{1,3} \d")
     with open(path, "r", encoding="utf-8") as f:
         lines = f.readlines()
@@ -255,9 +180,10 @@ def build_grammar_bm25(chunks: list[tuple[str, str]]):
         corpus.append(tokens)
     return BM25Okapi(corpus)
 
-def retrieve_grammar_sections(image_path: str, chunks: list[tuple[str, str]], bm25, client: OpenAI, model: str, top_k: int = 5):
-    desc = _describe_image(image_path, client, model, lang="English")
-    query_tokens = re.findall(r"[a-zA-Z]+", desc.lower())
+def retrieve_grammar_sections(image_path: str, chunks: list[tuple[str, str]], bm25, client: OpenAI, model: str, top_k: int = 5, desc: Optional[str] = None):
+    if desc is None:
+        desc = _describe_image(image_path, client, model, lang="English")
+    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", desc.lower())
     scores = bm25.get_scores(query_tokens)
     top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
     top_indices = sorted(top_indices)
@@ -277,9 +203,10 @@ def build_flores_bm25(pairs: list[dict]):
         corpus.append(tokens)
     return BM25Okapi(corpus)
 
-def retrieve_flores_by_image(image_path: str, pairs: list[dict], bm25, client: OpenAI, model: str, top_k: int = 100):
-    desc = _describe_image(image_path, client, model, lang="English")
-    query_tokens = re.findall(r"[a-zA-Z]+", desc.lower())
+def retrieve_flores_by_image(image_path: str, pairs: list[dict], bm25, client: OpenAI, model: str, top_k: int = 100, desc: Optional[str] = None):
+    if desc is None:
+        desc = _describe_image(image_path, client, model, lang="English")
+    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", desc.lower())
     scores = bm25.get_scores(query_tokens)
     top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
     top_indices = sorted(top_indices)
@@ -291,6 +218,44 @@ def retrieve_flores_by_image(image_path: str, pairs: list[dict], bm25, client: O
         lines.append("")
     return "\n".join(lines)
 
+def load_dampy_spanish_entries(spanish_captions_dir: str, guarani_captions_path: str) -> list[dict]:
+    # load guarani captions
+    id_to_guarani = {}
+    for line in Path(guarani_captions_path).read_text().splitlines():
+        if "\t" in line:
+            stem, caption = line.split("\t", 1)
+            id_to_guarani[stem] = caption
+
+    # load all _es.tsv files from the dir
+    entries = []
+    for tsv in sorted(Path(spanish_captions_dir).glob("*_es.tsv")):
+        category = tsv.stem.replace("guarani_", "").replace("_captions_es", "").capitalize()
+        for line in tsv.read_text().splitlines():
+            if "\t" not in line:
+                continue
+            stem, spanish = line.split("\t", 1)
+            guarani = id_to_guarani.get(stem)
+            if guarani:
+                entries.append({"stem": stem, "spanish": spanish, "guarani": guarani, "category": category})
+    return entries
+
+def build_dampy_bm25(entries: list[dict]):
+    from rank_bm25 import BM25Okapi
+    corpus = [re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", e["spanish"].lower()) for e in entries]
+    return BM25Okapi(corpus)
+
+def retrieve_dampy_bm25(spanish_desc: str, entries: list[dict], bm25, top_k: int = 5) -> str:
+    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", spanish_desc.lower())
+    scores = bm25.get_scores(query_tokens)
+    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
+    lines = ["EJEMPLOS DE SUBTÍTULOS EN GUARANÍ (recuperados por relevancia con esta imagen):"]
+    for i in top_indices:
+        e = entries[i]
+        lines.append(f"[ES] {e['spanish']}")
+        lines.append(f"[GN] {e['guarani']}")
+        lines.append("")
+    return "\n".join(lines)
+
 #-- end code generation rag function helper --#
 def load_culture_knowledge(path: str):
     with open(path,"r",encoding="utf-8") as f:
@@ -298,20 +263,15 @@ def load_culture_knowledge(path: str):
 
 
 def load_interlinear(path: str, n:int):
-    #take the first n lines of interlinear file
     header = "EJEMPLOS INTERLINEALES DE GUARANÍ (desglose de morfemas + glosa + inglés):"
-    lines = []
     with open(path,"r",encoding="utf-8") as f:
         lines = [line.strip() for line in f if line.strip()]
-
     return header + "\n" + "\n".join(lines[:n])
 
 def load_grammar_parallel(path: str, n:int):
     header = "EJEMPLOS DE ORACIONES DE GUARANÍ (de libro de gramática):"
-    lines = []
     with open(path,"r",encoding="utf-8") as f:
         lines = [line.strip() for line in f if line.strip()]
-
     return header + "\n" + "\n".join(lines[:n])
 
 def load_parallel_examples(path: str, n:int):
@@ -353,9 +313,10 @@ def load_dampy_visual_pairs(images_dir, captions_path, n=0, n_per_category=0):
         return Image.open(p).convert("RGB"), id_to_caption[p.stem]
 
     if n_per_category > 0:
-        # take the first n_per_category matched images from each category dir
+        if n > 0:
+            print(f"Warning: --num_dampy_shots ({n}) is ignored when --num_dampy_shots_per_category ({n_per_category}) is set")
         pairs = []
-        for cat in sorted(Path(images_dir).iterdir()):
+        for cat in sorted(p for p in Path(images_dir).iterdir() if p.is_dir()):
             imgs = sorted(p for p in cat.rglob("*") if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption)
             pairs += [load(p) for p in imgs[:n_per_category]]
         return pairs
@@ -375,7 +336,7 @@ def load_dampy_text_captions(images_dir, captions_path, n_per_category):
             id_to_caption[img_id] = caption
 
     lines = ["EJEMPLOS DE SUBTÍTULOS EN GUARANÍ (pares de referencia):"]
-    for cat in sorted(Path(images_dir).iterdir()):
+    for cat in sorted(p for p in Path(images_dir).iterdir() if p.is_dir()):
         imgs = sorted(p for p in cat.rglob("*") if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption)
         for p in imgs[:n_per_category]:
             lines.append(f"{p.stem}: {id_to_caption[p.stem]}")
@@ -384,8 +345,10 @@ def load_dampy_text_captions(images_dir, captions_path, n_per_category):
 def load_apertium_summary(path: str, chars:int):
     with open(path,"r",encoding="utf-8") as f:
         text = f.read(chars)
-    if len(text)==chars:
-        text = text[:text.rfind("\n")]
+    if len(text) == chars:
+        idx = text.rfind("\n")
+        if idx != -1:
+            text = text[:idx]
 
     return text
 def build_system_prompt(
@@ -467,36 +430,36 @@ def run_captioning(
     system_prompt: str,
     client: OpenAI,
     model_name: str,
-    bm25_chunks: Optional[list] = None,
-    bm25_index=None,
-    bm25_top_k: Optional[int] = 10,
-    dict_entries: Optional[list] = None,
-    dict_bm25=None,
-    dict_top_k: Optional[int] = 10,
     grammar_chunks: Optional[list] = None,
     grammar_bm25=None,
     grammar_bm25_top_k: Optional[int] = 5,
     flores_pairs: Optional[list] = None,
     flores_bm25=None,
     flores_bm25_top_k: Optional[int] = 100,
+    dampy_bm25_entries: Optional[list] = None,
+    dampy_bm25=None,
+    dampy_bm25_top_k: Optional[int] = 5,
     few_shot_pairs: Optional[list] = None,
 ):
     results = []
     for img_path in image_paths:
         img_name = img_path.name
         per_img_prompt = system_prompt
-        if bm25_index is not None:
-            retrieved = retrieve_relevant_rules_bm25(image_path=str(img_path),chunks=bm25_chunks,bm25=bm25_index,client=client,model=model_name,top_k=bm25_top_k)
-            per_img_prompt+="\n"+retrieved
-        if dict_bm25 is not None:
-            vocab = retrieve_dictionary_entries(image_path=str(img_path),entries=dict_entries,bm25=dict_bm25,client=client,model=model_name,top_k=dict_top_k)
-            per_img_prompt+="\n"+vocab
+
+        # compute image descriptions once and reuse across BM25 retrievers
+        needs_desc = grammar_bm25 is not None or flores_bm25 is not None
+        img_desc = _describe_image(str(img_path), client, model_name) if needs_desc else None
+        img_desc_es = _describe_image(str(img_path), client, model_name, lang="Spanish") if dampy_bm25 is not None else None
+
         if grammar_bm25 is not None:
-            grammar_retrieved = retrieve_grammar_sections(image_path=str(img_path),chunks=grammar_chunks,bm25=grammar_bm25,client=client,model=model_name,top_k=grammar_bm25_top_k)
+            grammar_retrieved = retrieve_grammar_sections(image_path=str(img_path),chunks=grammar_chunks,bm25=grammar_bm25,client=client,model=model_name,top_k=grammar_bm25_top_k,desc=img_desc)
             per_img_prompt+="\n"+grammar_retrieved
         if flores_bm25 is not None:
-            flores_retrieved = retrieve_flores_by_image(image_path=str(img_path),pairs=flores_pairs,bm25=flores_bm25,client=client,model=model_name,top_k=flores_bm25_top_k)
+            flores_retrieved = retrieve_flores_by_image(image_path=str(img_path),pairs=flores_pairs,bm25=flores_bm25,client=client,model=model_name,top_k=flores_bm25_top_k,desc=img_desc)
             per_img_prompt+="\n"+flores_retrieved
+        if dampy_bm25 is not None:
+            dampy_retrieved = retrieve_dampy_bm25(img_desc_es, dampy_bm25_entries, dampy_bm25, dampy_bm25_top_k)
+            per_img_prompt+="\n"+dampy_retrieved
 
         caption = generate_caption(str(img_path), system_prompt=per_img_prompt, client=client, model=model_name,
                                    caption_prompt=CAPTION_INSTRUCTION, few_shot_pairs=few_shot_pairs)
@@ -513,7 +476,7 @@ def main():
     parser.add_argument("image_dir",type=str,help="Folder of test images to caption")
     parser.add_argument("--model",type=str,default="gemma-4-31B-it",help="model for inference")
     parser.add_argument("--output",type=str,default="generated_captions.tsv")
-    parser.add_argument("--prompt_version",type=str,choices=list(prompt_version.keys()),default="v2",help="default base prompt the best one is v4")
+    parser.add_argument("--prompt_version",type=str,choices=list(prompt_version.keys()),default="v4",help="base prompt version (v4 performs best)")
     parser.add_argument("--parallel_examples",type=str,default=None,help="path to en-gn parallel json (flores) flores_dev_examples_en-gn.json")
     parser.add_argument("--num_parallel",type=int,default=10,help="Number of FLORES EN-GN pairs to inject into the system prompt")
     parser.add_argument("--interlinear",type=str,default=None,help="path to interlinear file (gua_para.txt)")
@@ -521,8 +484,6 @@ def main():
     parser.add_argument("--grammar_parallel",type=str,default=None,help="path to grammar book parallel examples ie. gua_parallel.txt")
     parser.add_argument("--num_grammar_parallel",type=int,default=5,help="number of grammar book parallel pairs to inject")
     parser.add_argument("--culture_knowledge",type=str,default=None,help="path to guarani culture knowledge")
-    parser.add_argument("--code_rules",type=str,default=None,help="path to code-format grammar rule file grammar_code_rules_Qwen3_Coder_Next.py")
-    parser.add_argument("--retrieval_top_k",type=int,default=10,help="number of code rules to retrieve per image")
     parser.add_argument("--apertium",type=str,default=None,help="path to summary of apertium morphology apertium_grn_summary.txt")
     parser.add_argument("--apertium_chars",type=int,default=15000,help="number of characters to take from apertium summary")
     parser.add_argument("--grammar_book",type=str,default=None,help="path to grammar book file")
@@ -531,8 +492,8 @@ def main():
     parser.add_argument("--grammar_book_bm25_top_k",type=int,default=5,help="number of grammar sections to retrieve per image")
     parser.add_argument("--flores_bm25",type=str,default=None,help="path to flores JSON for per-image BM25 retrieval")
     parser.add_argument("--flores_bm25_top_k",type=int,default=100,help="number of flores pairs to retrieve per image")
-    parser.add_argument("--dictionary",type=str,default=None,help="path to guarani_dictionary.json")
-    parser.add_argument("--dictionary_top_k",type=int,default=10,help="number of dictionary entries to retrieve per image")
+    parser.add_argument("--dampy_spanish_captions_dir",type=str,default=None,help="path to dir containing guarani_*_captions_es.tsv files for BM25 retrieval")
+    parser.add_argument("--dampy_bm25_top_k",type=int,default=5,help="number of DAMPY Spanish-Guaraní pairs to retrieve per image")
     parser.add_argument("--dampy_images",type=str,default=None,help="path to dampy images root dir (subfolders: Comida/Fauna/Flora)")
     parser.add_argument("--dampy_captions",type=str,default=None,help="path to dampy caption tsv (id<tab>caption); required with --dampy_images")
     parser.add_argument("--num_dampy_shots",type=int,default=0,help="number of dampy image-caption few-shot examples to prepend (flat)")
@@ -553,8 +514,6 @@ def main():
     apertium_path = to_path(args.apertium)
     culture_knowledge_path = to_path(args.culture_knowledge)
     grammar_book_path = to_path(args.grammar_book)
-    dictionary_path = to_path(args.dictionary)
-    code_rules_path = to_path(args.code_rules)
 
     base_prompt = prompt_version[args.prompt_version]
 
@@ -573,14 +532,8 @@ def main():
         num_grammar_book=args.num_grammar_book,
     )
 
-    bm25_chunks, bm25_index = None, None
-    if code_rules_path:
-        bm25_chunks = parse_code_rules(code_rules_path)
-        bm25_index = build_bm25_index(bm25_chunks)
-
-    dict_entries, dict_bm25 = None, None
-    if dictionary_path:
-        dict_entries, dict_bm25 = load_dictionary(dictionary_path)
+    if args.grammar_book and args.grammar_book_bm25 and to_path(args.grammar_book) == to_path(args.grammar_book_bm25):
+        print("Warning: --grammar_book and --grammar_book_bm25 point to the same file; grammar content will appear twice in the prompt")
 
     grammar_chunks, grammar_bm25_index = None, None
     if args.grammar_book_bm25:
@@ -603,6 +556,15 @@ def main():
         )
         print(f"Loaded {len(few_shot_pairs)} dampy visual few-shot pairs")
 
+    dampy_bm25_entries, dampy_bm25_index = None, None
+    if args.dampy_spanish_captions_dir and args.dampy_captions:
+        dampy_bm25_entries = load_dampy_spanish_entries(
+            spanish_captions_dir=to_path(args.dampy_spanish_captions_dir),
+            guarani_captions_path=to_path(args.dampy_captions),
+        )
+        dampy_bm25_index = build_dampy_bm25(dampy_bm25_entries)
+        print(f"Loaded {len(dampy_bm25_entries)} DAMPY Spanish-Guaraní entries for BM25")
+
     if args.dampy_images and args.dampy_captions and args.num_dampy_text_shots_per_category > 0:
         dampy_text = load_dampy_text_captions(
             images_dir=to_path(args.dampy_images),
@@ -618,18 +580,15 @@ def main():
         system_prompt=system_prompt,
         client=client,
         model_name=args.model,
-        bm25_chunks=bm25_chunks,
-        bm25_index=bm25_index,
-        bm25_top_k=args.retrieval_top_k,
-        dict_entries=dict_entries,
-        dict_bm25=dict_bm25,
-        dict_top_k=args.dictionary_top_k,
         grammar_chunks=grammar_chunks,
         grammar_bm25=grammar_bm25_index,
         grammar_bm25_top_k=args.grammar_book_bm25_top_k,
         flores_pairs=flores_all_pairs,
         flores_bm25=flores_bm25_index,
         flores_bm25_top_k=args.flores_bm25_top_k,
+        dampy_bm25_entries=dampy_bm25_entries,
+        dampy_bm25=dampy_bm25_index,
+        dampy_bm25_top_k=args.dampy_bm25_top_k,
         few_shot_pairs=few_shot_pairs,
     )
 if __name__ == "__main__":
