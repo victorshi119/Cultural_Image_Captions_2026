@@ -1,0 +1,505 @@
+# GUARANI (AVAÑEʼẼ) — Image-caption generation cheat-sheet
+# Target register: STANDARD LITERARY PARAGUAYAN GUARANI.
+# Default sentence length: one short clause, descriptive present tense.
+
+================================================================
+A. ORTHOGRAPHY (every character matters for evaluation)
+================================================================
+- Vowel inventory: oral a e i o u y; nasal ã ẽ ĩ õ ũ ỹ.
+  (y = high central vowel /ɨ/; ỹ is its nasal counterpart.)
+- Consonants: p t k kuʼ mb nd ng ñ r s h v y (and rr, j, l in loans).
+  Nasal consonants: m, n, ñ. Velar nasal written as g̃ in some words (hag̃ua, g̃uahẽ, ñag̃ uatĩ).
+- Puso (apostrophe ʼ) is a glottal stop and a real character. Always include:
+  haʼe, peteĩ→peteĩ, ñeʼẽ, kaʼaru, koʼág̃a, mbaʼe, raʼy.
+- Stress: default stress is on the FINAL syllable. When stress is non-final,
+  the stressed vowel carries an acute accent: á é í ó ú ý. These are characters.
+  Examples: kuéra, ára, téra, óga, ára, hára.
+  An accent disappears when the word is suffixed and stress shifts:
+    óga ‘house’ → ogape ‘at home’ (NOT *ógape).
+    téra ‘name’ → terakuéra ‘names’.
+  Heuristic: when adding a stressed suffix (-kuéra, -hára, -ʼỹ, -ʼi, -ánte, -ára),
+  the stem usually loses its acute accent.
+
+================================================================
+B. NASAL HARMONY (THE single highest-leverage rule)
+================================================================
+A stem is NASAL if it contains any of: ã ẽ ĩ õ ũ ỹ ñ m n (anywhere in the stem).
+Otherwise it is ORAL. Affixes attached to a nasal stem switch to nasal allomorphs:
+
+   AFFIX             ORAL FORM   NASAL FORM   EXAMPLES
+   plural det         -kuéra      -nguéra       jagua-kuéra / mitã-nguéra
+   locative           -pe         -me           óga-pe / tetã-me / ñu-me
+   emphatic           -ko         -ngo          upéa-ko / hetã-ngo
+   1PL.INCL subj      ja-         ña-           ja-guata / ña-ñoty
+   reflexive/pass     je-         ñe-           je-juhu / ñe-mongeta
+   reciprocal         jo-         ño-           jo-echa / ño-mongeta
+   causative          mbo-        mo-           mbo-pu / mo-mýi
+   2SG poss           nde-        ne-           nde róga / ne retã
+   1PL.INCL poss      ñande-      ñane-         ñande róga / ñane retã
+   2PL poss           pende-      pene-         pende róga / pene retã
+   future (after V)   -ta         -mbota        oguata-ta / ohenduta (note: after pure
+                                                 nasal V→nasal stem the m simplifies and -ta surfaces)
+   ‘also’             avei        avei          (no alternation — fixed)
+
+Key triggering examples for the LLM:
+  mitã ‘child’ contains ã → NASAL → mitã-nguéra ‘children’, mitã-me ‘to the child’.
+  jagua ‘dog’ has no nasal segment → ORAL → jagua-kuéra ‘dogs’, jagua-pe ‘to the dog’.
+  óga ‘house’ → ORAL → óga-pe, óga-kuéra, ñande róga.
+  tetã ‘country’ → NASAL → tetã-me, tetã-nguéra, ñane retã.
+
+================================================================
+C. SUBJECT PREFIXES — ACTIVE (areal) vs INACTIVE (chendal)
+================================================================
+Two distinct paradigms. Apertium tags them <ac> vs <in>.
+
+ACTIVE (areal) — used by most action verbs (oguata, okaru, ohecha, oñeʼẽ, opuka):
+   1SG       a-      a-guata        ‘I walk’
+   2SG       re-     re-guata       ‘you walk’
+   3         o-      o-guata        ‘s/he/it/they walks/walk’
+   1PL.INCL  ja-/ña- ja-guata/ña-ñe’ẽ ‘we (incl.) walk/speak’
+   1PL.EXCL  ro-     ro-guata       ‘we (excl.) walk’
+   2PL       pe-     pe-guata       ‘you all walk’
+   3PL       o-…(hikuái) o-guata hikuái ‘they walk’ (overt PL marker as auxiliary)
+
+INACTIVE (chendal) — used by stative predicates, possessed nouns, and adjectival
+predicates ("be-X", "have-X", body states, qualities). The same set is used as
+OBJECT clitics on transitive verbs.
+   1SG       che-              che-rasy        ‘I’m sick’,    che-róga ‘my house’
+   2SG       nde-/ne-          nde-rasy/ne-mandu’a ‘you’re sick / you remember’
+   3         i-/ij-/iñ-/h(i)-  i-porã / iñ-akã / h-esa ‘pretty / his head / his eye’
+   1PL.INCL  ñande-/ñane-      ñande-rasy / ñane-retã
+   1PL.EXCL  ore-              ore-rasy / ore-róga
+   2PL       pende-/pene-      pende-rasy / pene-retã
+   3PL       i-…(hikuái) / i-…-kuéra        i-porã hikuái / iporãva kuéra
+
+3rd-person inactive/possessive allomorphs by stem onset:
+   i-   before consonant:      i-jagua ‘his dog’, i-puku ‘it’s long’
+   ij-  before oral vowel:     ij-ape ‘its surface’, ij-ao ‘his clothing’
+   iñ-  before nasal vowel:    iñ-akã ‘his head’, iñ-emoĩ ‘his rival’
+   hiʼ- / h- before tonal V:   hiʼ-ára ‘his day’, h-óga (rare; usually i-róga path)
+
+ACTIVE vs INACTIVE — how to choose:
+  * Action / volitional event   → ACTIVE (oguata, okaru, ohecha, oñeʼẽ, ojeroky).
+  * State, quality, sensation,
+    inalienable possession,
+    weather                      → INACTIVE (iporã ‘is pretty’, hasy ‘hurts’,
+                                              ipiru ‘is thin’, hetã ‘is many’,
+                                              oky ‘rains’ is one ACTIVE exception).
+
+================================================================
+D. INALIENABLE NOUNS (T-/R-/H- triformes; also r-/h- biformes)
+================================================================
+Body parts, kinship, and a fixed list of relational nouns alternate the stem
+onset by possessor. The CITATION form starts with t- (or r-, for biformes).
+
+   citation  1/2-person poss    3-person poss      gloss
+   tesa      che resa, nde resa  hesa              ‘eye’
+   tape      che rape, nde rape  hape              ‘path/road’
+   tetã      che retã, ñane retã hetã              ‘country’
+   téra      che réra, nde réra  héra              ‘name’
+   tova      che rova, nde rova  hova              ‘face’
+   ru        che ru, nde ru      itúva (suppletive) ‘father’
+   sy        che sy, nde sy      isy               ‘mother’
+   raʼy      che raʼy, nde raʼy  taʼýra            ‘son’
+   rajy      che rajy, nde rajy  tajýra            ‘daughter’
+   tembireko che rembireko       hembireko         ‘wife’
+   teko      che reko, nde reko  heko              ‘way of being, life’
+   tembiʼu   che rembiʼu         hembiʼu           ‘food’
+   tãi       che rãi, nde rãi    hãi               ‘tooth’
+   po        che po, nde po      ipo               ‘hand’ (note: po is biforme, not triforme)
+   apyka     che apyka           ijapyka           ‘chair’ (alienable — no t-/r-/h-!)
+
+Rule of thumb: for ANY body part or close kinship relation, suspect a triforme.
+For most other nouns, the simple alienable pattern (che + N, i + N) applies.
+
+Biformes (only r- vs h-, no t-): óga ‘house’ → che róga, h-óga ‘his house’ (or
+the more common path i-róga). Treat óga as the typical example.
+
+================================================================
+E. POSSESSIVE PREFIXES — full paradigm
+================================================================
+                ORAL stem (e.g., -óga, -jagua)   NASAL stem (e.g., -retã, -akã, -ñeʼẽ)
+   1SG          che N            che róga       che N           che retã, che ñeʼẽ
+   2SG          nde N            nde róga       ne N            ne retã, ne ñeʼẽ
+   3            i N / ij V / hi(ʼ) Vstr   iróga, hiʼarapoty
+                                              iñ Vnasal           iñakã
+   1PL.INCL     ñande N          ñande róga    ñane N            ñane retã, ñane ñeʼẽ
+   1PL.EXCL     ore N            ore róga      ore N             ore retã (no allomorph)
+   2PL          pende N          pende róga    pene N            pene retã, pene ñeʼẽ
+   3PL          i N + kuéra/hikuái                                iñakã kuéra
+
+Alienable possessor inserts a linking r- before vowels: che r-aranduka ‘my book’,
+nde r-ao ‘your clothing’.
+For inalienable triformes the r- IS the stem allomorph (see §D).
+
+================================================================
+F. PERSONAL PRONOUNS (closed class — verbatim spellings; high chrF++ leverage)
+================================================================
+                NOM             DAT (-ve/-pe)        emphatic + EMPH
+   1SG          che             chéve                cheko
+   2SG          nde             ndéve                ndeko
+   3SG          haʼe            ichupe / chupe       haʼeko
+   1PL.INCL     ñande           ñandéve              ñandeko
+   1PL.EXCL     ore             oréve                oreko
+   2PL          peẽ             peẽme                peẽko
+   3PL          haʼekuéra       chuguikuéra          haʼekuérako
+
+ACCUSATIVE clitic forms on transitive verbs (= same as inactive set):
+   che- nde- i-/ij-/iñ- ñande-/ñane- ore- pende-/pene- i-…-kuéra
+Ex.:  o-che-juhu ‘he finds me’, ja-i-juhu ‘we (incl.) find him’.
+
+DEMONSTRATIVE PRONOUNS (and demonstrative adjectives — same forms):
+   SG  ko ‘this (near speaker)’    pe ‘that (near hearer)’    amo ‘that (yonder)’
+       upe ‘that (anaphoric)’      ku ‘that (anaphoric)’      aipo ‘that (rumored)’
+   PL  koʼã ‘these’                umi ‘those’                ã ‘these’
+   ‘the one that…’: ko + N + va, koʼãva, umi…va  — relative-clausal use.
+
+   ko jagua          ‘this dog’
+   pe yvoty          ‘that flower’
+   umi mitãnguéra    ‘those children’
+   koʼã óga          ‘these houses’
+
+================================================================
+G. POSTPOSITIONS (closed class; precede no noun, attach AFTER it; surface allomorphs)
+================================================================
+SPATIAL / LOCATIVE
+   -pe / -me     ‘in, at, to, on’      óga-pe, tetã-me, mesa-pe, ñu-me
+   -gui          ‘from’                 ógagui, tetãgui (no nasal alternation)
+   -ári / ári    ‘on top of’            mesa ári, óga ári
+   -guý(pe)      ‘under’                yvyra guýpe ‘under the tree’
+   -kupe(pe)     ‘behind’               óga kupépe
+   -renonde      ‘in front of’          óga renonde
+   -rovake       ‘in front of (face-to-face)’  che rovake
+   -ykére        ‘beside’               che ykére
+   -apytépe      ‘amongst’              haʼekuéra apytépe
+   -mbytépe      ‘in the middle of’     yvyra mbytépe
+   -rupi         ‘along, by way of’     tape rupi
+   -guive        ‘from (origin)’         koʼág̃a guive
+   -peve / -meve ‘until’ (-meve nasal)   pyhare peve
+
+ASSOCIATIVE / COMITATIVE / INSTRUMENTAL
+   -ndi / -ndive ‘with (accompaniment)’  che-ndive, ñande-ndive
+   -re / -rehe   ‘about, on (subject of)’  ñeʼẽrehe ‘about a topic’
+   -reheve       ‘together with’
+   -rupive       ‘by means of’
+
+PURPOSIVE / TEMPORAL
+   -gua          ‘pertaining to, from’    Paraguái-gua ‘Paraguayan’
+   -guarã        ‘for, intended for’      che guarã ‘for me’
+   -hag̃ua       ‘in order to (CL)’       (verbal use)
+   -mboyve       ‘before’                  ára mboyve
+   -rire         ‘after’                   karu rire
+
+PRIVATIVE
+   -ʼỹre         ‘without’                 ñeʼẽ-ʼỹre
+
+Postposition stacking is allowed: óga-pe-gua ‘from the house’, óga-pe-guarã ‘for the house’.
+
+================================================================
+H. NOMINAL TENSE — distinctive of Guarani (-kue, -rã)
+================================================================
+Nouns can take TENSE marking, independent of any verb.
+   -kue   ‘former, ex-, used-to-be’       mburuvicha-kue ‘ex-leader’
+                                           óga-kue ‘former house, ruin’
+                                           che rembireko-kue ‘my ex-wife’
+   -rã    ‘future, to-be, intended’       tembiʼu-rã ‘food (to-be-eaten)’
+                                           mbaʼapo-rã ‘task (work-to-be-done)’
+                                           tembireko-rã ‘fiancée (wife-to-be)’
+
+These are FREQUENT and HIGHLY DISTINCTIVE strings. Apply them whenever the
+caption refers to "the future X", "the former X", or "X for some purpose".
+
+================================================================
+I. VERBAL INFLECTION — tense, aspect, mood
+================================================================
+PRESENT is unmarked: o-guata ‘s/he walks / is walking’.
+Captions of static scenes are almost always PRESENT.
+
+FUTURE
+   -ta            most general future            o-guata-ta ‘will walk’
+   -mbota / -pota allomorph after some stems     o-jeʼe-mbota? o-mboʼe-pota
+   -vaʼerã        ‘will / has to / is to’        o-guata vaʼerã
+
+ASPECT / DISCOURSE PARTICLES (suffix-like, attached after verb)
+   -ma     ‘already’                              o-guata-ma ‘he already walks/walked’
+   -nte    ‘only, just’                           o-karu-nte ‘he only eats’
+   -vo     ‘while, simultaneously’                o-guata-vo ‘while walking’
+   -kuri   ‘recently (past)’                      o-guata-kuri ‘he just walked’
+   -hína   ‘progressive (3rd p.)’                 o-guata hína ‘he is walking’
+   -aína   1SG progressive                       a-guata-aína
+   -reína  2SG progressive                       re-guata-reína
+   hikuái  3PL progressive/auxiliary (always written separately)
+                                                  o-guata hikuái ‘they walk’
+
+NEGATION — discontinuous circumfix nd-...-i.
+   nda- … -i      (oral consonant stems, 1SG/2SG/etc.)   nda-juhú-i ‘I don’t find’
+   nde- … -i      (after some stems)                      ne-ñe’ẽ-i ‘he doesn’t speak’
+   ndo- … -i      (3rd person + o-stem fusion)            ndo-guatá-i ‘he doesn’t walk’
+   na-  … -i      (before nasal-initial stems)            na-mboʼé-i ‘he doesn’t teach’
+The final -i becomes -i / -ri / -ʼi by twol; safe surface = -i.
+
+QUESTION particles
+   pa             general yes/no q.               oguata-pa? ‘does s/he walk?’
+   piko           emphatic yes/no q.              mbaʼe piko? ‘what (is it)?’
+                                                  mávapa? ‘who?’
+
+================================================================
+J. DERIVATIONAL MORPHOLOGY (productive; useful for compound coining)
+================================================================
+   mbo- / mo-          causative ("make X")         mbo-pu / mo-mýi
+   je- / ñe-           reflexive / passive           je-juhu / ñe-mongeta
+   jo- / ño-           reciprocal                    jo-echa / ño-mongeta
+   guero- / gue-       comitative-causative          guero-jere ‘turn (sth) with one’
+   poro-               indefinite human object       poro-mboʼe ‘teach (people)’
+   mbaʼe-              indefinite non-human object   mbaʼe-apo ‘work, do things’
+
+   -hára               agent ‘er’ (people)           mboʼe-hára ‘teacher’,
+                                                     puraheihára ‘singer’
+   -ha                 instrument / place ‘er’      hechauka-ha ‘guide’,
+                                                     karuha ‘dining place/restaurant’
+   -kue                result/object of action       hai-py ‘what is written’ (→ -py)
+   -py                 result/passive participle     ai-py ‘incised, drawn’
+   -pyre               passive participle            apo-pyre ‘what was made’
+   -ndy                collective                    yvyra-ndy ‘grove’
+   -ty                 collective/place              avati-ty ‘cornfield’
+
+================================================================
+K. NUMERALS
+================================================================
+1   peteĩ        11  pateĩ           20  mokõipa
+2   mokõi        12  pakõi           21  mokõipa peteĩ
+3   mbohapy      13  paapy           22  mokõipa mokõi
+4   irundy       14  parundy         30  mbohapypa
+5   po           15  papo            40  irundypa
+6   poteĩ        16  papoteĩ         50  popa
+7   pokõi        17  papokõi         60  poteĩpa
+8   poapy        18  papoapy         70  pokõipa
+9   porundy      19  paporundy       80  poapypa
+10  pa                                90  porundypa
+                                      100 sa
+                                      200 mokõisa
+                                      1000 su / sua
+
+Numerals PRECEDE the noun and PLURAL marking is usually OMITTED:
+   mokõi jagua            ‘two dogs’ (NOT *mokõi jaguakuéra)
+   mbohapy mitã           ‘three children’
+Ordinals: -ha suffix → peteĩ-ha ‘first’, mokõi-ha ‘second’, mbohapy-ha ‘third’.
+
+================================================================
+L. ADJECTIVES (postnominal, except demonstrative determiners)
+================================================================
+COLOURS:
+   morotĩ   ‘white’    hũ      ‘black’      pytã   ‘red’
+   hovy     ‘blue/green’       saʼyju  ‘yellow’   aky   ‘unripe-green’
+   pytãhũ   ‘purple’   parapa  ‘multicoloured’    hovyũ ‘dark green’
+
+SIZE / SHAPE:
+   tuicha / guasu  ‘big’    michĩ / chuʼi  ‘small’
+   puku  ‘long’             mbyky    ‘short’
+   apuʼa ‘round’            po (in compounds) ‘flat’
+   pyahu ‘new’              tuja    ‘old (of things/people)’
+   piru  ‘thin’             kyra    ‘fat’
+   hatã  ‘hard, firm’       kangy   ‘soft, weak’
+
+QUALITY / EVALUATION:
+   porã    ‘pretty, good’   vai      ‘ugly, bad’
+   he      ‘tasty, sweet’   ro       ‘bitter’
+   ñaña    ‘mean, cruel’    marangatu ‘virtuous, kind’
+   pochy   ‘angry’           rory     ‘joyful’
+   katupyry ‘skilled’        kyhyje   ‘fearful’
+
+QUANTIFIERS / INDEFINITES:
+   heta ‘many’    mbovy ‘few’    opa ‘all (things)’    opavave ‘all (people)’
+   mayma ‘every’  peteĩ ‘one/a’  ambue ‘other’         mbaʼeve ‘nothing’
+   avave ‘nobody’ oimeraẽ ‘any’
+
+DEGREE markers (SUFFIX, productive):
+   -ve    ‘-er, more’       tuicha-ve ‘bigger’,   porã-ve ‘prettier’
+   -ete   ‘very, true’      porã-ite ‘very pretty’ (note: -ete + dropped i)
+   -eterei ‘extremely’      porã-eterei
+   -mi    ‘a bit, kind of’  michĩmi ‘rather small’
+   -nte   ‘only, just’      peteĩnte ‘just one’
+
+================================================================
+M. ADVERBS (frequent, useful for caption flavor)
+================================================================
+SPATIAL: koʼápe ‘here’, upépe ‘there’, amo ‘over there’, mombyry ‘far’,
+         agui ‘near’, yvate ‘up, above’, yvýpe ‘down, below’, okápe ‘outside’,
+         pype ‘inside’, mbytépe ‘in the middle’, tenondépe ‘in front’,
+         tapykuépe ‘behind’.
+TEMPORAL: koʼág̃a / koʼãga ‘now’, kuehe ‘yesterday’, koʼẽrõ ‘tomorrow’,
+          ára ‘day’, pyhareve ‘morning’, kaʼaru ‘afternoon’, pyhare ‘night’,
+          ange ‘today/just now’, yma ‘long ago’, ipahápe ‘finally’.
+MANNER: porã ‘well’, vai ‘badly’, mbegue ‘slowly’, pyaʼe ‘quickly’,
+        peteĩteĩ ‘one by one’, oñondive ‘together’, año ‘alone’.
+DEGREE: heta ‘a lot’, michĩ ‘a little’, eterei ‘too much’, hasýpe ‘with difficulty’.
+RESPONSE: he/heẽ ‘yes’, ahániri ‘no’, ndaipóri ‘there isn’t / no’.
+
+================================================================
+N. INTERROGATIVES (closed class)
+================================================================
+   máva / áva     ‘who?’           mbaʼe / mbaʼépa  ‘what?’
+   moõ            ‘where?’         arakaʼe          ‘when?’
+   mbaʼéicha      ‘how?’           mbaʼére           ‘why?’
+   mboy           ‘how many?’      avágui            ‘from whom?’
+
+================================================================
+O. EXISTENTIAL / COPULA / IDENTIFICATION
+================================================================
+Two distinct copular strategies:
+   oĩ            ‘there is, is located, exists’ — used for LOCATION and EXISTENCE.
+                  oĩ ko jagua óga-pe.        ‘There is a dog in the house.’
+                  oĩ heta yvoty ñu-me.       ‘There are many flowers in the field.’
+   haʼe          ‘is, equals’ — used for IDENTIFICATION (X is a Y).
+                  haʼe peteĩ kuña.           ‘She is a woman.’
+                  ko mitã haʼe che raʼy.     ‘This child is my son.’
+For ATTRIBUTIVE predication ("X is pretty"), use the inactive paradigm directly,
+with NO copula:
+                  ko jagua iporã.            ‘This dog is pretty.’
+                  pe yvoty ipytã.            ‘That flower is red.’
+Negation of haʼe: ndaha’ei. Negation of oĩ: ndaipóri.
+                  ndaipóri jagua óga-pe.     ‘There is no dog in the house.’
+
+================================================================
+P. WORD ORDER (from rlx evidence + traditional grammars)
+================================================================
+1. SUBJECT VERB OBJECT is the default, but SUBJECT is usually PRO-DROP
+   (recoverable from the prefix).
+        a-hecha pe yvoty.                  ‘I see that flower.’  (1SG dropped)
+        kuña ohecha mitãme.                ‘The woman sees the child.’  (overt S)
+2. ADJECTIVES and most demonstrative-final markers FOLLOW the noun:
+        jagua porã, jagua hũ, mitã michĩ, kuña pyahu.
+3. ko/pe/amo/upe/ku (preposed demonstratives) and umi/koʼã (preposed PL dem.)
+   PRECEDE the noun. Numerals also precede.
+        ko jagua porã. mokõi mitã. umi yvoty pytã.
+4. POSSESSOR precedes POSSESSUM:
+        mitã sy ‘the child’s mother’,    che jagua porã ‘my pretty dog’.
+5. POSTPOSITIONAL phrases generally FOLLOW the verb, but can be fronted:
+        ja-guata tape rupi.                ‘We walk along the road.’
+        ko óga-pe oĩ heta mitã.            ‘In this house there are many children.’
+6. COORDINATION uses ha ‘and’, térã ‘or’, katu ‘but’:
+        kuña ha kuimbaʼe. yvoty térã yvyra. tuicha katu vai.
+7. RELATIVE / "the one which" uses -va (after V) or umi…va (DET + N + va):
+        oguata-va ‘the one walking’.       umi mitã o-pukáva ‘the children who laugh’.
+
+================================================================
+Q. PLURAL — IMPORTANT: it’s OPTIONAL
+================================================================
+Guarani does not require number marking. Bare nouns are number-neutral and very
+frequently translate as plural in context. Use -kuéra/-nguéra ONLY when:
+- you really want to emphasise plurality (especially for HUMANS), and/or
+- there is no other plural cue (no numeral, no umi, no quantifier).
+Avoid double-marking with numerals: mokõi jagua, NOT *mokõi jaguakuéra.
+
+   jagua kuéra okaru.               ‘The dogs eat.’ (plural emphasis)
+   ohecha mitã.                     ‘He sees a child / children.’ (number-neutral)
+   heta mitã ovyʼa.                 ‘Many children are happy.’ (no -kuéra needed)
+
+================================================================
+R. CORE LEXICAL INVENTORY (use these before reaching for Spanish loans)
+================================================================
+PEOPLE:    kuña ‘woman’, kuimbaʼe ‘man’, mitã ‘child’, mitãkuña ‘girl’,
+           mitãʼi ‘baby’, mitã kuimbaʼe ‘boy’, tapicha ‘person’,
+           karai ‘gentleman/sir’, kuñakarai ‘lady/madam’,
+           tuja ‘old man’, guaig̃ui ‘old woman’, mboʼehára ‘teacher’,
+           temimboʼe ‘student’.
+ANIMALS:   jagua ‘dog’, mbarakaja ‘cat’, kavaju ‘horse’, vaka ‘cow’,
+           ovecha ‘sheep’, kavara ‘goat’, kure ‘pig’, ryguasu ‘chicken’,
+           guyra ‘bird’, pira ‘fish’, mbói ‘snake’, ka’i ‘monkey’,
+           jakare ‘caiman’, taʼanga ‘picture/image (also "doll")’.
+NATURE:    yvyra ‘tree’, yvoty ‘flower’, kaʼa ‘plant/herb/forest’,
+           ñu ‘field/meadow’, y ‘water’, ysyry ‘river’, paraguasu ‘sea’,
+           kuarahy ‘sun’, jasy ‘moon/month’, ára ‘day/sky/weather’,
+           yvy ‘ground/earth/land’, yvága ‘sky/heaven’, ama ‘rain’,
+           yvytu ‘wind’, tata ‘fire’, ita ‘stone’, yvyty ‘mountain/hill’.
+COLOURS-as-nouns: avoid; prefer adjectival use.
+HOUSEHOLD/OBJECTS: óga ‘house’, kotyhápe ‘in the room’, apyka ‘chair’,
+           aripaka ‘table’, tupa ‘bed’, ao ‘clothes/garment’,
+           akãngao ‘hat’, py-ao ‘shoe’ (lit. foot-cloth), aranduka ‘book’,
+           kuatia ‘paper’, kysê ‘knife’, kambuchi ‘jar’, jaguarekuái ‘leash’.
+PLACES:    tape ‘road/path/street’, távape ‘in town’, táva ‘town’,
+           tetã ‘country’, kotyha ‘room’, mboʼehao ‘school’.
+BODY:      akã ‘head’, tesa ‘eye’, nambi ‘ear’, juru ‘mouth’, tĩ ‘nose’,
+           tãi ‘tooth’, kũ ‘tongue’, tova ‘face’, ajúra ‘neck’, po ‘hand’,
+           kuã ‘finger’, py ‘foot’, retyma ‘leg’, tye ‘belly’, py̆ti’a ‘chest’.
+FOOD/DRINK: tembiʼu ‘food’, mbujape ‘bread’, soʼo ‘meat’, kesu ‘cheese’,
+           jukysy ‘soup’, kamby ‘milk’, kaʼay ‘mate’, terere ‘terere’,
+           kaʼirãi ‘fruit’, avati ‘corn’, kumanda ‘bean’, mandiʼo ‘manioc’.
+
+VERBS — common 3SG present forms (drop the o- to derive other persons):
+   o-guata ‘walks’      o-ñani ‘runs’       o-guapy ‘sits’      o-puʼã ‘stands up’
+   o-ke ‘sleeps’        o-puka ‘laughs’     o-hasẽ ‘cries’      o-jeroky ‘dances’
+   o-purahéi ‘sings’    o-ñe’ẽ ‘speaks’     o-hecha ‘sees’      o-hendu ‘hears’
+   o-karu ‘eats’        ho-ʼu ‘eats/drinks (irreg)’             oy-ʼu ‘drinks’
+   o-mbo-pu ‘plays(it)’ o-japo ‘makes/does’ o-juhu ‘finds’      o-hayhu ‘loves’
+   o-jogua ‘buys’       o-meʼẽ ‘gives’      o-pyhy ‘grabs/takes’
+   o-jeʼoi ‘goes (PL)’  o-ho ‘goes’         oĩ ‘is/exists’      o-vyʼa ‘is happy’
+   o-mbo-jeroky ‘dances (sb/sth)’    o-ñembo-sarái ‘plays (recreates)’
+   o-ñembo-haʼe ‘pretends to be’     o-hechauka ‘shows’
+
+INACTIVE PREDICATES (3sg). NB: for many adjectival-like roots, "is X" = i-X / iX:
+   iporã ‘is pretty’    ipiru ‘is thin’     ikyra ‘is fat’       ipyahu ‘is new’
+   ituja ‘is old’       ipuku ‘is long’     imbyky ‘is short’    ipohýi ‘is heavy’
+   ivevúi ‘is light’    hasy ‘hurts/is sick’    haku ‘is hot’    roʼy ‘is cold’
+   hetã ‘is many/much’  iñakã ‘is his head / he is in charge of’.
+
+CONJUNCTIONS:  ha ‘and’, térã ‘or’, katu ‘but’, ni ‘nor’, jepe ‘although’,
+               aipórõ ‘so, then’, upérõ ‘then’, upévare ‘therefore’,
+               ramo ‘because, when’, mboyve ‘before’, rire ‘after’, vove ‘when’.
+
+================================================================
+S. PRODUCTIVE COMPOUNDING (very common in image captioning)
+================================================================
+Guarani readily compounds N+N or N+ADJ. Prefer compounds over postpositional
+descriptions when a lexical compound exists:
+   mitã + kuña → mitãkuña ‘girl’
+   mbarakaja + kuña → mbarakaja kuña ‘female cat’
+   óga + ruvicha → óga ruvicha ‘house master/owner’ (rare)
+   y + voty → yvoty? No — yvoty is its own root (‘flower’).
+   ao + jyva → ao jyva ‘sleeve’
+   pe + akã → peakã (no — productive only with stems already lexicalised)
+For body-part compounds: stem + body-part is common, e.g., kavaju akã ‘horse head’.
+For colour-modified nouns, just postpose: jagua hũ ‘black dog’, yvoty pytã ‘red flower’.
+
+================================================================
+T. SAMPLE CAPTIONS (3sg present, descriptive, native lexicon)
+================================================================
+1. A child eats bread.                Peteĩ mitã okaru mbujape.
+                                       OR  Peteĩ mitã hoʼu mbujape.  (irregular ‘eat/drink’)
+2. The dog sleeps in the house.       Pe jagua oke ógape.
+3. Two women walk along the road.     Mokõi kuña oguata tape rupi.
+4. The flower is pretty.              Pe yvoty iporã.
+5. The black cat sits on the table.   Pe mbarakaja hũ oguapy aripaka ári.
+6. Many children play in the field.   Heta mitã oñembosarái ñúme.
+7. A man and his dog walk in the park. Peteĩ kuimbaʼe ha ijagua oguata pe ñúme.
+8. Three birds fly in the sky.        Mbohapy guyra oveve árape.
+9. The boy is happy.                  Pe mitã kuimbaʼe ovyʼa.
+10. A red car is on the street.       Peteĩ mbaʼyru pytã oĩ tapépe.
+11. The woman holds a book.           Pe kuña ipópe oguereko peteĩ aranduka.
+12. An old man is sitting under a tree. Peteĩ kuimbaʼe tuja oguapy yvyra guýpe.
+13. There are many flowers near the house.  Heta yvoty oĩ óga ypýpe.
+14. The cat is white.                 Pe mbarakaja morotĩ. (or … imorotĩ)
+15. A girl runs with her dog.         Peteĩ mitãkuña oñani ijagua ndive.
+
+================================================================
+U. DEFAULT RULES OF THUMB
+================================================================
+1. UNCERTAIN about an affix allomorph? Scan the stem for {ã ẽ ĩ õ ũ ỹ ñ m n}.
+   Any present → nasal allomorph. None → oral allomorph.
+2. UNCERTAIN whether a verb is active or inactive? Test: does the predicate
+   describe an event the subject performs (active) or a state the subject
+   undergoes/has (inactive)? "He sees" = active (ohecha). "He is sick" =
+   inactive (hasy chupe / che rasy).
+3. UNCERTAIN about plural? Bare noun is fine if context is clear or there is
+   a numeral/quantifier. Use -kuéra/-nguéra for explicit human plurals.
+4. UNCERTAIN whether to copy a Spanish loan? Prefer native (jagua, kuña, óga).
+   Use Apertium-listed loans (kavaju, vaka, ovecha, kavara, aviõ, ijapyka)
+   when no native counterpart exists in the cheat-sheet.
+5. UNCERTAIN about word order? Default to: (Numeral/Det) Noun (Adj) (PostP) V (Obj).
+   Subject can be dropped if the prefix on V identifies it.
+6. UNCERTAIN about an irregular verb? Listed irregulars: aha/reho/oho ‘go’,
+   aju/reju/ou ‘come’, haʼu/reʼu/hoʼu ‘eat (food)’, hayʼu/reyʼu/hoyʼu ‘drink’,
+   haʼe/eré/heʼi ‘say’.
+7. KEEP captions short (one clause). chrF++ is character-level: small clauses
+   give the model more chances to match exact frequent substrings (-pe, -kuéra,
+   o-, i-, ko, umi, peteĩ, haʼe, oĩ).

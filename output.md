@@ -83,7 +83,14 @@ Job 6965487 submitted 2026-05-01. Resources: grammar parallel → `guarani_exemp
 
 ## Ablation v3prompt+dampy — prompt v3, updated resources + dampy captions (3 runs avg)
 
-Resources: culture knowledge (`Claude_2step_guarani_cultural_knowledge.txt`), interlinear (`guarani_grammar_primer_claude.md`, full), grammar parallel (`guarani_exemplar_bank_claude.md`, full), apertium (`apertium-grn-caption-cheatsheet.md`), parallel examples (`flores_dev_examples_en-gn.json`, full), cultural caption exemplars (`dampy_gemma_claude_caption.txt`, full). Jobs: 6966213 (r0), 6966221 (r1), 6966222 (r2).
+Resources: 
+1. culture knowledge (`Claude_2step_guarani_cultural_knowledge.txt`) - ck
+2. interlinear (`guarani_grammar_primer_claude.md`, full) - il
+3. grammar parallel (`guarani_exemplar_bank_claude.md`, full) - gp
+4. apertium (`apertium-grn-caption-cheatsheet.md`) - ap
+5. parallel examples (`flores_dev_examples_en-gn.json`, full) - pe
+6. dampy cultural caption exemplars (`dampy_gemma_claude_caption.txt`, full). - dampy
+Jobs: 6966213 (r0), 6966221 (r1), 6966222 (r2).
 
 | Condition | r0 | r1 | r2 | Avg |
 |-----------|----|----|-----|-----|
@@ -97,3 +104,17 @@ Resources: culture knowledge (`Claude_2step_guarani_cultural_knowledge.txt`), in
 | all | 22.14 | 22.20 | 21.96 | **22.10** |
 
 **Key finding:** +pe remains the strongest single resource (23.07 avg). +il (21.18) and +dampy (20.91) both outperform the none baseline. +ap continues to hurt. `all` (22.10) falls short of +pe alone, suggesting +ap and/or +gp drag it down.
+
+---
+
+## Ablation v3prompt+dampy — updated apertium (`apertium-grn-caption-cheatsheet.txt`), single run
+
+Same setup as above but with updated apertium resource (`.txt`). Job 6967979 (r3).
+
+| Condition | r3 |
+|-----------|-----|
+| none | 19.91 |
+| +ap | 19.81 |
+| all | 21.62 |
+
+## Conclusion: Upon manual check, the apertium was deemed helpful. However, it seems like the improved apertium did not help with the performance. 

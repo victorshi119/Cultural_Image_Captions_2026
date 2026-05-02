@@ -1,0 +1,13 @@
+conda version 25.3.0 python 3.12.7 loaded.
+Task 7  config: all
+Output: outputs/ablation_v3prompt_dampy_05-01_all_r3.tsv
+Traceback (most recent call last):
+  File "/N/project/CoRSAL/Cultural_Image_Captions_2026/main.py", line 402, in <module>
+    main()
+  File "/N/project/CoRSAL/Cultural_Image_Captions_2026/main.py", line 371, in main
+    system_prompt = build_system_prompt(
+  File "/N/project/CoRSAL/Cultural_Image_Captions_2026/main.py", line 271, in build_system_prompt
+    prompt += "\n" + load_culture_knowledge(culture_knowledge_path)
+  File "/N/project/CoRSAL/Cultural_Image_Captions_2026/main.py", line 207, in load_culture_knowledge
+    with open(path,"r",encoding="utf-8") as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'resources/guarani_culture_knowledge.txt'

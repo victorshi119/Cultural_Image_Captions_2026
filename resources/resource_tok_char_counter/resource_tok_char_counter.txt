@@ -6,6 +6,10 @@ File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/dampy_gemma_claud
 Characters: 19,574
 Tokens (approx): 2,660
 
+File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/apertium-grn-caption-cheatsheet.txt
+Characters: 29,125
+Tokens (approx): 3,363
+
 File: /N/project/CoRSAL/Cultural_Image_Captions_2026/resources/guarani_culture_knowledge.txt
 Characters: 6,347
 Tokens (approx): 890
@@ -19,5 +23,5 @@ Characters: 300,114
 Tokens (approx): 41,664
 
 TOTAL
-Characters: 2,275,635
-Tokens (approx): 236,095
+Characters: 2,304,760
+Tokens (approx): 239,458
