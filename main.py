@@ -333,24 +333,22 @@ def load_grammar_book(path: str, n: int):
         lines = [line.strip() for line in f if line.strip()]
     return header + "\n" + "\n".join(lines[:n])
 
+# fixed syntax after manual edit broke filter placement
 def load_dampy_visual_pairs(images_dir, captions_path, n=0, n_per_category=0):
-    # We want to have visual_caption pairs from the Dampy Paraguayan Government website
     # images_dir:      root with subfolders Comida/, Fauna/, Flora/
     #                  each subfolder has item dirs, each item dir has one image
     # captions_path:   TSV with lines  "item_id\tGuarani caption"
     # n:               total pairs to return (flat mode, used when n_per_category=0)
     # n_per_category:  if >0, take this many pairs from each category subfolder
 
-    # build id -> caption lookup from the TSV 
-    # Note: we skip section headers with no tab
+    # build id -> caption lookup from the TSV (skip section headers with no tab)
     id_to_caption = {}
     for line in Path(captions_path).read_text().splitlines():
         if "\t" in line:
             img_id, caption = line.split("\t", 1)
             id_to_caption[img_id] = caption
 
-    # load image + caption for a given path
-    # stem (filename without ext) is the shared key
+    # load image + caption for a given path; stem (filename without ext) is the shared key
     def load(p):
         return Image.open(p).convert("RGB"), id_to_caption[p.stem]
 
@@ -359,13 +357,29 @@ def load_dampy_visual_pairs(images_dir, captions_path, n=0, n_per_category=0):
         pairs = []
         for cat in sorted(Path(images_dir).iterdir()):
             imgs = sorted(p for p in cat.rglob("*") if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption)
-            for p in imgs[:n_per_category]:
-                pairs += [load(p)]
+            pairs += [load(p) for p in imgs[:n_per_category]]
         return pairs
 
-    # collect all matched images across categories, return first n
+    # flat mode: collect all matched images across categories, return first n
     imgs = [p for p in Path(images_dir).rglob("*") if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption]
     return [load(p) for p in imgs[:n]]
+
+def load_dampy_text_captions(images_dir, captions_path, n_per_category):
+    # same per-category selection as load_dampy_visual_pairs but returns caption text only
+    # images_dir used only to determine which IDs exist and their category order
+    # returns a formatted string ready to append to the system prompt
+    id_to_caption = {}
+    for line in Path(captions_path).read_text().splitlines():
+        if "\t" in line:
+            img_id, caption = line.split("\t", 1)
+            id_to_caption[img_id] = caption
+
+    lines = ["EJEMPLOS DE SUBTÍTULOS EN GUARANÍ (pares de referencia):"]
+    for cat in sorted(Path(images_dir).iterdir()):
+        imgs = sorted(p for p in cat.rglob("*") if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption)
+        for p in imgs[:n_per_category]:
+            lines.append(f"{p.stem}: {id_to_caption[p.stem]}")
+    return "\n".join(lines)
 
 def load_apertium_summary(path: str, chars:int):
     with open(path,"r",encoding="utf-8") as f:
@@ -521,8 +535,9 @@ def main():
     parser.add_argument("--dictionary_top_k",type=int,default=10,help="number of dictionary entries to retrieve per image")
     parser.add_argument("--dampy_images",type=str,default=None,help="path to dampy images root dir (subfolders: Comida/Fauna/Flora)")
     parser.add_argument("--dampy_captions",type=str,default=None,help="path to dampy caption tsv (id<tab>caption); required with --dampy_images")
-    parser.add_argument("--num_dampy_shots",type=int,default=5,help="number of dampy image-caption few-shot examples to prepend (flat)")
+    parser.add_argument("--num_dampy_shots",type=int,default=0,help="number of dampy image-caption few-shot examples to prepend (flat)")
     parser.add_argument("--num_dampy_shots_per_category",type=int,default=0,help="if >0, sample this many examples from each category subfolder instead of flat --num_dampy_shots")
+    parser.add_argument("--num_dampy_text_shots_per_category",type=int,default=0,help="if >0, inject this many caption-only examples per category into the system prompt (no images)")
     args = parser.parse_args()
     
     api_key = os.environ.get("REALLMS_API_KEY")
@@ -579,7 +594,7 @@ def main():
         flores_bm25_index = build_flores_bm25(flores_all_pairs)
 
     few_shot_pairs = None
-    if args.dampy_images and args.dampy_captions:
+    if args.dampy_images and args.dampy_captions and (args.num_dampy_shots > 0 or args.num_dampy_shots_per_category > 0):
         few_shot_pairs = load_dampy_visual_pairs(
             images_dir=to_path(args.dampy_images),
             captions_path=to_path(args.dampy_captions),
@@ -587,6 +602,15 @@ def main():
             n_per_category=args.num_dampy_shots_per_category,
         )
         print(f"Loaded {len(few_shot_pairs)} dampy visual few-shot pairs")
+
+    if args.dampy_images and args.dampy_captions and args.num_dampy_text_shots_per_category > 0:
+        dampy_text = load_dampy_text_captions(
+            images_dir=to_path(args.dampy_images),
+            captions_path=to_path(args.dampy_captions),
+            n_per_category=args.num_dampy_text_shots_per_category,
+        )
+        system_prompt += "\n" + dampy_text
+        print(f"Injected dampy text captions ({args.num_dampy_text_shots_per_category} per category) into system prompt")
 
     run_captioning(
         image_paths=image_paths,
