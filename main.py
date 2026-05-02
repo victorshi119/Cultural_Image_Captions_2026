@@ -333,6 +333,42 @@ def load_grammar_book(path: str, n: int):
         lines = [line.strip() for line in f if line.strip()]
     return header + "\n" + "\n".join(lines[:n])
 
+def load_dampy_visual_pairs(images_dir, captions_path, n=0, n_per_category=0):
+    # We want to have visual_caption pairs from the Dampy Paraguayan Government website
+    # images_dir:      root with subfolders Comida/, Fauna/, Flora/
+    #                  each subfolder has item dirs, each item dir has one image
+    # captions_path:   TSV with lines  "item_id\tGuarani caption"
+    # n:               total pairs to return (flat mode, used when n_per_category=0)
+    # n_per_category:  if >0, take this many pairs from each category subfolder
+
+    # build id -> caption lookup from the TSV 
+    # Note: we skip section headers with no tab
+    id_to_caption = {}
+    for line in Path(captions_path).read_text().splitlines():
+        if "\t" in line:
+            img_id, caption = line.split("\t", 1)
+            id_to_caption[img_id] = caption
+
+    # load image + caption for a given path
+    # stem (filename without ext) is the shared key
+    def load(p):
+        return Image.open(p).convert("RGB"), id_to_caption[p.stem]
+
+    if n_per_category > 0:
+        # take the first n_per_category matched images from each category dir
+        pairs = []
+        for cat in sorted(Path(images_dir).iterdir()):
+            if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption:
+            imgs = sorted(p for p in cat.rglob("*"))
+            for p in imgs[:n_per_category]
+                pairs += [load(p)]
+        return pairs
+
+    # collect all matched images across categories, return first n
+    if p.suffix.lower() in IMAGE_EXTENSIONS and p.stem in id_to_caption:
+        imgs = [p for p in Path(images_dir).rglob("*")]
+    return [load(p) for p in imgs[:n]]
+
 def load_apertium_summary(path: str, chars:int):
     with open(path,"r",encoding="utf-8") as f:
         text = f.read(chars)
@@ -374,25 +410,42 @@ def build_system_prompt(
     if interlinear_path:
         prompt += "\n" + load_interlinear(interlinear_path, num_interlinear)
 
-    # 4. Parallel examples — closest to the task, placed last
+    # 4. Parallel examples — closest to the task, we placed last
     if parallel_path:
         prompt += "\n" + load_parallel_examples(parallel_path, num_parallel)
 
     return prompt
     
-def generate_caption(image_path: str, system_prompt: str,caption_prompt: str,client: OpenAI, model: str):
+# def generate_caption(image_path: str, system_prompt: str,caption_prompt: str,client: OpenAI, model: str):
+#     test_image = Image.open(image_path).convert("RGB")
+#     messages = [{"role":"system","content":system_prompt}]
+#     messages.append(
+#         {
+#             "role":"user",
+#             "content": [
+#                 {"type":"image_url","image_url": {"url": _pil_to_data_url(test_image)}},
+#                 {"type":"text","text":caption_prompt}
+#             ]
+#         }
+#     )
+#     response = client.chat.completions.create(model=model,messages=messages,max_tokens=512)
+#     return response.choices[0].message.content.strip()
+
+def generate_caption(image_path: str, system_prompt: str, caption_prompt: str, client: OpenAI, model: str,
+                     few_shot_pairs: Optional[list] = None):
     test_image = Image.open(image_path).convert("RGB")
-    messages = [{"role":"system","content":system_prompt}]
-    messages.append(
-        {
-            "role":"user",
-            "content": [
-                {"type":"image_url","image_url": {"url": _pil_to_data_url(test_image)}},
-                {"type":"text","text":caption_prompt}
-            ]
-        }
-    )
-    response = client.chat.completions.create(model=model,messages=messages,max_tokens=512)
+    messages = [{"role": "system", "content": system_prompt}]
+    for ex_img, ex_caption in (few_shot_pairs or []):
+        messages.append({"role": "user", "content": [
+            {"type": "image_url", "image_url": {"url": _pil_to_data_url(ex_img)}},
+            {"type": "text", "text": caption_prompt},
+        ]})
+        messages.append({"role": "assistant", "content": ex_caption})
+    messages.append({"role": "user", "content": [
+        {"type": "image_url", "image_url": {"url": _pil_to_data_url(test_image)}},
+        {"type": "text", "text": caption_prompt},
+    ]})
+    response = client.chat.completions.create(model=model, messages=messages, max_tokens=512)
     return response.choices[0].message.content.strip()
 
 
@@ -414,6 +467,7 @@ def run_captioning(
     flores_pairs: Optional[list] = None,
     flores_bm25=None,
     flores_bm25_top_k: Optional[int] = 100,
+    few_shot_pairs: Optional[list] = None,
 ):
     results = []
     for img_path in image_paths:
@@ -431,8 +485,9 @@ def run_captioning(
         if flores_bm25 is not None:
             flores_retrieved = retrieve_flores_by_image(image_path=str(img_path),pairs=flores_pairs,bm25=flores_bm25,client=client,model=model_name,top_k=flores_bm25_top_k)
             per_img_prompt+="\n"+flores_retrieved
-        
-        caption = generate_caption(str(img_path),system_prompt=per_img_prompt,client=client,model=model_name,caption_prompt=CAPTION_INSTRUCTION)
+
+        caption = generate_caption(str(img_path), system_prompt=per_img_prompt, client=client, model=model_name,
+                                   caption_prompt=CAPTION_INSTRUCTION, few_shot_pairs=few_shot_pairs)
         results.append((img_name, caption))
 
     if output_file:
@@ -466,6 +521,10 @@ def main():
     parser.add_argument("--flores_bm25_top_k",type=int,default=100,help="number of flores pairs to retrieve per image")
     parser.add_argument("--dictionary",type=str,default=None,help="path to guarani_dictionary.json")
     parser.add_argument("--dictionary_top_k",type=int,default=10,help="number of dictionary entries to retrieve per image")
+    parser.add_argument("--dampy_images",type=str,default=None,help="path to dampy images root dir (subfolders: Comida/Fauna/Flora)")
+    parser.add_argument("--dampy_captions",type=str,default=None,help="path to dampy caption tsv (id<tab>caption); required with --dampy_images")
+    parser.add_argument("--num_dampy_shots",type=int,default=5,help="number of dampy image-caption few-shot examples to prepend (flat)")
+    parser.add_argument("--num_dampy_shots_per_category",type=int,default=0,help="if >0, sample this many examples from each category subfolder instead of flat --num_dampy_shots")
     args = parser.parse_args()
     
     api_key = os.environ.get("REALLMS_API_KEY")
@@ -521,6 +580,16 @@ def main():
             flores_all_pairs = json.load(f)
         flores_bm25_index = build_flores_bm25(flores_all_pairs)
 
+    few_shot_pairs = None
+    if args.dampy_images and args.dampy_captions:
+        few_shot_pairs = load_dampy_visual_pairs(
+            images_dir=to_path(args.dampy_images),
+            captions_path=to_path(args.dampy_captions),
+            n=args.num_dampy_shots,
+            n_per_category=args.num_dampy_shots_per_category,
+        )
+        print(f"Loaded {len(few_shot_pairs)} dampy visual few-shot pairs")
+
     run_captioning(
         image_paths=image_paths,
         output_file=args.output,
@@ -539,6 +608,7 @@ def main():
         flores_pairs=flores_all_pairs,
         flores_bm25=flores_bm25_index,
         flores_bm25_top_k=args.flores_bm25_top_k,
+        few_shot_pairs=few_shot_pairs,
     )
 if __name__ == "__main__":
     main()
