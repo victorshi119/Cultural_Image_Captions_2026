@@ -98,21 +98,98 @@ TOTAL
 Characters: 932,331
 Tokens (approx): 133,259
 
-## Ablation Results (dev set, Gemma 4 31B, 3 runs averaged)
+## Ablation Results (dev set, Gemma 4 31B, prompt v3, 3 runs averaged)
 
-Add-one-forward ablation — each resource added to the base prompt in isolation. Scores are mean chrF++ averaged over 3 independent runs.
+Add-one-forward ablation — each resource added to the base prompt in isolation. Scores are mean chrF++ averaged over 3 independent runs (jobs 6966213, 6966221, 6966222).
 
-| Resource | v3 | v4 |
-|---|---|---|
-| none (base prompt only) | 20.62 | 19.46 |
-| +culture knowledge (`ck`) | 21.07 | 19.75 |
-| +interlinear examples (`il`) | 21.41 | 20.51 |
-| +apertium morphology (`ap`) | 21.04 | 20.63 |
-| +code rules / BM25 (`cr`) | 18.64 | 19.25 |
-| +grammar parallel (`gp`) | 16.06 | 14.94 |
-| +FLORES parallel examples (`pe`) | **22.84** | **22.03** |
-| all combined | 21.75 | 21.32 |
+Resources evaluated:
+- `ck` — culture knowledge (`Claude_2step_guarani_cultural_knowledge.txt`)
+- `il` — interlinear examples (`guarani_grammar_primer_claude.md`, full)
+- `gp` — grammar parallel (`guarani_exemplar_bank_claude.md`, full)
+- `ap` — apertium (`apertium-grn-caption-cheatsheet.md`)
+- `pe` — FLORES parallel examples (`flores_dev_examples_en-gn.json`, full)
+- `dampy` — DAMPY cultural caption exemplars (`dampy_gemma_claude_caption.txt`, full)
+
+| Condition | r0 | r1 | r2 | Avg |
+|---|---|---|---|---|
+| none | 20.15 | 20.13 | 20.55 | **20.28** |
+| +pe | 23.37 | 22.65 | 23.18 | **23.07** |
+| +ck | 21.02 | 20.86 | 20.78 | **20.89** |
+| +il | 21.76 | 20.94 | 20.84 | **21.18** |
+| +dampy | 21.33 | 20.70 | 20.69 | **20.91** |
+| +gp | 19.28 | 19.37 | 19.54 | **19.40** |
+| +ap | 17.51 | 17.27 | 18.02 | **17.60** |
+| all | 22.14 | 22.20 | 21.96 | **22.10** |
 
 ## Conclusion
 
-v3 consistently outperforms v4 across almost all conditions. FLORES parallel examples (`pe`) is the strongest single augmentation for both prompts. Grammar parallel (`gp`) hurts performance for both. Code rules (`cr`) is the only condition where v4 edges out v3.
+`+pe` (FLORES parallel examples) is the strongest single resource at 23.07 avg chrF++. `+il` (21.18) and `+dampy` (20.91) both improve over the baseline. `+gp` and `+ap` hurt performance — `all` (22.10) falls short of `+pe` alone, likely dragged down by those two resources.
+
+---
+
+## Finale Experiments (Test Set)
+
+All finale runs use **gemma-4-31B-it**, **prompt v3**, and the full **test set** (101 images). Fixed across all runs: grammar book (`guarani_ref.md`, 157 lines) and interlinear (`guarani_grammar_primer_claude.md`, 144 lines).
+
+Submitted to AmericasNLP 2026. Submission files: `submissions/final/guarani-{0-5}.jsonl` (corresponding to `finale_text_{0-5}.tsv`).
+
+---
+
+### Text BM25 Runs — `finale_text_{0-5}.tsv`
+
+**Mode:** All resources retrieved via BM25 per image (text-only, no visual shots). Resources:
+- `--culture_bm25` → `Claude_2step_guarani_cultural_knowledge.txt` (top-K chunks)
+- `--dampy_captions` + `--dampy_spanish_captions_dir` → DAMPY Guaraní + Spanish captions, BM25 top-K
+- `--flores_bm25` → `flores_dev_examples_en-gn.json`, BM25 top-K EN→GN pairs
+- `--dev_bm25_text_top_k` → dev set image/caption pairs retrieved by text BM25
+
+| File | DAMPY\_K | FLORES\_K | DEV\_K | CULTURE\_K |
+|---|---|---|---|---|
+| `finale_text_0.tsv` | 5 | 100 | 5 | 5 |
+| `finale_text_1.tsv` | 10 | 100 | 10 | 5 |
+| `finale_text_2.tsv` | 15 | 100 | 10 | 5 |
+| `finale_text_3.tsv` | 20 | 100 | 10 | 6 |
+| `finale_text_4.tsv` | 15 | 120 | 10 | 8 |
+| `finale_text_5.tsv` | 15 | 150 | 10 | 10 |
+
+The sweep tests the effect of increasing BM25 retrieval depth: `finale_text_0` uses the smallest context (FLORES\_K=100, DAMPY\_K=5); `finale_text_5` uses the largest (FLORES\_K=150, DAMPY\_K=15, CULTURE\_K=10).
+
+---
+
+### Static Text Run — `finale_static_text_1.tsv` *(pending/not yet produced)*
+
+Planned text-only static run using fixed (non-BM25) resources mirroring the static visual config below, but without visual shots injected. Config based on `finale_static.slurm` minus the `--dampy_images` visual argument.
+
+---
+
+### Static Visual Run — `finale_static_visual_15shot_dev50.tsv`
+
+**Mode:** Static (non-BM25) resource injection with visual DAMPY few-shot pairs.
+
+| Argument | Value |
+|---|---|
+| `--culture_knowledge` | `Claude_2step_guarani_cultural_knowledge.txt` (full file) |
+| `--parallel_examples` | `flores_dev_examples_en-gn.json`, 50 examples (static) |
+| `--dampy_images` | `new_data/dampy_output/images` |
+| `--dampy_captions` | `dampy_gemma_claude_caption.txt` |
+| `--num_dampy_shots` | 15 visual image–caption pairs |
+| `--dev_bm25_visual_top_k` | 50 dev pairs retrieved by visual BM25 |
+
+---
+
+### Static Visual 10-shot Run — `finale_static_visual_10shot.tsv` *(pending/not yet produced)*
+
+Planned reduced-shot variant of the static visual run above, using 10 DAMPY visual shots instead of 15. Config mirrors the 10-shot entry from `finale_quick.slurm` (ID=8: FLORES\_K=25, DEV\_K=8).
+
+---
+
+### Dev BM25 Visual Run — `finale_dampy_bm25_visual5_dev.tsv` *(dev set only)*
+
+Validation run on the 50-image dev set to test BM25-based visual DAMPY retrieval.
+
+| Argument | Value |
+|---|---|
+| `--culture_knowledge` | `Claude_2step_guarani_cultural_knowledge.txt` (full file) |
+| `--parallel_examples` | `flores_dev_examples_en-gn.json`, 50 examples (static) |
+| `--dampy_images` + `--dampy_captions` | DAMPY visual BM25, top-5 visually similar pairs |
+| `--dampy_spanish_captions_dir` | DAMPY Spanish caption directory for BM25 scoring |

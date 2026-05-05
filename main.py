@@ -218,13 +218,19 @@ def retrieve_flores_by_image(image_path: str, pairs: list[dict], bm25, client: O
         lines.append("")
     return "\n".join(lines)
 
-def load_dampy_spanish_entries(spanish_captions_dir: str, guarani_captions_path: str) -> list[dict]:
+def load_dampy_spanish_entries(spanish_captions_dir: str, guarani_captions_path: str, images_dir: str = None) -> list[dict]:
     # load guarani captions
     id_to_guarani = {}
     for line in Path(guarani_captions_path).read_text().splitlines():
         if "\t" in line:
             stem, caption = line.split("\t", 1)
             id_to_guarani[stem] = caption
+
+    stem_to_img = {}
+    if images_dir:
+        for p in Path(images_dir).rglob("*"):
+            if p.suffix.lower() in IMAGE_EXTENSIONS:
+                stem_to_img[p.stem] = str(p)
 
     # load all _es.tsv files from the dir
     entries = []
@@ -236,7 +242,10 @@ def load_dampy_spanish_entries(spanish_captions_dir: str, guarani_captions_path:
             stem, spanish = line.split("\t", 1)
             guarani = id_to_guarani.get(stem)
             if guarani:
-                entries.append({"stem": stem, "spanish": spanish, "guarani": guarani, "category": category})
+                entry = {"stem": stem, "spanish": spanish, "guarani": guarani, "category": category}
+                if images_dir:
+                    entry["img_path"] = stem_to_img.get(stem)
+                entries.append(entry)
     return entries
 
 def build_dampy_bm25(entries: list[dict]):
@@ -256,6 +265,17 @@ def retrieve_dampy_bm25(spanish_desc: str, entries: list[dict], bm25, top_k: int
     lines.append("\n---")
     lines.append("Para la imagen actual, genera ÚNICAMENTE el subtítulo en guaraní.")
     return "\n".join(lines)
+
+def retrieve_dampy_visual_bm25(spanish_desc: str, entries: list[dict], bm25, top_k: int = 5) -> list[tuple]:
+    query_tokens = re.findall(r"[a-zA-Záéíóúñãẽĩõũ]+", spanish_desc.lower())
+    scores = bm25.get_scores(query_tokens)
+    top_indices = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
+    pairs = []
+    for i in top_indices:
+        img_path = entries[i].get("img_path")
+        if img_path:
+            pairs.append((Image.open(img_path).convert("RGB"), entries[i]["guarani"]))
+    return pairs
 
 def load_trilingual_entries(jsonl_path: str, images_dir: str) -> list[dict]:
     entries = []
@@ -470,6 +490,7 @@ def run_captioning(
     dev_bm25=None,
     dev_bm25_text_top_k: Optional[int] = 0,
     dev_bm25_visual_top_k: Optional[int] = 0,
+    dampy_bm25_visual_top_k: Optional[int] = 0,
     few_shot_pairs: Optional[list] = None,
 ):
     results = []
@@ -499,10 +520,13 @@ def run_captioning(
             dev_retrieved = retrieve_dampy_bm25(img_desc_es, dev_entries, dev_bm25, dev_bm25_text_top_k)
             per_img_prompt+="\n"+dev_retrieved
 
+        dampy_visual_few_shot = None
+        if dampy_bm25 is not None and dampy_bm25_visual_top_k > 0:
+            dampy_visual_few_shot = retrieve_dampy_visual_bm25(img_desc_es, dampy_bm25_entries, dampy_bm25, dampy_bm25_visual_top_k)
         dev_few_shot = None
         if dev_bm25 is not None and dev_bm25_visual_top_k > 0:
             dev_few_shot = retrieve_dev_visual_bm25(img_desc_es, dev_entries, dev_bm25, dev_bm25_visual_top_k)
-        combined_few_shot = (few_shot_pairs or []) + (dev_few_shot or [])
+        combined_few_shot = (few_shot_pairs or []) + (dampy_visual_few_shot or []) + (dev_few_shot or [])
 
         caption = generate_caption(str(img_path), system_prompt=per_img_prompt, client=client, model=model_name,
                                    caption_prompt=CAPTION_INSTRUCTION, few_shot_pairs=combined_few_shot or None)
@@ -543,6 +567,7 @@ def main():
     parser.add_argument("--dev_bm25_visual_top_k",type=int,default=0,help="if >0, use this many BM25-retrieved dev images as visual few-shot")
     parser.add_argument("--dampy_spanish_captions_dir",type=str,default=None,help="path to dir containing guarani_*_captions_es.tsv files for BM25 retrieval")
     parser.add_argument("--dampy_bm25_top_k",type=int,default=5,help="number of DAMPY Spanish-Guaraní pairs to retrieve per image")
+    parser.add_argument("--dampy_bm25_visual_top_k",type=int,default=0,help="if >0, use this many BM25-retrieved DAMPY images as visual few-shot (requires --dampy_spanish_captions_dir and --dampy_images)")
     parser.add_argument("--dampy_images",type=str,default=None,help="path to dampy images root dir (subfolders: Comida/Fauna/Flora)")
     parser.add_argument("--dampy_captions",type=str,default=None,help="path to dampy caption tsv (id<tab>caption); required with --dampy_images")
     parser.add_argument("--num_dampy_shots",type=int,default=0,help="number of dampy image-caption few-shot examples to prepend (flat)")
@@ -625,6 +650,7 @@ def main():
         dampy_bm25_entries = load_dampy_spanish_entries(
             spanish_captions_dir=to_path(args.dampy_spanish_captions_dir),
             guarani_captions_path=to_path(args.dampy_captions),
+            images_dir=to_path(args.dampy_images) if args.dampy_bm25_visual_top_k > 0 and args.dampy_images else None,
         )
         dampy_bm25_index = build_dampy_bm25(dampy_bm25_entries)
         print(f"Loaded {len(dampy_bm25_entries)} DAMPY Spanish-Guaraní entries for BM25")
@@ -660,6 +686,7 @@ def main():
         dev_bm25=dev_bm25_index,
         dev_bm25_text_top_k=args.dev_bm25_text_top_k,
         dev_bm25_visual_top_k=args.dev_bm25_visual_top_k,
+        dampy_bm25_visual_top_k=args.dampy_bm25_visual_top_k,
         few_shot_pairs=few_shot_pairs,
     )
 if __name__ == "__main__":
