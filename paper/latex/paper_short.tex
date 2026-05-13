@@ -1,0 +1,437 @@
+\documentclass[11pt]{article}
+
+\usepackage[final]{acl}
+
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{amsmath}
+
+\title{Retrieval-Augmented Multimodal Prompting for Guaran\'{i} Image Captioning:\\
+IU CoRSAL at AmericasNLP 2026}
+
+\author{
+  \textbf{Wenchen Shi}\textsuperscript{*1},
+  \textbf{Phakphum Artkaew}\textsuperscript{*1},
+  \textbf{Luke Gessler}\textsuperscript{1}
+  \\
+  \textsuperscript{1}Indiana University, Bloomington, IN, USA \\
+  \textsuperscript{*}Equal contribution \\
+  \texttt{\{wencshi, partkaew, lgessler\}@iu.edu}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We present IUHoosiers, the Indiana University CoRSAL team's entry to the
+AmericasNLP 2026 Guaran\'{i} image captioning shared task.
+Our system combines Gemma~4 31B with BM25-based dynamic retrieval from
+four Guaran\'{i} knowledge sources---DamPy cultural exemplars,
+FLORES-200 parallel sentences, dev-set gold captions, and a curated
+cultural knowledge base---and an optional visual few-shot mode that injects
+culturally grounded images as multimodal context.
+Across nine submitted configurations, our best system (text BM25,
+FLORES $K{=}120$, DAMPY $K{=}15$, CULTURE $K{=}8$) achieves
+\textbf{24.67 chrF++} on the official test set, placing IUHoosiers
+\textbf{first for Guaran\'{i}} in human evaluation (3.45/5).
+All nine submissions outscore every other team.
+A key finding is a dev--test discrepancy: visual few-shot retrieval leads
+on the 50-image dev set (24.43 vs.\ 23.02 chrF++ for the best text run)
+but trails on the 100-image test set (24.04 vs.\ 24.67), underscoring the
+limits of small dev-set tuning for visual retrieval.
+\end{abstract}
+
+%% ============================================================
+\section{Introduction}
+%% ============================================================
+
+The AmericasNLP 2026 shared task challenges systems to generate culturally
+grounded image captions in indigenous languages of the Americas
+\cite{mager-etal-2023-americasnlp}.
+We target Paraguayan Guaran\'{i} (ISO~639-3: \texttt{grn}), which is
+co-official with Spanish in Paraguay ($\sim$6.5M speakers) but severely
+under-resourced in terms of vision-language data
+\cite{chiruzzo-etal-2020-development}.
+
+Cultural captioning for Guaran\'{i} presents two intertwined challenges.
+First, captions must be \textit{culturally accurate}: distinguishing
+\textit{mat\'{e}} (hot herbal drink served with a \textit{pava} kettle) from
+\textit{terer\'{e}} (its cold counterpart with an ice-water thermos) requires
+grounded cultural knowledge that generic vision-language models lack.
+Second, captions must be \textit{linguistically fluent}: Guaran\'{i} is
+agglutinative with active/inactive voice morphology and pervasive Spanish
+borrowing in everyday \textit{jopara} speech \cite{lustig2010}, so output
+generated via a Spanish pivot often lacks authentic register.
+
+Fine-tuning a vision-language model (VLM) on the 50-image development set
+is infeasible.
+Recent work shows that grammar-book and parallel-text context can enable
+low-resource language generation without gradient updates
+\cite{tanzer2023,aycock2024,zhang2025}.
+We instead pursue \textbf{retrieval-augmented prompting}: for each test image
+we dynamically retrieve the most relevant items from four Guaran\'{i}
+knowledge pools using BM25 \cite{robertson2009bm25}, inject them into the
+system prompt of Gemma~4 31B \cite{gemma4_2025}, and generate captions with
+no gradient updates.
+We additionally explore a \textit{visual few-shot} mode that injects
+culturally grounded DAMPY images as multimodal context.
+
+Nine submitted configurations sweep retrieval depth and modality.
+The results are decisive: IUHoosiers occupies all top nine positions on the
+Guaran\'{i} leaderboard, and the best submission (v4) achieves 24.67 chrF++,
+\textbf{1.57 points above the next-best team}.
+Our main contributions are:
+\begin{itemize}
+  \item A retrieval-augmented multimodal system for Guaran\'{i} image
+    captioning requiring no fine-tuning and using four complementary
+    Guaran\'{i} knowledge pools;
+  \item An empirical sweep across nine configurations revealing a systematic
+    dev--test discrepancy between text BM25 and visual few-shot retrieval;
+  \item A characterisation of the retrieval-depth sweet spot: moderate FLORES
+    expansion (K=120) and a broadened cultural knowledge pool (K=8) yield the
+    best test-set chrF++.
+\end{itemize}
+
+%% ============================================================
+\section{System}
+%% ============================================================
+
+\paragraph{Why in-context learning?}
+We adopt in-context learning (ICL) rather than LoRA fine-tuning or other
+parameter-efficient adaptation methods for both practical and methodological
+reasons. Practically, the shared task provides only 50 development images, five
+of which are used as fixed few-shot examples, making supervised fine-tuning
+highly prone to overfitting and difficult to validate reliably. More broadly,
+recent work on extremely low-resource languages shows that ICL, especially when
+paired with explicit language-alignment or linguistic signals, can be more
+effective than parameter-efficient fine-tuning when the target language is
+poorly represented in the base model \citep{li-etal-2025-context-learning}.
+This is especially relevant for Guaran\'{i}, where the main bottleneck is not
+only the amount of caption data but also the model's limited access to
+typological, morphological, and culturally grounded knowledge. At the same time,
+work on culturally aware vision--language modeling has shown that standard
+vision--language models often miss fine-grained cultural distinctions and that
+improving cultural grounding may require either specialized data construction or
+model adaptation \citep{huang2025cultureclip}. Our project therefore explores a
+lower-cost alternative: instead of updating model parameters, we test whether
+carefully selected grammatical and cultural knowledge can be injected at
+inference time and systematically evaluated through ablation. The broader
+contribution is thus not only a Guaran\'{i} captioning system, but also an
+empirical study of when prompt-injected linguistic resources help or hurt
+multimodal generation for an under-resourced Indigenous language. This provides
+a reproducible baseline for future work that may combine ICL, retrieval, and
+fine-tuning once larger, culturally grounded Guaran\'{i} image--caption datasets
+become available.
+
+\paragraph{Model.}
+We use \textbf{Gemma~4 31B} \cite{gemma4_2025}, a 31-billion-parameter
+vision-language model with a 128K-token multimodal context window,
+accessed via the \textbf{IU ReaLLMs API}, an OpenAI-compatible endpoint
+hosted by Indiana University Research Technologies on the BigRed~200
+HPC cluster.
+Prompt version~3 (Spanish-language Guaran\'{i} captioning guidelines)
+is used for all nine submissions.
+
+\paragraph{Fixed resources.}
+Two resources are injected into every prompt regardless of the test image:
+a \textbf{157-line grammar-book prose excerpt} \cite{lustig2010} covering
+Guaran\'{i} morphosyntax, voice alternations, and postpositional structure,
+and \textbf{144 interlinear glossed example blocks}
+(surface form / morpheme break / gloss / translation).
+These were selected on the basis of a prior 64-subset ablation over six
+grammar resource types (Grambank features, FLORES parallel pairs, interlinear
+glosses, grammar-book parallel sentences, grammar-book prose, and an
+Apertium morphological reference).
+The ablation showed grammar-book prose and parallel examples to be the most
+consistently helpful static resources \cite{aycock2024}; FLORES pairs hurt
+when injected statically, motivating the switch to BM25-retrieved FLORES in
+the final system.
+
+\paragraph{Dynamically retrieved pools.}
+For each test image a text description is generated and used as the BM25
+query \cite{robertson2009bm25}.
+Four resource pools are indexed and queried per image:
+\begin{enumerate}
+  \item \textbf{DAMPY}: 111 culturally grounded entries from DamPy,
+    Paraguay's official audiovisual dictionary (42 food, 47 fauna, 22 flora),
+    each with bilingual Spanish/Guaran\'{i} labels.
+  \item \textbf{FLORES}: EN$\to$GN parallel sentence pairs from FLORES-200
+    \cite{nllb-team-2022-scaling}, providing in-domain Guaran\'{i}
+    sentence structure across a broad topical distribution.
+  \item \textbf{DEV}: the 50 gold Guaran\'{i} dev-set captions, retrieved
+    by text BM25 per image, providing in-domain captioning style.
+  \item \textbf{CUL}: a curated Guaran\'{i} cultural knowledge base
+    of text chunks describing food, crafts, and cultural practices.
+\end{enumerate}
+For visual few-shot runs, DAMPY text retrieval is replaced by
+image-embedding similarity search: the top-$K$ most visually similar DAMPY
+images are injected as multimodal few-shot turns in the prompt.
+
+\paragraph{Prompt structure.}
+Each request follows a fixed four-part structure:
+(1)~\textbf{System prompt} --- captioning guidelines, fixed grammar resources,
+and the dynamically retrieved context blocks (CUL, DAMPY, FLORES, dev
+captions) in that order;
+(2)~\textbf{Five fixed few-shot turns} --- dev images paired with their
+gold Guaran\'{i} captions;
+(3)~\textbf{Test turn} --- the query image;
+(4)~\textbf{Generation} --- caption output in Guaran\'{i}.
+For visual few-shot runs, the visual DAMPY shots are injected as multimodal
+turns immediately before the five fixed few-shot pairs.
+
+\paragraph{Configurations.}
+Table~\ref{tab:configs} lists all nine submissions.
+Runs v0--v5 use text BM25 across all four pools;
+runs v6--v8 replace DAMPY text retrieval with visual image injection
+and sweep shot count (15, 25, 50).
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{clrrrr}
+\toprule
+\textbf{Ver} & \textbf{Mode} & \textbf{DMP} & \textbf{FLR} & \textbf{DEV} & \textbf{CUL} \\
+\midrule
+v0 & text   &  5 & 100 &  5 &  5 \\
+v1 & text   & 10 & 100 & 10 &  5 \\
+v2 & text   & 15 & 100 & 10 &  5 \\
+v3 & text   & 20 & 100 & 10 &  6 \\
+v4 & text   & 15 & 120 & 10 &  8 \\
+v5 & text   & 15 & 150 & 10 & 10 \\
+\midrule
+v6 & visual & 15\,sh & 100 & 10 & 5 \\
+v7 & visual & 25\,sh & 100 & 15 & 5 \\
+v8 & visual & 50\,sh & 100 & 20 & 5 \\
+\bottomrule
+\end{tabular}
+\caption{Nine submission configurations.
+  \textbf{DMP}: DAMPY top-$K$ (text) or number of visual shots.
+  \textbf{FLR}: FLORES top-$K$.
+  \textbf{DEV}: dev-set top-$K$.
+  \textbf{CUL}: cultural knowledge top-$K$.
+  All runs include grammar book (157 lines) and interlinear (144 blocks)
+  as fixed context.}
+\label{tab:configs}
+\end{table}
+
+%% ============================================================
+\section{Results}
+%% ============================================================
+
+\subsection{Test-Set Results}
+
+Table~\ref{tab:results} shows official test-set chrF++ and CIDEr for
+all IUHoosiers submissions alongside competing teams.
+The best submission (\textbf{v4}) achieves 24.67 chrF++ and 0.149 CIDEr---a
+4.53-point gain over the official baseline (20.14) and a 1.57-point margin
+over the next-best team (gators, 23.10).
+IUHoosiers placed \textbf{first for Guaran\'{i}} in human evaluation with a
+mean annotator rating of \textbf{3.45}/5, versus 3.30 for the second-ranked
+team; every other team's best submission falls below our worst (v7, 22.43).
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llrr}
+\toprule
+\textbf{Team} & \textbf{Ver} & \textbf{chrF++} & \textbf{CIDEr} \\
+\midrule
+IUHoosiers & v4 & \textbf{24.67} & 0.149 \\
+IUHoosiers & v5 & 24.42 & \textbf{0.167} \\
+IUHoosiers & v1 & 24.41 & 0.135 \\
+IUHoosiers & v8 & 24.41 & 0.135 \\
+IUHoosiers & v2 & 24.41 & 0.143 \\
+IUHoosiers & v0 & 24.39 & 0.124 \\
+IUHoosiers & v3 & 24.16 & 0.128 \\
+IUHoosiers & v6 & 24.04 & 0.112 \\
+IUHoosiers & v7 & 22.43 & 0.074 \\
+\midrule
+gators      & v0 & 23.10 & 0.124 \\
+baseline    & v0 & 20.14 & 0.005 \\
+Mila        & v1 & 19.77 & 0.031 \\
+usp         & v0 & 19.73 & 0.024 \\
+NAIST       & v0 & 19.41 & 0.046 \\
+\bottomrule
+\end{tabular}
+\caption{Official test-set leaderboard (selected entries).
+  All nine IUHoosiers submissions outperform all other teams.
+  v5 achieves the highest CIDEr despite not leading on chrF++.}
+\label{tab:results}
+\end{table}
+
+Notably, v4 leads on chrF++ (24.67) while v5 leads on CIDEr (0.167).
+CIDEr uses TF-IDF weighting that rewards rare Guaran\'{i} vocabulary;
+v5's larger FLORES context (K=150) and broader cultural pool (K=10)
+expose the model to greater lexical variety, producing semantically precise
+captions that score well under CIDEr but have slightly lower character-level
+overlap with the reference.
+This metric divergence confirms that no single automatic metric fully captures
+caption quality; the human evaluation---which rated IUHoosiers first---provides
+the more holistic verdict.
+
+\subsection{Dev-Set Calibration}
+
+Table~\ref{tab:dev_results} shows chrF++ on the 50-image dev set from our
+calibration experiments.
+These experiments used \textit{static injection} (fixed FLORES sentence
+counts and DAMPY category counts), a different parameter space from the final
+test submissions which use BM25 dynamic retrieval; the two config spaces
+cannot be mapped 1:1.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llr}
+\toprule
+\textbf{Mode} & \textbf{Config (FLR / DMP)} & \textbf{chrF++} \\
+\midrule
+visual & 15 shots / FLR=50 & \textbf{24.43} \\
+visual & 10 shots / FLR=30 & 24.17 \\
+visual &  5 shots / FLR=30 & 23.49 \\
+\midrule
+text   & FLR=100, DMP=5    & \textbf{23.02} \\
+text   & FLR= 30, DMP=3    & 22.49 \\
+text   & FLR= 80, DMP=3    & 22.21 \\
+text   & FLR= 50, DMP=5    & 22.09 \\
+text   & FLR= 20, DMP=2    & 21.80 \\
+text   & FLR= 50, DMP=3    & 21.43 \\
+\bottomrule
+\end{tabular}
+\caption{Dev-set calibration results (static injection, 50 images).
+  \textbf{FLR}: FLORES sentences injected.
+  \textbf{DMP}: DAMPY caption categories injected.
+  For visual runs, DAMPY images are injected as few-shot context.
+  Dev and test submissions use different parameter spaces.}
+\label{tab:dev_results}
+\end{table}
+
+Visual few-shot consistently outperforms text injection on the dev set across
+all shot counts.
+The best visual configuration (15 shots, FLR=50) achieves 24.43 chrF++, a
+1.41-point lead over the best text configuration (FLR=100, DMP=5: 23.02).
+Among text runs, more FLORES context is not uniformly better on dev:
+the FLR=30 run (22.49) beats FLR=50 and FLR=80, with improvement only at
+FLR=100.
+These calibration findings motivated submitting nine test configurations
+covering both strategies and a wide FLORES depth sweep.
+
+%% ============================================================
+\section{Analysis}
+%% ============================================================
+
+\subsection{Dev--Test Discrepancy}
+
+Visual runs dominate the dev set (24.43 chrF++ for the 15-shot static
+configuration) but underperform text BM25 on the test set (24.04 for v6).
+On test, text BM25 v4 achieves 24.67 while the best visual run (v6,
+15 shots) reaches only 24.04---a 0.63-point swing in favour of text,
+reversing the 1.41-point visual lead observed on dev.
+
+We attribute this reversal to three factors.
+First, the 50-image dev set is small and partially overlaps with the
+five fixed few-shot images; visual retrieval is more sensitive to this
+contamination because visual similarity retrieval is more likely to return
+an exemplar the model has already seen in its few-shot context.
+Second, the 100-image test set covers a wider cultural distribution, and
+the 111-entry DAMPY pool lacks visual exemplars for many test categories;
+when no relevant visual exemplar exists, visual retrieval returns
+misleading shots.
+Third, broader FLORES context (K=120/150) generalises across diverse
+test-image topics in a way that visual retrieval cannot when the
+relevant exemplar is absent.
+
+\subsection{Retrieval Depth}
+
+Among text BM25 runs, the optimal configuration (v4) is neither the
+smallest nor the largest context window, illustrating a clear sweet spot.
+
+\paragraph{FLORES depth.}
+Increasing FLORES from K=100 (v0--v3: 24.16--24.41) to K=120 (v4: 24.67)
+yields a 0.26--0.51-point gain in test chrF++.
+Further increasing to K=150 (v5: 24.42) slightly drops chrF++,
+suggesting diminishing returns once the most relevant FLORES pairs are
+already retrieved.
+
+\paragraph{DAMPY depth.}
+The DAMPY pool works best at K=15 (v2, v4, v5).
+Reducing to K=5 (v0: 24.39) is suboptimal;
+increasing to K=20 (v3: 24.16) substantially hurts, suggesting that
+retrieving too many DAMPY captions dilutes the prompt with
+low-relevance cultural exemplars.
+
+\paragraph{Visual shots.}
+Among visual runs, 50 shots (v8: 24.41) substantially outperform
+15 shots (v6: 24.04) and 25 shots (v7: 22.43).
+The non-monotonic dip at 25 shots may reflect a retrieval alignment issue
+in that specific run.
+At 50 shots, v8 matches the test chrF++ of the mid-range text BM25 runs
+(v1, v2) exactly (24.41), confirming that visual few-shot can close the
+gap with text BM25 but requires high shot counts to stabilise.
+
+\subsection{Qualitative Analysis}
+
+The most culturally discriminating image in the first ten test examples
+is \textbf{grn\_052}, depicting a mat\'{e} setup (gourd, bombilla,
+\textit{pava} kettle).
+All text BM25 configurations incorrectly label it \textit{terer\'{e}},
+the more frequently mentioned drink in the FLORES and DAMPY corpora.
+The 15-shot visual run (v6) correctly identifies it as mat\'{e} by
+retrieving a visually similar dev exemplar; the discriminating cue---the
+metal \textit{pava} rather than a cold thermos---is a visual signal
+unavailable to text retrieval.
+This illustrates the cultural precision advantage of visual retrieval:
+it correctly identifies culturally specific items at the cost of lower
+surface n-gram overlap with references that may use different vocabulary.
+
+Text runs also exhibit formulaic boilerplate closings
+(e.g., \textit{``Ko tembi'u ha'e peteĩ rembiapokue tee Paraguáigui''},
+``this dish is a true cultural product of Paraguay'') inserted
+regardless of image content, while gold captions use varied, image-specific
+language.
+The visual runs produce more image-specific descriptions, which explains
+their higher qualitative character despite lower chrF++ on the test set.
+The human evaluation's preference for IUHoosiers (3.45/5) over competitors
+reflects the generally higher Guaran\'{i} output quality compared to
+translation-based baselines.
+
+%% ============================================================
+\section{Conclusion}
+%% ============================================================
+
+IUHoosiers achieved first place for Guaran\'{i} at AmericasNLP 2026
+using Gemma~4 31B with BM25-augmented retrieval from four Guaran\'{i}
+knowledge sources.
+The key practical finding is that text BM25 with moderate FLORES
+expansion (K=120) and a broadened cultural knowledge pool (K=8) wins
+on test-set chrF++, while the 50-shot visual configuration closes most
+of this gap.
+Dev-set rankings are unreliable predictors of test-set rankings,
+particularly when the dev set is small and partially contaminated:
+visual few-shot led dev by 1.41 points but lagged test by 0.63 points.
+Future work should explore adaptive retrieval that selects modality per
+image based on retrieval confidence, larger DAMPY visual pools, and
+fine-tuning on culturally grounded Guaran\'{i} image-caption data.
+
+%% ============================================================
+\section*{Acknowledgments}
+%% ============================================================
+
+We thank Indiana University Research Technologies for ReaLLMs API
+access and the BigRed~200 HPC cluster, and the AmericasNLP 2026
+organisers for the dataset and evaluation infrastructure.
+
+%% ============================================================
+\bibliography{custom}
+
+\end{document}
