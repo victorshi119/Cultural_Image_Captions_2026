@@ -1,6 +1,6 @@
 # IUHoosiers — AmericasNLP 2026 Cultural Image Captioning Shared Task
 
-**Team:** Phakpum Tanthiphen & Victor Bryant (Indiana University)  
+**Team:** Phakpum Artkaew & Victor Shi (Indiana University)  
 **Language:** Guaraní (Avañe'ẽ, ISO 639-3: `grn`)  
 **Model:** Gemma 4 31B via REaLLMs VLM API
 
