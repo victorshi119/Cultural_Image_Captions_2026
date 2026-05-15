@@ -2,6 +2,7 @@
 
 **Team:** Phakphum Artkaew & Wenchen (Victor) Shi (Indiana University)  
 **Language:** Guaraní
+
 **Model:** Gemma 4 31B via REaLLMs VLM API
 
 ---
