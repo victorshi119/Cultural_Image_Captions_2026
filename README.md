@@ -1,7 +1,8 @@
 # IUHoosiers — AmericasNLP 2026 Cultural Image Captioning Shared Task
 
 **Team:** Phakphum Artkaew & Wenchen (Victor) Shi (Indiana University)  
-**Language:** Guaraní (Avañe'ẽ, ISO 639-3: `grn`)  
+**Language:** Guaraní
+
 **Model:** Gemma 4 31B via REaLLMs VLM API
 
 ---
@@ -24,7 +25,7 @@ Human evaluation covered the top 5 systems per language. Annotators rated genera
 Our system prompts Gemma 4 31B with a fixed base context (grammar book + interlinear glosses) augmented by per-image retrieval from multiple resource pools. We submitted 9 configurations covering two retrieval strategies: **text BM25** and **visual few-shot**.
 
 All runs share:
-- Model: `gemma-4-31B-it` via REaLLMs
+- Model: `gemma-4-31B-it` via REALLMs
 - Prompt: version `v3` (Spanish-language guidelines)
 - Grammar book: 157 lines from `resources/guarani_ref.md`
 - Interlinear glosses: 144 lines from `resources/guarani_grammar_primer_claude.md`
