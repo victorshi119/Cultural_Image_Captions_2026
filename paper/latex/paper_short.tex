@@ -20,16 +20,15 @@
 \usepackage{tikz}
 \usetikzlibrary{positioning,shapes.geometric,shapes.symbols,calc,arrows}
 
-\title{In-Context Learning with Retrieval-Augmented Multimodal Prompting\\
-for Guaran\'{i} Image Captioning: IUHoosiers at AmericasNLP 2026}
+\title{Culturally-Aware Image Captioning for Guaran\'{i} with Multimodal Prompting: IUHoosiers at AmericasNLP 2026}
 
 \author{
   \textbf{Wenchen Shi}\textsuperscript{*},
   \textbf{Phakphum Artkaew}\textsuperscript{*},
   \textbf{Luke Gessler} \\
-  Indiana University, Bloomington, IN, USA \\
-  \textsuperscript{*}Equal contribution \\
-  \texttt{\{wencshi, partkaew, lgessler\}@iu.edu}
+  Indiana University Bloomington \\
+  \texttt{\{wencshi, partkaew, lgessler\}@iu.edu} \\
+  \textsuperscript{*}Equal contribution
 }
 \begin{document}
 \maketitle
@@ -82,7 +81,7 @@ for Guaran\'{i} Image Captioning: IUHoosiers at AmericasNLP 2026}
 % BM25
 \node[proc, right=0.55cm of flores, yshift=-0.55cm, minimum height=2.6cm,
       minimum width=1.35cm, fill=blue!10] (bm25)
-  {\textbf{BM25}\\retrieval\\\scriptsize top-$K$};
+  {\textbf{BM25}\\retrieval\\\scriptsize top-$k$};
 % describe -> pools
 \draw[ar] (desc.east) -- ++(0.25,0) |- (dampy.west);
 \draw[ar] (desc.east) -- ++(0.25,0) |- (flores.west);
@@ -135,7 +134,7 @@ for Guaran\'{i} Image Captioning: IUHoosiers at AmericasNLP 2026}
   \textbf{(2)} that is used as a BM25 query over four Guaran\'{i} knowledge
   pools \textbf{(3)}: cultural entries (DAMPY), parallel sentences (FLORES),
   dev-set gold captions (DEV), and a curated cultural knowledge base (CUL).
-  The retrieved top-$K$ context is combined with fixed resources
+  The retrieved top-$k$ context is combined with fixed resources
   (a 157-line grammar excerpt and 144 interlinear-glossed example blocks)
   into the system prompt \textbf{(4)}. In visual few-shot mode \textbf{(5)},
   DAMPY images with their captions are additionally injected as multimodal
@@ -145,23 +144,18 @@ for Guaran\'{i} Image Captioning: IUHoosiers at AmericasNLP 2026}
 \end{figure*}
 
 \begin{abstract}
-We present IUHoosiers, Indiana University's submission for the
-Guaran\'{i} language track in the AmericasNLP 2026 image captioning shared task. Our approach combines large language models with in-context learning
-augmented by relevant Guaran\'{i} resources. Specifically, our system
-uses Gemma~4 31B together with BM25-based dynamic retrieval from four
-Guaran\'{i} knowledge sources (DamPy cultural exemplars, FLORES-200
-parallel sentences, dev-set gold captions, and a curated cultural
-knowledge base), as well as an optional visual few-shot mode that
-injects culturally grounded images as multimodal context.
-Across nine submitted configurations, our best system (text BM25,
-FLORES $K{=}120$, DAMPY $K{=}15$, CULTURE $K{=}8$) achieves
-24.67 chrF++ on the official test set, placing IUHoosiers
-first for Guaran\'{i} in human evaluation (3.45/5).
-Notably, most of our submitted configurations performed competitively
-relative to other participating systems. We also observe a dev-test discrepancy in which visual few-shot retrieval
-leads on the 50-image dev set (24.43 vs.\ 23.02 chrF++ for the best text run)
-but trails on the 100-image test set (24.04 vs.\ 24.67), underscoring the
-limits of small dev-set tuning for visual retrieval.
+The AmericasNLP 2026 shared task challenges systems to generate culturally
+grounded image captions in indigenous languages of the Americas---a setting
+that demands both cultural awareness and linguistic accuracy for severely
+under-resourced languages. We present IUHoosiers, Indiana University's system
+for the Guaran\'{i} track. Rather than fine-tuning, our approach centers on
+inference-time knowledge injection: for each test image, we retrieve relevant
+Guaran\'{i} grammatical and cultural resources using BM25 and inject them into
+a large vision-language model's prompt alongside the image, enabling
+language-specific cultural and linguistic grounding without any parameter
+updates. IUHoosiers placed first for Guaran\'{i} in both automatic evaluation
+(24.67 chrF++) and human evaluation (3.45/5), outperforming all other
+participating systems.
 \end{abstract}
 
 %% ============================================================
@@ -173,20 +167,21 @@ grounded image captions in indigenous languages of the Americas
 \cite{mager-etal-2023-americasnlp}.
 We focus on Guaran\'{i}, a tupi-guaraní language that is spoken widely across Paraguay, Brazil, Bolivia, and
 Argentina and is the co-official language along with Spanish in Paraguay ($\sim$6.5M speakers). However, it is still considered an under-resourced language across all NLP resources
-\cite{chiruzzo-etal-2020-development}.
+\cite{chiruzzo-etal-2020-development}.\footnote{Code is available at \url{https://github.com/victorshi119/Cultural_Image_Captions_2026}}
 
 Cultural captioning for Guaran\'{i} presents two intertwined challenges.
 First, captions must be \textit{culturally accurate}: correctly distinguishing
 closely related cultural items, such as \textit{mat\'{e}} from its cold counterpart
 \textit{terer\'{e}}, requires culturally grounded knowledge that generic
 vision-language models often lack.
-Second, captions must be \textit{linguistically reflective} as Guaran\'{i} is
-agglutinative with active/inactive voice morphology and pervasive Spanish
-borrowing in everyday \textit{jopara} speech \cite{estigarribia2020}.
+Second, the target language itself is challenging: Guaran\'{i} is agglutinative
+with active/inactive voice morphology and pervasive Spanish borrowing in
+everyday \textit{jopara} speech \cite{estigarribia2020}, making linguistically
+correct output non-trivial even for large language models.
 
 Since the dev set contains only 50 image-caption pairs and the gold labels
-follow a specific format, parameter-efficient fine-tuning methods
-such as PEFT \cite{peft} and LoRA \cite{hu2022lora} may be prone to
+follow a specific format, parameter-efficient fine-tuning (PEFT) methods \cite{peft} such as
+low-rank adaptation (LoRA; \citealp{hu2022lora}) may be prone to
 overfitting without substantial data augmentation. We therefore focus on
 inference-time methods instead.
 Recent work suggests that grammar-book and parallel-text context can
@@ -194,7 +189,7 @@ improve low-resource language generation without gradient updates
 \cite{tanzer2023,aycock2024,zhang2025}, and we build on this finding with
 \textbf{retrieval-augmented prompting}.
 For each test image, we generate a text description, query four Guaran\'{i}
-knowledge pools with BM25 \cite{robertson2009bm25}, and inject the top-$K$
+knowledge pools with BM25 \cite{robertson2009bm25}, and inject the top-$k$
 retrieved items into the system prompt of Gemma~4 31B \cite{gemma4_2025}
 to generate captions in a single forward pass.
 Additionally, we explore a \textit{visual few-shot} mode that injects cultural images from Diccionario audiovisual multilingüe del Paraguay (DAMPY)\footnote{\url{https://spl.gov.py/dampy/index.html}} as multimodal context.
@@ -215,7 +210,7 @@ Our main contributions are:
 \end{comment}
 
 %% ============================================================
-\section{System}
+\section{Approach}
 %% ============================================================
 
 \paragraph{Why in-context learning?}
@@ -240,11 +235,9 @@ close this gap without any parameter updates.%, and we aim to provide a reproduc
 
 \paragraph{Model.}
 We use Gemma~4 31B \cite{gemma4_2025}, a 31-billion-parameter
-vision-language model with a 128K-token multimodal context window, which is accessed via the IU ReaLLMs API\footnote{\url{reallms.rescloud.iu.edu}}, an OpenAI-compatible endpoint
-hosted by Indiana University Research Technologies on the BigRed~200
-HPC cluster.
+vision-language model with a 128K-token multimodal context window.\footnote{The model was accessed via the IU REALLMS API (\url{reallms.rescloud.iu.edu}), an OpenAI-compatible endpoint hosted by Indiana University Research Technologies on the BigRed~200 HPC cluster.}
 The original baseline prompt (Spanish-language Guaran\'{i} captioning guidelines)
-is used for all nine submissions.\footnote{Code is available at \url{https://github.com/victorshi119/Cultural_Image_Captions_2026}}
+is used for all nine submitted configurations.
 
 \paragraph{Fixed resources.}
 Two resources are injected into every prompt regardless of the test image:
@@ -278,26 +271,33 @@ Paraguay's official audiovisual dictionary (42 food, 47 fauna, and 22 flora entr
 each with bilingual Spanish/Guaran\'{i} labels. We note that the DamPy dataset we
 scraped from the internet does not provide captions. Therefore, we asked a frontier
 model (Claude) to generate bilingual captions for the dataset.
-\item \textbf{FLORES}: EN$\to$GN parallel sentence pairs from FLORES-200
-    \cite{nllb-team-2022-scaling}, providing in-domain Guaran\'{i}
-    sentence structure across a broad topical distribution.
-\item \textbf{DEV}: the 50 gold Guaran\'{i} dev-set captions, retrieved
-by BM25 text matching per image, providing an in-domain captioning style.
-We further augmented the dataset with parallel English--Guaran\'{i} captions by
-asking Claude to generate the English captions, since the competition
-only provides Guaran\'{i} labels. These English captions help us retrieve
-relevant images later during the RAG step.
+\item \textbf{FLORES}: English--Guaran\'{i} parallel sentence pairs from FLORES-200
+    \cite{nllb-team-2022-scaling}, a publicly available multilingual benchmark
+    dataset providing in-domain Guaran\'{i} sentence structure across a broad
+    topical distribution (1,012 sentence pairs used).
+\item \textbf{DEV}: the 50 gold Guaran\'{i} dev-set captions released by the
+shared task organizers, retrieved by BM25 text matching per image to provide
+in-domain captioning style. Since the competition only provides Guaran\'{i}
+labels, we augmented the dataset with parallel English captions generated
+by Claude, which serve as the BM25 query surface for retrieval.
 \item \textbf{CUL}: a curated Guaran\'{i} cultural knowledge base
-    consisting of text chunks describing food, crafts, and cultural
-    practices. Since the CUL file is relatively small, it is always
-    injected into the system prompt regardless of the retrieval setting.
-    We hypothesize that adding retrieved CUL examples can further help
-    reinforce culturally relevant concepts appearing in the image.
+    consisting of 22 thematic sections written in Spanish, covering food,
+    drink, dress, architecture, household objects, flora and fauna,
+    festivals, children's games, occupations, crafts, music, religion,
+    mythology, and idiomatic Guaran\'{i} caption style. Each section is
+    oriented toward visually identifiable entities and includes
+    Guaran\'{i} vocabulary, ``visual cue'' sub-entries, and an explicit
+    anti-stereotype list. The base file was compiled by the authors from
+    Paraguayan web sources, then expanded via a two-step LLM-assisted
+    process described in Appendix~\ref{app:cul}.
+    Since CUL is small enough to fit in the context window, it is always
+    injected in full into the system prompt; BM25 retrieval is applied
+    additionally to surface the most image-relevant sections.
     \end{enumerate}
 
 To be specific, the retrieval works as follows: we first build a BM25 index over either grammar sections for CUL, which is organized by section, or paired entries for DAMPY, FLORES, and DEV. Then, depending on the dataset, we ask a language model (Gemma 4 31B) to first describe the image in the relevant language, using English for FLORES and Spanish for DAMPY, CUL, and DEV. We then use BM25 to retrieve the corresponding relevant Guaran\'{i} examples.
 
-For visual few-shot runs, instead of injecting only retrieved text examples, we retrieve the top-$K$ DAMPY entries using BM25 over Spanish image descriptions generated by the language model. The corresponding images and Guaran\'{i} captions are then injected as multimodal few-shot examples in the prompt.
+For visual few-shot runs, instead of injecting only retrieved text examples, we retrieve the top-$k$ DAMPY entries using BM25 over Spanish image descriptions generated by the language model. The corresponding images and Guaran\'{i} captions are then injected as multimodal few-shot examples in the prompt.
 
 %For visual few-shot runs, instead of doing text retrieval on the generated caption for DAMPY, we employ an image-embedding similarity search: the top-$K$ most visually similar DAMPY images are injected as multimodal few-shot turns in the prompt.
 
@@ -334,7 +334,7 @@ Each request follows a four step process:
 %turns immediately before the five fixed few-shot pairs.
 
 \paragraph{Configurations.}
-Table~\ref{tab:configs} lists all nine submissions.
+Table~\ref{tab:configs} lists all nine submitted configurations (distinct system variants entered into the shared task evaluation).
 Runs v0-v7 use text-based retrieval across all four pools, with RAG
 selecting top-$K$ examples except for v6, which uses static selection
 from DAMPY.
@@ -591,9 +591,26 @@ IUHoosiers achieved first place for Guaraní at AmericasNLP 2026 using Gemma 4 3
 \section*{Acknowledgments}
 %% ============================================================
 
-We thank Indiana University Research Technologies for ReaLLMs API
+We thank Indiana University Research Technologies for REALLMS API
 access and the BigRed~200 HPC cluster, and the AmericasNLP 2026
 organizers for the dataset and evaluation infrastructure.
+
+%% ============================================================
+\appendix
+\section{Construction of the CUL Cultural Knowledge Base}
+\label{app:cul}
+%% ============================================================
+
+The CUL resource was built in two LLM-assisted steps using Claude Opus~4.
+
+\paragraph{Step 1 --- Seed file.}
+The authors compiled a 16-section seed knowledge file in Spanish, drawing on Paraguayan web sources including ABC Color, Portal Guarani, \'Ultima Hora, IWGIA, and Tierraviva. The seed covered cosmovision, food, drink, traditional medicine, flora and fauna, music, religion, and mythology, but lacked visual grounding, ethnic distinctions between mestizo Paraguayan and Indigenous Guaran\'{i} communities, and Guaran\'{i} vocabulary for common visual entities.
+
+\paragraph{Step 2 --- Prompt generation.}
+We first prompted Claude Opus~4 to design a specialized research prompt for expanding the seed file, targeting gaps most relevant to image captioning: traditional dress, architecture, festivals, children's games, household utensils, and a Guaran\'{i} visual vocabulary. The generated prompt instructed the model to (1)~audit the existing file for visual grounding and accuracy, (2)~search authoritative Paraguayan sources (Ministry of Education, academic journals, indigenous rights organizations) to identify gaps, (3)~draft additions in the same Spanish-language bullet-point style as the seed, and (4)~consolidate everything into a single deliverable.
+
+\paragraph{Step 3 --- Expansion.}
+In a separate Claude Opus~4 session, the generated prompt was supplied together with the seed file. The model performed the four-phase expansion and produced the consolidated CUL file containing 22 thematic sections and explicit visual-grounding cues throughout. An anti-stereotype section (Section~20 of the file) warns the model against projecting folkloric cues onto ordinary modern Paraguayan scenes. The final document is included in the project code repository.
 
 %% ============================================================
 \bibliography{custom}
