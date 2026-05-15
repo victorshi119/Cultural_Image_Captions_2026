@@ -81,7 +81,7 @@
 % BM25
 \node[proc, right=0.55cm of flores, yshift=-0.55cm, minimum height=2.6cm,
       minimum width=1.35cm, fill=blue!10] (bm25)
-  {\textbf{BM25}\\retrieval\\\scriptsize top-$k$};
+  {\textbf{BM25}\\retrieval\\\scriptsize top-k};
 % describe -> pools
 \draw[ar] (desc.east) -- ++(0.25,0) |- (dampy.west);
 \draw[ar] (desc.east) -- ++(0.25,0) |- (flores.west);
@@ -134,12 +134,16 @@
   \textbf{(2)} that is used as a BM25 query over four Guaran\'{i} knowledge
   pools \textbf{(3)}: cultural entries (DAMPY), parallel sentences (FLORES),
   dev-set gold captions (DEV), and a curated cultural knowledge base (CUL).
-  The retrieved top-$k$ context is combined with fixed resources
+  Step~\textbf{(3)} operates in one of two modes: \textit{RAG} dynamically
+  selects the top-$k$ entries per image via BM25, while \textit{static} mode
+  takes the first $n$ examples from the dataset regardless of image content
+  (used in v6 and v8; see Table~\ref{tab:configs}).
+  The retrieved context is combined with fixed resources
   (a 157-line grammar excerpt and 144 interlinear-glossed example blocks)
   into the system prompt \textbf{(4)}. In visual few-shot mode \textbf{(5)},
   DAMPY images with their captions are additionally injected as multimodal
   shots (dashed). Gemma~4~31B \textbf{(6)} consumes the assembled prompt
-  together with the test image and produces a Guaran\'{i} caption \textbf{(7)}.}
+  together with the test image and produces a Guaran\'{i} caption \textbf{(7)}. EN: English, ES: Spansih, GN: Guaran\'{i}.}
 \label{fig:pipeline}
 \end{figure*}
 
@@ -166,11 +170,11 @@ The AmericasNLP 2026 shared task challenges systems to generate culturally groun
 \cite{mager-etal-2023-americasnlp}.
 We focus on Guaran\'{i}, a tupi-guaraní language that is spoken widely across Paraguay, Brazil, Bolivia, and
 Argentina and is the co-official language along with Spanish in Paraguay ($\sim$6.5M speakers). However, it is still considered an under-resourced language across all NLP resources
-\cite{chiruzzo-etal-2020-development}.\footnote{Code is available at \url{https://github.com/victorshi119/Cultural_Image_Captions_2026}}
+\cite{chiruzzo-etal-2020-development}.
 
 Cultural captioning for Guaran\'{i} presents two intertwined challenges.
 First, captions must be \textit{culturally accurate}: correctly distinguishing
-closely related cultural items, such as \textit{mat\'{e}} from its cold counterpart
+closely related cultural items, such as \textit{mate} from its cold counterpart
 \textit{terer\'{e}}, requires culturally grounded knowledge that generic
 vision-language models often lack.
 Second, the target language itself is challenging: Guaran\'{i} is agglutinative
@@ -188,7 +192,7 @@ improve low-resource language generation without gradient updates
 \cite{tanzer2023,aycock2024,zhang2025}, and we build on this finding with
 \textbf{retrieval-augmented prompting}.
 For each test image, we generate a text description, query four Guaran\'{i}
-knowledge pools with BM25 \cite{robertson2009bm25}, and inject the top-$k$
+knowledge pools with BM25 \cite{robertson2009bm25}, and inject the top-k
 retrieved items into the system prompt of Gemma~4 31B \cite{gemma4_2025}
 to generate captions in a single forward pass.
 Additionally, we explore a \textit{visual few-shot} mode that injects cultural images from Diccionario audiovisual multilingüe del Paraguay (DAMPY)\footnote{\url{https://spl.gov.py/dampy/index.html}} as multimodal context.
@@ -230,7 +234,7 @@ fine-grained cultural distinctions, and that improving cultural grounding may
 require either specialized data construction or model adaptation
 \citep{huang2025cultureclip}. Our approach therefore tests whether carefully
 selected grammatical and cultural knowledge, injected at inference time, can
-close this gap without any parameter updates.%, and we aim to provide a reproducible baseline for future work that may combine ICL, retrieval, and fine-tuning once larger Guaran\'{i} image--caption datasets become available.
+close this gap without any parameter updates \footnote{Code is available at \url{https://github.com/victorshi119/Cultural_Image_Captions_2026}}.%, and we aim to provide a reproducible baseline for future work that may combine ICL, retrieval, and fine-tuning once larger Guaran\'{i} image--caption datasets become available.
 
 \paragraph{Model.}
 We use Gemma~4 31B \cite{gemma4_2025}, a 31-billion-parameter
@@ -240,7 +244,7 @@ is used for all nine submitted configurations.
 
 \paragraph{Fixed resources.}
 Two resources are injected into every prompt regardless of the test image:
-a 157-line grammar-book excerpt from \citet{estigarribia2020grammar} covering
+a 157-line grammar-book excerpt from \citet{estigarribia2020} covering
 Guaran\'{i} morphosyntax, voice alternations, and postpositional structure,
 and 144 interlinear glossed example blocks
 (surface form / morpheme break / gloss / translation). 
@@ -337,12 +341,13 @@ Each request follows a four step process:
 %turns immediately before the five fixed few-shot pairs.
 
 \paragraph{Configurations.}
-Table~\ref{tab:configs} lists all nine submitted configurations (distinct system variants entered into the shared task evaluation).
-Runs v0-v7 use text-based retrieval across all four pools, with RAG
-selecting top-$K$ examples except for v6, which uses static selection
-from DAMPY.
-Run v8 replaces DAMPY text examples with visual shots, using static
-selection of the first 10 images from the dataset.
+Table~\ref{tab:configs} summarizes the nine submitted system configurations evaluated in the shared task.
+Runs v0-v5 and v7 use text+RAG mode, where examples from all four pools are dynamically selected using retrieval-augmented generation (RAG) based on similarity scores.
+Run v6 instead uses text+static mode, where a fixed set of examples is selected statically from DAMPY and FLORES without retrieval.
+Run v8 uses  visual+static mode, replacing DAMPY text examples with visual shots and using the first 10 images from the dataset as fixed demonstrations.
+Across all runs, the grammar book (157 lines) and interlinear glossed text (144 blocks) are always included as fixed context.
+
+%Table~\ref{tab:configs} lists all nine submitted configurations (distinct system variants entered into the shared task evaluation). Runs v0-v7 use text-based retrieval across all four pools, with RAG selecting top-k examples except for v6, which uses static selection from DAMPY. Run v8 replaces DAMPY text examples with visual shots, using static selection of the first 10 images from the dataset.
 \begin{table}[t]
 \centering
 \small
@@ -367,9 +372,7 @@ v8 & visual+static & 10 & 30 & 0 & 0 \\
   \textbf{DMP}: DAMPY shots. \textbf{FLR}: FLORES shots.
   \textbf{DEV}: dev-set shots. \textbf{CUL}: cultural knowledge shots.
   In \textbf{RAG} mode, shots are selected by retrieval score; in
-  \textbf{static} mode, the first $n$ examples from the dataset are used.
-  All runs include grammar book (157 lines) and interlinear (144 blocks)
-  as fixed context.}  \label{tab:configs}
+  \textbf{static} mode, the first $n$ examples from the dataset are used.}  \label{tab:configs}
 \end{table}
 
 %% ============================================================
@@ -553,7 +556,7 @@ gap with text BM25 but requires high shot counts to stabilize.
 \subsection{Qualitative Analysis}
 
 \paragraph{Submission selection.}
-We selected these nine configurations from a larger candidate pool, with final choices informed by chrF++ scores alongside our personal judgement and our team's working knowledge in Guaraní and Jopara. While chrF++ was a useful signal for tracking progress during the pilot phase, final selection was not driven by it alone, as the metric measures character n-gram overlap against a single gold reference and is therefore blind to semantic paraphrase and cultural correctness. A caption that correctly identifies a
+We selected these nine configurations from a larger candidate pool, with final choices informed by chrF++ scores alongside our personal judgement and our team's working knowledge in Guaraní and Jopara. While chrF++ was a useful signal for tracking progress during the pilot phase, final selection was not driven by it alone, as the metric measures character n-gram overlap against a single gold reference and is therefore blind to semantic similarity and cultural correctness. A caption that correctly identifies a
 cultural item but uses different surface forms than the reference can score no
 better than one that gets the cultural content wrong while sharing incidental
 n-grams.
@@ -565,7 +568,7 @@ Second, \textit{cultural accuracy}: captions should correctly identify
 culturally specific items, especially when the discriminating cue is visual and subtle.
 The BM25 retrieval pipeline supports both: FLORES parallel context shapes linguistic register and fluency, while DAMPY retrieval and the five fixed few-shot exemplars anchor culturally grounded vocabulary.
 
-One notably culturally specific image among the first ten test examples is \textbf{grn\_052}, depicting a mat'{e} setup (gourd, bombilla, \textit{pava} kettle). All text BM25 configurations incorrectly label it \textit{terer\'{e}},
+One notably culturally specific image among the first ten test examples is \textbf{grn\_052}, depicting a \textit{mate} setup (gourd, bombilla, \textit{pava} kettle). All text BM25 configurations incorrectly label it \textit{terer\'{e}},
 the more frequently mentioned drink in the FLORES and DAMPY corpora.
 The 15-shot visual run (v6) correctly identifies it as mat\'{e} by
 retrieving a visually similar dev exemplar. The discriminating cue, the
@@ -587,7 +590,7 @@ translation-based baselines.
 %% ============================================================
 \section{Conclusion}
 %% ============================================================
-IUHoosiers achieved first place for Guaraní at AmericasNLP 2026 using Gemma 4 31B with BM25-augmented retrieval from four Guaraní knowledge sources. Beyond the result itself, the most practically useful contribution is the pipeline design: language-specific knowledge injection at inference time without fine-tuning rather than any particular hyperparameter choice. The broader takeaway is that carefully curated grammar and cultural resources, injected at inference time, can remain competitive without parameter updates. That is the durable result worth carrying forward. Visual few-shot retrieval remains a promising but underexplored direction: dev-set calibration (Appendix~\ref{app:devset}) showed visual shots outperforming text injection by 1.41 chrF++ points, and BM25-driven visual retrieval---where exemplars are dynamically matched to each test image---was not implemented in time for submission and warrants future investigation.
+IUHoosiers achieved first place for Guaraní at AmericasNLP 2026 using Gemma 4 31B with BM25 augmented retrieval from four Guaraní knowledge sources. Beyond the result itself, the most practically useful contribution is the pipeline design: language specific knowledge injection at inference time without fine tuning rather than any particular hyperparameter choice. The broader takeaway is that carefully curated grammar and cultural resources, injected at inference time, can remain competitive without parameter updates. That is the durable result worth carrying forward. Visual few shot retrieval remains a promising but underexplored direction: dev set calibration (Appendix~\ref{app:devset}) showed visual shots outperforming text injection by 1.41 chrF++ points, and BM25 driven visual retrieval, where exemplars are dynamically matched to each test image, was not implemented in time for submission and warrants future investigation.
 %The key practical finding is that text BM25 with moderate FLORES expansion (K=120) and a broadened cultural knowledge pool (K=8) wins on test-set chrF++, while the 50-shot visual configuration closes most of this gap. Dev-set rankings are unreliable predictors of test-set rankings; visual few-shot led dev by 1.41 points while lagging test by 0.63 points, a reversal attributable to the dev set's small size and partial contamination. Future work should explore adaptive retrieval that selects modality per image based on retrieval confidence, larger DAMPY visual pools, and fine-tuning once a larger set of culturally grounded Guaran\'{i} images with consistent and reliable captions are available.
 
 %% ============================================================
