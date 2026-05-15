@@ -145,7 +145,7 @@
 
 \begin{abstract}
 The AmericasNLP 2026 shared task challenges systems to generate culturally
-grounded image captions in indigenous languages of the Americas---a setting
+grounded image captions in indigenous languages of the Americas, a setting
 that demands both cultural awareness and linguistic accuracy for severely
 under-resourced languages. We present IUHoosiers, Indiana University's system
 for the Guaran\'{i} track. Rather than fine-tuning, our approach centers on
@@ -162,8 +162,7 @@ participating systems.
 \section{Introduction}
 %% ============================================================
 
-The AmericasNLP 2026 shared task challenges systems to generate culturally
-grounded image captions in indigenous languages of the Americas
+The AmericasNLP 2026 shared task challenges systems to generate culturally grounded image captions in indigenous languages of the Americas
 \cite{mager-etal-2023-americasnlp}.
 We focus on Guaran\'{i}, a tupi-guaraní language that is spoken widely across Paraguay, Brazil, Bolivia, and
 Argentina and is the co-official language along with Spanish in Paraguay ($\sim$6.5M speakers). However, it is still considered an under-resourced language across all NLP resources
@@ -266,6 +265,8 @@ are provided in the Appendix.
 For each test image a text description is generated and used as the BM25 query \cite{robertson2009bm25}.
 Four resource pools are indexed and queried per image:
 \begin{enumerate}
+\setlength{\itemsep}{2pt}
+\setlength{\parsep}{0pt}
 \item \textbf{DAMPY}: 111 culturally grounded entries from DamPy,
 Paraguay's official audiovisual dictionary (42 food, 47 fauna, and 22 flora entries),
 each with bilingual Spanish/Guaran\'{i} labels. We note that the DamPy dataset we
@@ -584,7 +585,7 @@ translation-based baselines.
 %% ============================================================
 \section{Conclusion}
 %% ============================================================
-IUHoosiers achieved first place for Guaraní at AmericasNLP 2026 using Gemma 4 31B with BM25-augmented retrieval from four Guaraní knowledge sources. Beyond the result itself, the most practically useful contribution is the pipeline design: language-specific knowledge injection at inference time without fine-tuning rather than any particular hyperparameter choice. The broader takeaway is that carefully curated grammar and cultural resources, injected at inference time, can remain competitive without parameter updates. That is the durable result worth carrying forward.
+IUHoosiers achieved first place for Guaraní at AmericasNLP 2026 using Gemma 4 31B with BM25-augmented retrieval from four Guaraní knowledge sources. Beyond the result itself, the most practically useful contribution is the pipeline design: language-specific knowledge injection at inference time without fine-tuning rather than any particular hyperparameter choice. The broader takeaway is that carefully curated grammar and cultural resources, injected at inference time, can remain competitive without parameter updates. That is the durable result worth carrying forward. Visual few-shot retrieval remains a promising but underexplored direction: dev-set calibration (Appendix~\ref{app:devset}) showed visual shots outperforming text injection by 1.41 chrF++ points, and BM25-driven visual retrieval---where exemplars are dynamically matched to each test image---was not implemented in time for submission and warrants future investigation.
 %The key practical finding is that text BM25 with moderate FLORES expansion (K=120) and a broadened cultural knowledge pool (K=8) wins on test-set chrF++, while the 50-shot visual configuration closes most of this gap. Dev-set rankings are unreliable predictors of test-set rankings; visual few-shot led dev by 1.41 points while lagging test by 0.63 points, a reversal attributable to the dev set's small size and partial contamination. Future work should explore adaptive retrieval that selects modality per image based on retrieval confidence, larger DAMPY visual pools, and fine-tuning once a larger set of culturally grounded Guaran\'{i} images with consistent and reliable captions are available.
 
 %% ============================================================
@@ -594,6 +595,8 @@ IUHoosiers achieved first place for Guaraní at AmericasNLP 2026 using Gemma 4 3
 We thank Indiana University Research Technologies for REALLMS API
 access and the BigRed~200 HPC cluster, and the AmericasNLP 2026
 organizers for the dataset and evaluation infrastructure.
+
+\bibliography{custom}
 
 %% ============================================================
 \appendix
@@ -613,6 +616,66 @@ We first prompted Claude Opus~4 to design a specialized research prompt for expa
 In a separate Claude Opus~4 session, the generated prompt was supplied together with the seed file. The model performed the four-phase expansion and produced the consolidated CUL file containing 22 thematic sections and explicit visual-grounding cues throughout. An anti-stereotype section (Section~20 of the file) warns the model against projecting folkloric cues onto ordinary modern Paraguayan scenes. The final document is included in the project code repository.
 
 %% ============================================================
-\bibliography{custom}
+\section{Visual Few-Shot: Dev-Set Calibration and Future Directions}
+\label{app:devset}
+%% ============================================================
+
+Table~\ref{tab:dev_results} shows chrF++ from pre-submission calibration
+experiments on the 50-image dev set using \textit{static injection}
+(fixed FLORES sentence counts and DAMPY shot counts).
+These experiments explored a wider parameter range than the final v0--v8
+submissions.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{llr}
+\toprule
+\textbf{Mode} & \textbf{Config (FLR / DMP)} & \textbf{chrF++} \\
+\midrule
+visual & 15 shots / FLR=50 & \textbf{24.43} \\
+visual & 10 shots / FLR=30 & 24.17 \\
+visual &  5 shots / FLR=30 & 23.49 \\
+\midrule
+text   & FLR=100, DMP=5    & \textbf{23.02} \\
+text   & FLR= 30, DMP=3    & 22.49 \\
+text   & FLR= 80, DMP=3    & 22.21 \\
+text   & FLR= 50, DMP=5    & 22.09 \\
+text   & FLR= 20, DMP=2    & 21.80 \\
+text   & FLR= 50, DMP=3    & 21.43 \\
+\bottomrule
+\end{tabular}
+\caption{Dev-set calibration results (static injection, 50 images).
+  \textbf{FLR}: FLORES sentences injected.
+  \textbf{DMP}: DAMPY shot count.
+  For visual runs, DAMPY images are injected as few-shot context.
+  The 10-shot/FLR=30 visual configuration corresponds to submitted run~v8.}
+\label{tab:dev_results}
+\end{table}
+
+Visual few-shot consistently outperformed text injection across all shot
+counts on the dev set. We see that the best visual configuration (15 shots, FLR=50)
+achieved 24.43 chrF++, a 1.41-point lead over the best text configuration
+(FLR=100, DMP=5: 23.02). These findings motivated including visual few-shot
+among the nine official submissions.
+
+Two stronger visual directions were not pursued due to time constraints.
+First, the 15-shot/FLR=50 configuration (24.43 on dev) was not submitted;
+the submitted visual run (v8, 10 shots/FLR=30) achieved 24.17 on dev and
+24.41 on the test set. Second, BM25-driven visual retrieval, which dynamically
+selects the most image-relevant DAMPY exemplars per test image rather than
+using static selection, was not implemented.
+
+The submitted v8 trailed text BM25 (v4) by 0.26 chrF++ on the test set
+(24.41 vs.\ 24.67). We hypothesize three contributing factors.
+First, the 50-image dev set is small, so the best static shot count may
+overfit to it. Second, the 111-entry DAMPY pool covers only food, flora, and
+fauna; when a test image falls outside this distribution, static visual
+selection may return misleading exemplars. Third, broad FLORES context
+($k$=120/150) generalizes across diverse test topics in a way that static
+visual selection cannot when no relevant DAMPY entry exists. BM25-driven
+visual retrieval would address all three by dynamically matching exemplars
+to each image, and is a natural direction for future work.
 
 \end{document}
